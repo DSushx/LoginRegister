@@ -78,7 +78,7 @@ public class Login extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
 
                                     }
-                                    Log.i("PutData", result);
+                                    Log.i("PutData1", result);
                                 }
                             }
                             //End Write and Read data with URL
