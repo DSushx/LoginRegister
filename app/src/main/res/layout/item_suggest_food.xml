@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="162.54dp"
+        android:layout_height="231.04dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/rectangle_white_with_stroke" />
+
+    <TextView
+        android:id="@+id/tv_product_name"
+        android:layout_width="145.29857170105dp"
+        android:layout_height="27.39857170105dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="117dp"
+        tools:text="@string/diet_coke"
+        android:textColor="@color/gray_181725"
+        android:textSize="16.36sp" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="70.4208934021dp"
+        android:layout_height="29.4208934021dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="184dp"
+        tools:text="@string/price_1.99"
+        android:textColor="@color/gray_181725"
+        android:textSize="18.4sp"
+        android:textStyle="bold" />
+
+
+    <RelativeLayout
+        android:layout_marginTop="173dp"
+        android:layout_marginStart="105dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="42.29dp"
+            android:layout_height="42.08dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/rectangle_yellow" />
+
+        <ImageView
+            android:src="@drawable/ic_plus"
+            android:contentDescription="plus_sign"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="13dp"
+            android:layout_width="15.74dp"
+            android:layout_height="15.67dp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_size"
+        android:layout_width="90.14625dp"
+        android:layout_height="23.57625dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="138dp"
+        tools:text="@string/size"
+        android:textColor="@color/gray_181725"
+        android:textSize="14.31sp" />
+
+    <ImageView
+        android:id="@+id/iv_product"
+        android:contentDescription="img_of_product"
+        android:layout_width="41.2dp"
+        android:layout_height="82.35dp"
+        android:layout_marginStart="59.65dp"
+        android:layout_marginTop="18.7dp"
+        android:src="@drawable/img_diet_coke" />
+
+</RelativeLayout>

@@ -9,4 +9,8 @@
     <string name="ffullname">Fullname</string>
     <string name="eemail">Email</string>
     <string name="welcome">Welcome!</string>
+    <string name="search_sample_string">關鍵字搜尋</string>
+    <string name="diet_coke">健怡可樂</string>
+    <string name="price_1.99">$1.99</string>
+    <string name="size">355ml</string>
 </resources>

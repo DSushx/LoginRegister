@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_element"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:alpha="0.1"
+        android:background="@drawable/rectangle_orange" />
+
+    <RelativeLayout
+        android:id="@+id/icon_search"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/vector"
+            android:src="@drawable/ic_orange_circle"
+            android:contentDescription="search_sign_circle"
+            android:layout_marginStart="3.02dp"
+            android:layout_marginTop="3.02dp"
+            android:layout_width="16.1dp"
+            android:layout_height="16.1dp" />
+
+        <ImageView
+            android:id="@+id/vector_ek1"
+            android:src="@drawable/ic_orange_bar"
+            android:contentDescription="search_sign_bar"
+            android:layout_marginStart="16.75dp"
+            android:layout_marginTop="16.75dp"
+            android:layout_width="4.38dp"
+            android:layout_height="4.38dp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_search_content"
+        android:textSize="18sp"
+        android:textColor="@color/orange_da6317"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_sample_string" />
+
+</RelativeLayout>
