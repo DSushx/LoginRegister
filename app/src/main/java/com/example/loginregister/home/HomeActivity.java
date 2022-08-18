@@ -24,6 +24,8 @@ public class HomeActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        binding.pagerHome.setUserInputEnabled(false);
+
         binding.pagerHome.setAdapter(pagerAdapter);
 
         binding.groupNav.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
