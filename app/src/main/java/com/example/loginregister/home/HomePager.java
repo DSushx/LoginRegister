@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.loginregister.planFragment;
 import com.example.loginregister.suggestion.SuggestionFragment;
+
+import com.example.loginregister.profile.userprofilefragment;
 
 public class HomePager extends FragmentStateAdapter {
     public HomePager(FragmentActivity fragmentActivity) {
@@ -32,7 +35,7 @@ public class HomePager extends FragmentStateAdapter {
                 fragment = new SuggestionFragment();
                 break;
             default:
-                fragment = new HomeFragment();
+                fragment = new planFragment();
                 break;
         }
         return fragment;

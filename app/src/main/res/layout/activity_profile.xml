@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="1500px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
+                android:layout_width="406dp"
+                android:layout_height="730dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <!--密碼輸入框-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:hint="使用者名稱:"
+                    android:textColorHint="#020202"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmail">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/username1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="#CDFFC107"
+                        android:drawableEnd="@drawable/ic_user"
+                        android:drawableRight="@drawable/ic_user"
+                        android:fontFamily="@font/poppinsmedium"
+                        tools:targetApi="jelly_bean" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:hint="密碼:"
+                    android:textColorHint="#020202"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutUsername"
+                    tools:layout_editor_absoluteX="0dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/password1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#CDFFC107"
+                        android:drawableEnd="@drawable/ic_pass"
+                        android:drawableRight="@drawable/ic_pass"
+                        android:fontFamily="@font/poppinsmedium"
+                        tools:targetApi="jelly_bean" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--身高輸入框-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutHeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:hint="信箱:"
+                    android:textColorHint="#020202"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword"
+                    tools:layout_editor_absoluteX="0dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#CDFFC107"
+                        android:drawableEnd="@drawable/ic_email"
+                        android:drawableRight="@drawable/ic_email"
+                        android:fontFamily="@font/poppinsmedium"
+                        tools:targetApi="jelly_bean" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--體重輸入框-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:hint="身高:"
+                    android:textColorHint="#020202"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutHeight"
+                    tools:layout_editor_absoluteX="0dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/height1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#CDFFC107"
+                        android:drawableEnd="@drawable/ic_baseline_he"
+                        android:drawableRight="@drawable/ic_baseline_he"
+                        android:fontFamily="@font/poppinsmedium"
+                        tools:targetApi="jelly_bean" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="396dp"
+                    android:layout_height="157dp"
+                    android:layout_marginTop="84dp"
+                    android:src="@drawable/exercise"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutWeight"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/Gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="運動量"
+                    android:textColor="#050505"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toTopOf="@+id/imageView3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.086"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutWeight"
+                    app:layout_constraintVertical_bias="0.027" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup1"
+                    android:layout_width="264dp"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="36dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@+id/imageView3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.788"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutWeight"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <RadioButton
+                        android:id="@+id/rb11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="低度"
+                        android:textSize="20dp"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <RadioButton
+                        android:id="@+id/rb22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="中度"
+                        android:textSize="20dp" />
+
+                    <RadioButton
+                        android:id="@+id/rb33"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="高度"
+                        android:textSize="20dp" />
+
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/buttonsave"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="修改"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                    app:layout_constraintVertical_bias="0.172"
+                    tools:ignore="MissingConstraints" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
