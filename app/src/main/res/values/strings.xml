@@ -12,5 +12,23 @@
     <string name="search_sample_string">關鍵字搜尋</string>
     <string name="diet_coke">健怡可樂</string>
     <string name="price_1.99">$1.99</string>
+    <string name="price_28">$28</string>
     <string name="size">355ml</string>
+    <string name="protein">蛋白質</string>
+    <string name="gram_4">4 g</string>
+    <string name="carbs">醣類</string>
+    <string name="gram_40">40 g</string>
+    <string name="fat">脂肪</string>
+    <string name="gram_3">3 g</string>
+    <string name="kcal_213">213 kcal</string>
+    <string name="meat_floss_onigiri">御選肉鬆飯糰</string>
+    <string name="kcal">kcal</string>
+    <string name="tool_string_1">800</string>
+    <string name="tool_string_2">700</string>
+    <string name="protein_one_word">蛋</string>
+    <string name="carbs_one_word">醣</string>
+    <string name="fat_one_word">脂</string>
+    <string name="tool_string_3">30 / 60 g</string>
+    <string name="tool_string_4">98 / 92 g</string>
+    <string name="tool_string_5">20 / 24 g</string>
 </resources>
