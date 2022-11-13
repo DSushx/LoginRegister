@@ -1,7 +1,9 @@
 package com.example.loginregister;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -41,7 +43,11 @@ public class planFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+        //String strtext = getArguments().getString("data");
+
         View view= inflater.inflate(R.layout.fragment_plan, container, false);
+
         buttonSave =view.findViewById(R.id.buttonsave1);
         plan_Weightnow =view.findViewById(R.id.plan_weightnow1);
         plan_Weight =view.findViewById(R.id.plan_weight1);
@@ -60,7 +66,7 @@ public class planFragment extends Fragment {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String plan_weightnow,plan_weight,startdate,special_dis,blood;
+                String plan_weightnow,plan_weight,startdate,special_dis,blood,name1;
                 plan_weightnow = String.valueOf(plan_Weightnow.getText());  //取得輸入的資料
                 plan_weight = String.valueOf(plan_Weight.getText());
 
@@ -71,6 +77,7 @@ public class planFragment extends Fragment {
                 blood = plan_selectedRadioButton2.getText().toString();
                 StringBuffer result = new StringBuffer();
 
+                //Toast.makeText(getActivity(),strtext,Toast.LENGTH_SHORT).show();
                 if(!plan_weightnow.equals("")&&!plan_weight.equals("")&&!startdate.equals("")&&!special_dis.equals("")&&!blood.equals("")) {
 
                     Handler handler = new Handler(Looper.getMainLooper());

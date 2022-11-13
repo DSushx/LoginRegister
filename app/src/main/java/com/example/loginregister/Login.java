@@ -2,7 +2,9 @@ package com.example.loginregister;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -23,16 +25,24 @@ public class Login extends AppCompatActivity {
     Button buttonLogin;
     TextView textViewSignUp;
     ProgressBar progressBar;
+    int count=0;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         textInputEditTextUsername= findViewById(R.id.username);
         textInputEditTextPassword= findViewById(R.id.password);
         buttonLogin= findViewById(R.id.buttonLogin);
         textViewSignUp= findViewById(R.id.signUpText);
         progressBar = findViewById(R.id.progress);
+        openFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putString("data", "From Activity");
+//
+//        // set Fragmentclass Arguments
+//        planFragment fragment = new planFragment ();
+//        fragment.setArguments(bundle);
 
         textViewSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,4 +103,23 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+    private void openFragment(){
+    Bundle bundle =new Bundle();
+    bundle.putString("count",String.valueOf(count));
+    }
+   /* public void sava(View v){
+        pref = getSharedPreferences("DATA",MODE_PRIVATE);
+        pref.edit()
+                .putString("NAME",textInputEditTextUsername.getText().toString())
+                .putString("Password",textInputEditTextPassword.getText().toString())
+                .apply();                   //或commit()
+    }
+    //讀取資料
+    public void read(View v){
+        pref = getSharedPreferences("DATA",MODE_PRIVATE);
+        textInputEditTextUsername.setText(pref.getString("NAME",""));
+        textInputEditTextPassword.setText(pref.getString("Password",""));
+    }/*
+
+    */
 }
