@@ -8,10 +8,10 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/tool_bar"
-        android:visibility="invisible"
-        android:background="@drawable/rectangle_gray"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:background="@drawable/rectangle_gray"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -20,14 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            tools:text="推薦飲食"
             android:gravity="center_horizontal"
-            android:paddingEnd="30dp"
             android:paddingStart="0dp"
+            android:paddingEnd="30dp"
             android:textColor="@color/black"
             android:textSize="@dimen/text_18sp"
             android:textStyle="bold"
-            app:drawableStartCompat="@drawable/ic_arrow_back" />
+            app:drawableStartCompat="@drawable/ic_arrow_back"
+            tools:text="推薦飲食" />
     </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.viewpager2.widget.ViewPager2
@@ -84,7 +84,7 @@
                 android:button="@null"
                 android:checked="false"
                 android:drawableTop="@drawable/ic_search"
-                android:gravity="center"/>
+                android:gravity="center" />
 
             <RadioButton
                 android:id="@+id/radio_nav_heart"
