@@ -198,7 +198,8 @@
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="無"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    tools:ignore="TouchTargetSizeCheck" />
 
             </RadioGroup>
 
