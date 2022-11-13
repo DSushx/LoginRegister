@@ -87,6 +87,16 @@
                 android:gravity="center"/>
 
             <RadioButton
+                android:id="@+id/radio_nav_heart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:drawableTop="@drawable/ic_heart"
+                android:gravity="center"/>
+
+            <RadioButton
                 android:id="@+id/radio_nav_person"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
