@@ -80,8 +80,8 @@ public class SignUp extends AppCompatActivity {
                 gender = selectedRadioButton.getText().toString();
                 if(!fullname.equals("")&&!username.equals("")&&!password.equals("")&&!email.equals("")&&!height.equals("")&&!weight.equals("")&&!birthday.equals("")&&!gender.equals("")) {
                     progressBar.setVisibility(View.VISIBLE);
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(new Runnable() {
+                     Handler handler = new Handler(Looper.getMainLooper());
+                     handler.post(new Runnable(){
                         @Override
                         public void run() {
                             //Starting Write and Read data with URL
@@ -105,7 +105,7 @@ public class SignUp extends AppCompatActivity {
                             data[5] = weight;
                             data[6] = birthday;
                             data[7] = gender;
-                            PutData putData = new PutData("http://10.1.1.14/LoginRegister/signup.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.100.35/LoginRegister/signup.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     progressBar.setVisibility(View.GONE);
