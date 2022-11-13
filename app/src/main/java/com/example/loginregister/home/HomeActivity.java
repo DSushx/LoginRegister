@@ -46,6 +46,10 @@ public class HomeActivity extends AppCompatActivity {
                         idx = 3;
                         title = "個人資料";
                         break;
+                    case R.id.radio_nav_heart:
+                        idx = 4;
+                        title = "目標計畫";
+                        break;
                     default:
                         idx = 0;
                         title = "";

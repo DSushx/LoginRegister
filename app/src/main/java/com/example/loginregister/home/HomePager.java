@@ -37,6 +37,9 @@ public class HomePager extends FragmentStateAdapter {
             case 3:
                 fragment = new planFragment();
                 break;
+            case 4:
+                fragment = new planFragment();
+                break;
             default:
                 fragment = new HomeFragment();
                 break;
