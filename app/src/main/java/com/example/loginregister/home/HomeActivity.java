@@ -57,7 +57,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 binding.pagerHome.setCurrentItem(idx);
                 if (title == "") {
-                    binding.toolBar.setVisibility(View.INVISIBLE);
+                    binding.toolBar.setVisibility(View.GONE);
                 }
                 else {
                     binding.toolBar.setVisibility(View.VISIBLE);
