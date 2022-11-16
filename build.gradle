@@ -22,3 +22,6 @@ buildscript {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+plugins {
+    id 'com.chaquo.python' version '13.0.0' apply false
+}
