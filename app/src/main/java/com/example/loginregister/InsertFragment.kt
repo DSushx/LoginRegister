@@ -26,7 +26,7 @@ class InsertFragment : Fragment() {
         //取得資料庫實體
         dbrw = insert_food_DB(this).writableDatabase
         //宣告 Adapter 並連結 ListView ! 好用!
-        adapter = ArrayAdapter(this,
+        adapter = ArrayAdapter(requireActivity(),
             android.R.layout.simple_list_item_1, items)
         view.findViewById<ListView>(R.id.listView).adapter = adapter
         //設定監聽器
@@ -195,13 +195,6 @@ class InsertFragment : Fragment() {
         view?.findViewById<EditText>(R.id.ed_carbohydrate)?.setText("")
     }
 
-    private fun ArrayAdapter(
-        insertFragment: InsertFragment,
-        simpleListItem1: Int,
-        items: java.util.ArrayList<String>
-    ): ArrayAdapter<String> {
-        TODO("Not yet implemented")
-    }
 
 
 }
