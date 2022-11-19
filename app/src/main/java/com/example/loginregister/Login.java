@@ -15,6 +15,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 import com.example.loginregister.home.HomeActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
@@ -26,11 +29,24 @@ public class Login extends AppCompatActivity {
     TextView textViewSignUp;
     ProgressBar progressBar;
     int count=0;
+    TextView textView;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        textView = (TextView)findViewById(R.id.textview);
+        if (! Python.isStarted()) {
+            Python.start(new AndroidPlatform(this));
+        }
+        Python py =Python.getInstance();
+        PyObject pyobj =py.getModule("myscript");
+        PyObject obj =pyobj.callAttr("main");
+        textView.setText(obj.toString());
+
+
+
         textInputEditTextUsername= findViewById(R.id.username);
         textInputEditTextPassword= findViewById(R.id.password);
         buttonLogin= findViewById(R.id.buttonLogin);
