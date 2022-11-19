@@ -21,7 +21,7 @@ class InsertFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_plan, container, false)
+        val view = inflater.inflate(R.layout.fragment_insert, container, false)
         super.onCreate(savedInstanceState)
         //取得資料庫實體
         dbrw = insert_food_DB(this).writableDatabase
@@ -32,12 +32,13 @@ class InsertFragment : Fragment() {
         //設定監聽器
         setListener()
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_insert, container, false)
+        return view
     }
     override fun onDestroy() {
         dbrw.close() //關閉資料庫
         super.onDestroy()
     }
+
     private fun setListener() {
         val ed_food_name = view?.findViewById<EditText>(R.id.ed_food_name)
         val ed_calorie = view?.findViewById<EditText>(R.id.ed_calorie)
@@ -195,6 +196,8 @@ class InsertFragment : Fragment() {
         view?.findViewById<EditText>(R.id.ed_carbohydrate)?.setText("")
     }
 
+    private fun Button.setOnClickListener(eeee: Any) {
 
+    }
 
 }
