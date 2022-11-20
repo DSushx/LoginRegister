@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,10 +30,10 @@ public class Login extends AppCompatActivity {
     TextView textViewSignUp;
     ProgressBar progressBar;
     int count=0;
+
     TextView textView;
     @Override
-
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -96,6 +97,14 @@ public class Login extends AppCompatActivity {
                                     progressBar.setVisibility(View.GONE);
                                     String result = putData.getResult();
                                     if (result.equals("Login Success")){
+
+                                        new Thread(() -> {
+                                            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                            SharedPreferences.Editor editor = pref.edit();
+                                            editor.putString("username", username); // Storing string
+                                            editor.apply(); // commit changes
+                                        }).start();
+
                                         Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                         startActivity(intent);

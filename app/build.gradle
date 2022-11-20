@@ -20,7 +20,7 @@ android {
             version "3.8"
         }
         python {
-            buildPython "C:/Users/yujiaan/AppData/Local/Programs/Python/Python38/python.exe"
+            buildPython "C:/Users/annya/AppData/Local/Programs/Python/Python310/python.exe"
         }
         sourceSets {
             main {

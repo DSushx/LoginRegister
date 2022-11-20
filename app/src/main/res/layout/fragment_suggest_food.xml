@@ -6,75 +6,273 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/search_element"
+        android:id="@+id/nutrition_dashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center">
 
-        <View
-            android:id="@+id/search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:alpha="0.1"
-            android:background="@drawable/rectangle_orange" />
-
         <RelativeLayout
-            android:id="@+id/icon_search"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_centerHorizontal="true">
 
-            <ImageView
-                android:id="@+id/vector"
-                android:src="@drawable/ic_orange_circle"
-                android:contentDescription="search_sign_circle"
-                android:layout_marginStart="3.02dp"
-                android:layout_marginTop="3.02dp"
-                android:layout_width="16.1dp"
-                android:layout_height="16.1dp" />
 
-            <ImageView
-                android:id="@+id/vector_ek1"
-                android:src="@drawable/ic_orange_bar"
-                android:contentDescription="search_sign_bar"
-                android:layout_marginStart="16.75dp"
-                android:layout_marginTop="16.75dp"
-                android:layout_width="4.38dp"
-                android:layout_height="4.38dp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp">
+
+
+                <RelativeLayout
+                    android:id="@+id/progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp">
+
+                    <ProgressBar
+                        android:id="@+id/caloriesProgress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_centerHorizontal="true"
+                        android:max="360"
+                        android:progressDrawable="@drawable/progressring_yellow"
+                        android:progress="0"
+                        tools:progress="315" />
+
+                    <View
+                        android:layout_width="43dp"
+                        android:layout_height="1dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/rectangle_dark_gray" />
+
+                    <TextView
+                        android:id="@+id/kcal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:gravity="center"
+                        android:text="@string/kcal"
+                        android:textColor="@color/gray_979797"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/calories_limit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="50dp"
+                        android:gravity="center"
+                        android:text="0"
+                        tools:text="@string/tool_string_1"
+                        android:textColor="@color/gray_979797"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/calories_had"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="25dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/green_7ec972"
+                        tools:textColor="@color/yellow_f7b400"
+                        android:textSize="17sp"
+                        tools:text="@string/tool_string_2" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+            <ProgressBar
+                android:id="@+id/proteinProgress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="120dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="12dp"
+                android:max="100"
+                tools:progress="50"
+                android:progressDrawable="@drawable/progressbar_green" />
+
+            <ProgressBar
+                android:id="@+id/carbsProgress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="120dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="42dp"
+                android:max="100"
+                android:progressDrawable="@drawable/progressbar_red"
+                tools:progress="100" />
+
+            <ProgressBar
+                android:id="@+id/fatProgress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="120dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="72dp"
+                android:max="100"
+                tools:progress="83"
+                android:progressDrawable="@drawable/progressbar_yellow" />
+
+
+            <RelativeLayout
+                android:layout_width="22dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="115dp"
+                android:layout_marginTop="8dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/rectangle_gray_stroke_2" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center"
+                    android:text="@string/protein_one_word"
+                    android:textColor="@color/gray_7c7c7c"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="22dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="115dp"
+                android:layout_marginTop="38dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/rectangle_gray_stroke_2" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center"
+                    android:text="@string/carbs_one_word"
+                    android:textColor="@color/gray_7c7c7c"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="22dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="115dp"
+                android:layout_marginTop="68dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/rectangle_gray_stroke_2" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center"
+                    android:text="@string/fat_one_word"
+                    android:textColor="@color/gray_7c7c7c"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/protein_had"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="280dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="0 / 0 g"
+                tools:text="@string/tool_string_3"
+                android:textColor="@color/green_7ec972"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/carbs_had"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="280dp"
+                android:layout_marginTop="38dp"
+                android:gravity="center"
+                android:text="0 / 0 g"
+                android:textColor="@color/green_7ec972"
+                tools:textColor="@color/red_fa7c6b"
+                android:textSize="15sp"
+                tools:text="@string/tool_string_4" />
+
+            <TextView
+                android:id="@+id/fat_had"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="280dp"
+                android:layout_marginTop="68dp"
+                android:gravity="center"
+                android:text="0 / 0 g"
+                android:textColor="@color/green_7ec972"
+                tools:textColor="@color/yellow_f7b400"
+                android:textSize="15sp"
+                tools:text="@string/tool_string_5" />
 
         </RelativeLayout>
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/nutrition_dashboard"
+        app:layout_constraintBottom_toBottomOf="parent" >
+
+        <ListView
+            android:id="@+id/lv_show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="#00000000"
+            android:dividerHeight="10dp"/>
+
         <TextView
-            android:id="@+id/tv_search_content"
-            android:textSize="18sp"
-            android:textColor="@color/orange_da6317"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
+            android:id="@+id/tv_no_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search_sample_string" />
-
-        <GridView
-            android:id="@+id/gv_show"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/search_bar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="68dp"
-            android:verticalSpacing="10dp"
-            android:horizontalSpacing="10dp"
-            android:stretchMode="columnWidth"
-            android:gravity="center"
-            android:numColumns="2"/>
+            android:layout_centerInParent="true"
+            android:text="無符合剩餘熱量需求的結果"
+            android:textSize="18dp"
+            android:visibility="invisible"/>
 
     </RelativeLayout>
+
 
     <ProgressBar
         android:id="@+id/progressBar"

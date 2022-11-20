@@ -23,7 +23,7 @@
             android:paddingEnd="30dp"
             android:paddingStart="0dp"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:drawableStartCompat="@drawable/ic_arrow_back" />
     </com.google.android.material.appbar.MaterialToolbar>

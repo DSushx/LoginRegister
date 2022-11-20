@@ -2,8 +2,11 @@ package com.example.loginregister.suggestion;
 
 import android.util.Log;
 
+import com.example.loginregister.datasets.DietStatus;
+import com.example.loginregister.datasets.FoodInfo;
+import com.example.loginregister.datasets.UserInfo;
+
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,7 +40,33 @@ public class MysqlCon {
         }
     }
 
-    public List<FoodInfo> getData(int calories) {
+    public UserInfo getUserData(String uname) {
+        UserInfo userInfo = new UserInfo();
+        try {
+            Connection con = DriverManager.getConnection(url, db_user, db_password);
+            String sql = "SELECT * FROM users WHERE `username` = \"" + uname + "\"";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            rs.next();
+
+            userInfo.user_id = rs.getInt("id");
+            userInfo.fullname = rs.getString("fullname");
+            userInfo.username = rs.getString("username");
+            userInfo.password = rs.getString("password");
+            userInfo.email = rs.getString("email");
+            userInfo.height = rs.getInt("height");
+            userInfo.weight = rs.getInt("weight");
+            userInfo.birthday = rs.getDate("birthday");
+            userInfo.gender = rs.getString("gender");
+
+            st.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return userInfo;
+    }
+
+    public List<FoodInfo> getFoodData(int calories) {
         List<FoodInfo> foodInfo = new ArrayList<>();
         try {
             Connection con = DriverManager.getConnection(url, db_user, db_password);
@@ -58,6 +87,7 @@ public class MysqlCon {
                 result.fat = rs.getDouble("脂肪(g)");
                 result.sugar = rs.getDouble("糖");
                 result.sodium = rs.getDouble("鈉");
+                result.image = rs.getString("image");
                 foodInfo.add(result);
             }
             st.close();
