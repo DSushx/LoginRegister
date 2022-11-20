@@ -85,6 +85,8 @@ public class SuggestionFragment extends Fragment {
 
     }
 
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public DietStatus getDietStatus(UserInfo userInfo) {
         DietStatus dietStatus = new DietStatus();
