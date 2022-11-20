@@ -43,11 +43,7 @@ public class planFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        //String strtext = getArguments().getString("data");
-
         View view= inflater.inflate(R.layout.fragment_plan, container, false);
-
         buttonSave =view.findViewById(R.id.buttonsave1);
         plan_Weightnow =view.findViewById(R.id.plan_weightnow1);
         plan_Weight =view.findViewById(R.id.plan_weight1);

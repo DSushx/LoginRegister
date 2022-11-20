@@ -7,10 +7,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 //import com.example.loginregister.ProfileFragment;
 import com.example.loginregister.ProfileFragment;
+import com.example.loginregister.InsertFragment;
 import com.example.loginregister.planFragment;
 import com.example.loginregister.suggestion.SuggestionFragment;
 
-//import com.example.loginregister.profile2.userprofilefragment;
+import com.example.loginregister.profile.userprofilefragment;
 
 public class HomePager extends FragmentStateAdapter {
     public HomePager(FragmentActivity fragmentActivity) {
