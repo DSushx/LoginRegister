@@ -2,7 +2,6 @@ package com.example.loginregister.suggestion;
 
 import android.util.Log;
 
-import com.example.loginregister.datasets.DietStatus;
 import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.UserInfo;
 
