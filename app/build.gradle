@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'com.chaquo.python'
+    id 'org.jetbrains.kotlin.android'
 }
-
 
 android {
     compileSdk 32
