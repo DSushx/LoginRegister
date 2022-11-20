@@ -2,7 +2,6 @@ package com.example.loginregister.suggestion;
 
 import android.util.Log;
 
-import com.example.loginregister.datasets.DietStatus;
 import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.UserInfo;
 
@@ -20,7 +19,7 @@ public class MysqlCon {
     String db_name = "loginregister";
     String url = "jdbc:mysql://" + mysql_ip + ":" + mysql_port + "/" + db_name;
     String db_user = "root";
-    String db_password = "01234567";
+    String db_password = "";
 
     public void run() {
         try {
