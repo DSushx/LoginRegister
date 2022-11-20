@@ -113,7 +113,7 @@ public class planFragment extends Fragment {
                                 if (putData.onComplete()) {
 
                                     String result = putData.getResult();
-                                    if (result.equals("Sign Up Success")){
+                                    if (result.equals("Plan Success")){
                                         Toast.makeText(getActivity(),result,Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getActivity(),planFragment.class);
                                         startActivity(intent);
