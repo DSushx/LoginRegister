@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,7 +70,7 @@ public class planFragment extends Fragment {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String plan_weightnow,plan_weight,startdate,special_dis,nutrient,exercise;
+                String plan_weightnow,plan_weight,startdate,special_dis,nutrient,exercise,uname;
                 plan_weightnow = String.valueOf(plan_Weightnow.getText());  //取得輸入的資料
                 plan_weight = String.valueOf(plan_Weight.getText());
 
@@ -81,9 +82,10 @@ public class planFragment extends Fragment {
                 nutrient = plan_selectedRadioButton2.getText().toString();
                 exercise = plan_selectedRadioButton3.getText().toString();
                 StringBuffer result = new StringBuffer();
-
+                SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+                 uname = pref.getString("username", null);
                 //Toast.makeText(getActivity(),strtext,Toast.LENGTH_SHORT).show();
-                if(!plan_weightnow.equals("")&&!plan_weight.equals("")&&!startdate.equals("")&&!special_dis.equals("")&&!nutrient.equals("")&&!exercise.equals("")) {
+                if(!plan_weightnow.equals("")&&!plan_weight.equals("")&&!startdate.equals("")&&!special_dis.equals("")&&!nutrient.equals("")&&!exercise.equals("")&&!uname.equals("")) {
 
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(new Runnable(){
@@ -92,21 +94,23 @@ public class planFragment extends Fragment {
 
                             //Starting Write and Read data with URL
                             //Creating array for parameters
-                            String[] field = new String[6];
+                            String[] field = new String[7];
                             field[0] = "plan_weightnow";
                             field[1] = "plan_weight";
                             field[2] = "startdate";
                             field[3] = "special_dis";
                             field[4] = "nutrient";
                             field[5] = "exercise";
+                            field[6] = "uname";
                             //Creating array for data
-                            String[] data = new String[6];
+                            String[] data = new String[7];
                             data[0] = plan_weightnow;
                             data[1] = plan_weight;
                             data[2] = startdate;
                             data[3] = special_dis;
                             data[4] = nutrient;
                             data[5] = exercise;
+                            data[6] = uname;
                             PutData putData = new PutData("http://10.0.2.2/LoginRegister/plan.php", "POST", field, data);
 
                             Toast.makeText(getActivity(),result.toString(),Toast.LENGTH_LONG).show();
