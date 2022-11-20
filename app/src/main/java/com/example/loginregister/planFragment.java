@@ -54,6 +54,7 @@ public class planFragment extends Fragment {
         t=(Button)view.findViewById(R.id.buttonNU1);
         plan_radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup11);
         plan_radioGroup2 = (RadioGroup) view.findViewById(R.id.radioGroup21);
+        plan_radioGroup3 = (RadioGroup) view.findViewById(R.id.exragr);
         t.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,8 +116,8 @@ public class planFragment extends Fragment {
                                     String result = putData.getResult();
                                     if (result.equals("Plan Success")){
                                         Toast.makeText(getActivity(),result,Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(getActivity(),planFragment.class);
-                                        startActivity(intent);
+                                        //Intent intent = new Intent(getActivity(),planFragment.class);
+                                        //startActivity(intent);
 
 
                                     }
