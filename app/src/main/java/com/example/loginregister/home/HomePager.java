@@ -11,6 +11,7 @@ import com.example.loginregister.InsertFragment;
 import com.example.loginregister.planFragment;
 import com.example.loginregister.suggestion.SuggestionFragment;
 
+//import com.example.loginregister.profile2.userprofilefragment;
 
 public class HomePager extends FragmentStateAdapter {
     public HomePager(FragmentActivity fragmentActivity) {
