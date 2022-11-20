@@ -1,2 +1,2 @@
 def main():
-    return "hello test"
+    return "hello "
