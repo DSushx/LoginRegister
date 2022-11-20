@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 import com.example.loginregister.home.HomeActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
@@ -26,11 +30,24 @@ public class Login extends AppCompatActivity {
     TextView textViewSignUp;
     ProgressBar progressBar;
     int count=0;
-    @Override
 
-    protected void onCreate(Bundle savedInstanceState) {
+    TextView textView;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        textView = (TextView)findViewById(R.id.textview);
+        if (! Python.isStarted()) {
+            Python.start(new AndroidPlatform(this));
+        }
+        Python py =Python.getInstance();
+        PyObject pyobj =py.getModule("myscript");
+        PyObject obj =pyobj.callAttr("main");
+        textView.setText(obj.toString());
+
+
+
         textInputEditTextUsername= findViewById(R.id.username);
         textInputEditTextPassword= findViewById(R.id.password);
         buttonLogin= findViewById(R.id.buttonLogin);
@@ -80,6 +97,14 @@ public class Login extends AppCompatActivity {
                                     progressBar.setVisibility(View.GONE);
                                     String result = putData.getResult();
                                     if (result.equals("Login Success")){
+
+                                        new Thread(() -> {
+                                            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                            SharedPreferences.Editor editor = pref.edit();
+                                            editor.putString("username", username); // Storing string
+                                            editor.apply(); // commit changes
+                                        }).start();
+
                                         Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                         startActivity(intent);

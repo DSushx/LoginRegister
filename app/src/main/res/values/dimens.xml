@@ -3,4 +3,5 @@
     <dimen name="dim_25dp">25dp</dimen>
     <dimen name="text_18sp">18sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="dim_20dp">20dp</dimen>
 </resources>

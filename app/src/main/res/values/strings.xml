@@ -31,6 +31,12 @@
     <string name="tool_string_3">30 / 60 g</string>
     <string name="tool_string_4">98 / 92 g</string>
     <string name="tool_string_5">20 / 24 g</string>
+    <string name="chosen_items">已選擇項目</string>
+    <string name="______ek5_string"></string>
+    <string name="____ek3_string">1</string>
+    <string name="total">TOTAL</string>
+    <string name="____213_kcal_______4_g______40_g______3_g_string"> 213 kcal |  4 g |  40 g |  3 g</string>
+    <string name="add_btn_label">確定新增</string>
     <string name="title_activity_saveplan">saveplan</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
