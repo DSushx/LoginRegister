@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+//import com.example.loginregister.ProfileFragment;
+import com.example.loginregister.ProfileFragment;
 import com.example.loginregister.planFragment;
 import com.example.loginregister.suggestion.SuggestionFragment;
 
-import com.example.loginregister.profile.userprofilefragment;
+//import com.example.loginregister.profile2.userprofilefragment;
 
 public class HomePager extends FragmentStateAdapter {
     public HomePager(FragmentActivity fragmentActivity) {
@@ -17,7 +19,7 @@ public class HomePager extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 5;
     }
 
     @NonNull
@@ -35,7 +37,7 @@ public class HomePager extends FragmentStateAdapter {
                 fragment = new SuggestionFragment();
                 break;
             case 3:
-                fragment = new planFragment();
+                fragment = new ProfileFragment();
                 break;
             case 4:
                 fragment = new planFragment();

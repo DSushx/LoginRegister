@@ -102,7 +102,7 @@ public class planFragment extends Fragment {
                             data[3] = special_dis;
                             data[4] = blood;
 
-                            PutData putData = new PutData("http://192.168.100.35/LoginRegister/plan.php", "POST", field, data);
+                            PutData putData = new PutData("http://10.0.2.2/LoginRegister/plan.php", "POST", field, data);
 
                             Toast.makeText(getActivity(),result.toString(),Toast.LENGTH_LONG).show();
                             if (putData.startPut()) {
