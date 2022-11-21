@@ -20,7 +20,10 @@ android {
             version "3.8"
         }
         python {
-           //buildPython "C:/Users/annya/AppData/Local/Programs/Python/Python310/python.exe"
+            pip{
+                install "pandas"
+                install "numpy"
+            }
         }
         sourceSets {
             main {
