@@ -37,10 +37,10 @@ public class HomePager extends FragmentStateAdapter {
                 fragment = new SuggestionFragment();
                 break;
             case 3:
-                fragment = new ProfileFragment();
+                fragment = new planFragment();
                 break;
             case 4:
-                fragment = new planFragment();
+                fragment = new ProfileFragment();
                 break;
             default:
                 fragment = new HomeFragment();
