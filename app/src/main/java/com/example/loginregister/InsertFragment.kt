@@ -61,6 +61,7 @@ class InsertFragment : Fragment() {
         super.onDestroy()
     }
 
+    //設定監聽器
     private fun setListener() {
 
         btnInsert?.setOnClickListener {
@@ -83,18 +84,12 @@ class InsertFragment : Fragment() {
                                             textFat!!.text.toString(),
                                             textCarbohydrate!!.text.toString())
                                     )
+                                    showToast("新增:${textFoodName!!.text},熱量:${textCalorie!!.text},蛋白質:${textProtein!!.text},脂肪:${textFat!!.text},醣類:${textCarbohydrate!!.text}")
+                                    cleanEditText()
                                 }
                             }
                         }
                     }
-                    if (textProtein != null) {
-                        if (textFat != null) {
-                            if (textCarbohydrate != null) {
-                                showToast("新增:${textFoodName!!.text},熱量:${textCalorie!!.text},蛋白質:${textProtein!!.text},脂肪:${textFat!!.text},醣類:${textCarbohydrate!!.text}")
-                            }
-                        }
-                    }
-                    cleanEditText()
                 } catch (e: Exception) {
                     //showToast("新增失敗，請正確輸入")
                 }
@@ -202,16 +197,18 @@ class InsertFragment : Fragment() {
             })
         }
     }
+
     //建立 showToast 方法顯示 Toast 訊息
     private fun showToast(text: String) =
         Toast.makeText(getActivity(),text, Toast.LENGTH_LONG).show()
+
     //清空輸入的品名與各欄位值
     private fun cleanEditText() {
-        view?.findViewById<EditText>(R.id.ed_food_name)?.setText("")
-        view?.findViewById<EditText>(R.id.ed_calorie)?.setText("")
-        view?.findViewById<EditText>(R.id.ed_protein)?.setText("")
-        view?.findViewById<EditText>(R.id.ed_fat)?.setText("")
-        view?.findViewById<EditText>(R.id.ed_carbohydrate)?.setText("")
+        textFoodName?.setText("")
+        textCalorie?.setText("")
+        textProtein?.setText("")
+        textFat?.setText("")
+        textCarbohydrate?.setText("")
     }
 
     private fun Button.setOnClickListener(eeee: Any) {
