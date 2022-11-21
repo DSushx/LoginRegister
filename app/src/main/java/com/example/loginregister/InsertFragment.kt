@@ -25,12 +25,12 @@ class InsertFragment : Fragment() {
     var btnInsert: Button? = null
     var btnUpdate: Button? = null
     var btnDelete: Button? = null
-    var btnQuery: Button? = null
     var textFoodName: TextInputEditText? = null
     var textCalorie: TextInputEditText? = null
     var textProtein: TextInputEditText? = null
     var textFat: TextInputEditText? = null
     var textCarbohydrate: TextInputEditText? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +47,6 @@ class InsertFragment : Fragment() {
         btnInsert = view.findViewById(R.id.btn_insert);
         btnUpdate = view.findViewById(R.id.btn_update);
         btnDelete = view.findViewById(R.id.btn_delete);
-        btnQuery = view.findViewById(R.id.btn_query);
 
         //取得資料庫實體
         dbrw = insert_food_DB(this).writableDatabase
@@ -174,41 +173,15 @@ class InsertFragment : Fragment() {
             }
         }
 
-        btnQuery?.setOnClickListener {
-
-            // 點擊查詢按鈕 自動收回鍵盤
-            val imm: InputMethodManager =
-                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(activity?.window?.decorView?.windowToken, 0);
-
-            //若無輸入品名則 SQL 語法為查詢全部菜色，反之查詢該品名資料
-            val queryString = if (textFoodName!!.length() < 1)
-                "SELECT * FROM myFoodTable"
-            else
-                "SELECT * FROM myFoodTable WHERE food_name LIKE '%${textFoodName!!.text}%'"
-            val c = dbrw.rawQuery(queryString, null)
-
-            c.moveToFirst() //從第一筆開始輸出
-            items.clear() //清空舊資料
-            showToast("共有${c.count}筆資料")
-
-            for (i in 0 until c.count) {
-                //加入新資料
-                items.add("品名:${c.getString(0)}\t\t\t\t\t\t\t\t\t\t 熱量:${c.getInt(1)}")
-                c.moveToNext() //移動到下一筆
-            }
-            adapter.notifyDataSetChanged() //更新列表資料
-            c.close() //關閉 Cursor
-        }
-
-
-        //即時更新listview(輸入不用enter即查詢資料庫內的資料)
+        // 使用此技術，可以拔掉一個查詢按鈕，增加使用者體驗度
+        // 即時更新listview(輸入不用enter即查詢資料庫內的資料，輸入時即可動態查詢!)
         if (textFoodName != null) {
             textFoodName!!.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
                 }
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
                     //若無輸入品名則 SQL 語法為查詢全部菜色，反之查詢該品名資料
                     val queryString = "SELECT * FROM myFoodTable WHERE food_name LIKE '%${textFoodName!!.text}%'"
                     val c = dbrw.rawQuery(queryString, null)
