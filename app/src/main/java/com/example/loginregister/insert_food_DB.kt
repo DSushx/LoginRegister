@@ -16,7 +16,7 @@ class insert_food_DB(
     }
     override fun onCreate(db: SQLiteDatabase) {
         //建立 myFoodTable 資料表
-        db.execSQL("CREATE TABLE myFoodTable(meals int PRIMARY KEY, food_name text NOT NULL, calorie float NOT NULL, protein float, fat float, carbohydrate float, date datetime not null DEFAULT CURRENT_TIMESTAMP)")
+        db.execSQL("CREATE TABLE myFoodTable(food_name text NOT NULL, calorie float NOT NULL, protein float, fat float, carbohydrate float, meals int PRIMARY KEY,date datetime not null DEFAULT CURRENT_TIMESTAMP)")
     }
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int,
                            newVersion: Int) {

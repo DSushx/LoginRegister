@@ -77,14 +77,14 @@ class InsertFragment : Fragment() {
                             if (textFat != null) {
                                 if (textCarbohydrate != null) {
                                     dbrw.execSQL(
-                                        "INSERT INTO myFoodTable(meals, food_name, calorie, protein, fat, carbohydrate) VALUES(?,?,?,?,?,?)",
+                                        "INSERT INTO myFoodTable(food_name, calorie, protein, fat, carbohydrate, meals) VALUES(?,?,?,?,?,?)",
                                         arrayOf(
-                                            recordMeals,
                                             textFoodName!!.text.toString(),
                                             textCalorie!!.text.toString(),
                                             textProtein!!.text.toString(),
                                             textFat!!.text.toString(),
-                                            textCarbohydrate!!.text.toString())
+                                            textCarbohydrate!!.text.toString(),
+                                            recordMeals )
                                     )
                                     recordMeals++
                                 }
@@ -100,7 +100,7 @@ class InsertFragment : Fragment() {
                     }
                     cleanEditText()
                 } catch (e: Exception) {
-                    showToast("新增失敗:$e")
+                   // showToast("新增失敗:$e")
                 }
         }
 
@@ -137,7 +137,7 @@ class InsertFragment : Fragment() {
                             }
                             cleanEditText()
                         } catch (e: Exception) {
-                            showToast("更新失敗:$e")
+                         //   showToast("更新失敗:$e")
                         }
                 }
             }
@@ -155,7 +155,7 @@ class InsertFragment : Fragment() {
                         showToast("刪除:${textFoodName!!.text}")
                         cleanEditText()
                     } catch (e: Exception) {
-                        showToast("刪除失敗:$e")
+                     //   showToast("刪除失敗:$e")
                     }
             }
         }
