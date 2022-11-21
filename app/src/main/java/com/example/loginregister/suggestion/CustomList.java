@@ -12,7 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.loginregister.R;
+import com.example.loginregister.datasets.DietStatus;
 import com.example.loginregister.datasets.FoodInfo;
+import com.example.loginregister.datasets.ItemInCart;
 
 import java.util.List;
 
@@ -20,11 +22,15 @@ public class CustomList extends BaseAdapter {
     private final Context mContext;
     private final SuggestionFragment mFragment;
     private final List<FoodInfo> foodInfo;
+    private final List<ItemInCart> chosenItems;
+    private DietStatus dietStatus;
 
-    public CustomList(Context c, SuggestionFragment f, List<FoodInfo> foodInfo) {
+    public CustomList(Context c, SuggestionFragment f, List<FoodInfo> foodInfo, List<ItemInCart> chosenItems, DietStatus dietStatus) {
         mContext = c;
         mFragment = f;
         this.foodInfo = foodInfo;
+        this.chosenItems = chosenItems;
+        this.dietStatus = dietStatus;
     }
 
     @Override
@@ -80,8 +86,13 @@ public class CustomList extends BaseAdapter {
         RelativeLayout addToCart = (RelativeLayout) list.findViewById(R.id.btn_add_to_cart);
         addToCart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mFragment.updateStatus(foodInfo.get(position).calories, foodInfo.get(position).protein,
+                dietStatus = mFragment.updateStatus(foodInfo.get(position).calories, foodInfo.get(position).protein,
                         foodInfo.get(position).carbs, foodInfo.get(position).fat);
+                ItemInCart item = new ItemInCart();
+                item.foodInfo = foodInfo.get(position);
+                item.quantity = 1;
+                chosenItems.add(item);
+                mFragment.passData(chosenItems, dietStatus);
             }
         });
 

@@ -6,7 +6,7 @@
     android:gravity="center" >
 
     <View
-        android:layout_width="310dp"
+        android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
@@ -15,15 +15,15 @@
 
     <RelativeLayout
         android:id="@+id/btn_minus"
-        android:layout_marginStart="220dp"
+        android:layout_marginStart="240dp"
         android:layout_centerVertical="true"
-        android:layout_width="21dp"
-        android:layout_height="21dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:background="@drawable/circle_yellow" >
 
         <ImageView
-            android:layout_width="8dp"
-            android:layout_height="8dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_centerInParent="true"
             android:contentDescription="minus_sign"
             android:src="@drawable/ic_minus" />
@@ -34,23 +34,23 @@
         android:id="@+id/tv_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="250dp"
+        android:layout_marginStart="280dp"
         android:layout_centerVertical="true"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="20sp"
         tools:text="1" />
 
     <RelativeLayout
         android:id="@+id/btn_plus"
-        android:layout_marginStart="270dp"
+        android:layout_marginStart="305dp"
         android:layout_centerVertical="true"
-        android:layout_width="21dp"
-        android:layout_height="21dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:background="@drawable/circle_yellow" >
 
         <ImageView
-            android:layout_width="8dp"
-            android:layout_height="8dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_centerInParent="true"
             android:contentDescription="plus_sign"
             android:src="@drawable/ic_plus" />
@@ -59,12 +59,18 @@
 
     <TextView
         android:id="@+id/tv_food_title"
-        android:layout_width="188dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
         android:layout_centerVertical="true"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:freezesText="true"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         tools:text="御選肉鬆飯糰" />
 
 </RelativeLayout>
