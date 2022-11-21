@@ -62,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements OnDataPass {
                 switch(checkedId) {
                     case R.id.radio_nav_add:
                         idx = 1;
-                        title = "新增飲食";
+                        title = "";
                         break;
                     case R.id.radio_nav_search:
                         idx = 2;

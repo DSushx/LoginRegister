@@ -45,8 +45,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:backgroundTint="#CDFFC107"
-                        android:drawableEnd="@drawable/ic_user"
-                        android:drawableRight="@drawable/ic_user"
+                        android:drawableEnd="@drawable/ic_baseline_create_24"
+                        android:drawableRight="@drawable/ic_baseline_create_24"
                         android:fontFamily="@font/poppinsmedium"
 
 
@@ -69,8 +69,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#CDFFC107"
-                        android:drawableEnd="@drawable/ic_w"
-                        android:drawableRight="@drawable/ic_w"
+                        android:drawableEnd="@drawable/ic_baseline_local_fire_department_24"
+                        android:drawableRight="@drawable/ic_baseline_local_fire_department_24"
                         android:fontFamily="@font/poppinsmedium"
                         tools:targetApi="jelly_bean" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -92,8 +92,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#CDFFC107"
-                        android:drawableEnd="@drawable/ic_w"
-                        android:drawableRight="@drawable/ic_w"
+                        android:drawableEnd="@drawable/ic_baseline_lunch_dining_24"
+                        android:drawableRight="@drawable/ic_baseline_lunch_dining_24"
                         android:fontFamily="@font/poppinsmedium"
                         tools:targetApi="jelly_bean" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -114,8 +114,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#CDFFC107"
-                        android:drawableEnd="@drawable/ic_w"
-                        android:drawableRight="@drawable/ic_w"
+                        android:drawableEnd="@drawable/ic_baseline_fastfood_24"
+                        android:drawableRight="@drawable/ic_baseline_fastfood_24"
                         android:fontFamily="@font/poppinsmedium"
                         tools:targetApi="jelly_bean" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -136,8 +136,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#CDFFC107"
-                        android:drawableEnd="@drawable/ic_w"
-                        android:drawableRight="@drawable/ic_w"
+                        android:drawableEnd="@drawable/ic_baseline_dinner_dining_24"
+                        android:drawableRight="@drawable/ic_baseline_dinner_dining_24"
                         android:fontFamily="@font/poppinsmedium"
                         tools:targetApi="jelly_bean" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -195,23 +195,24 @@
                     android:text="查詢"
 
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1"
+                    app:layout_constraintHorizontal_bias="0.95"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ed_carbohydrate" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="500dp"
         android:layout_height="300dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="380dp"
+        android:layout_marginTop="365dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 
