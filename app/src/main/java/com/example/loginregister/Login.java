@@ -78,7 +78,7 @@ public class Login extends AppCompatActivity {
                         public void run() {
                             //Starting Write and Read data with URL
                             //Creating array for parameters
-                            String[] field = new String[2];
+                            String[] field =  new String[2];
                             field[0] = "username";
                             field[1] = "password";
                             //Creating array for data
