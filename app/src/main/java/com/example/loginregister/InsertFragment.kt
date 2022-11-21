@@ -123,10 +123,10 @@ class InsertFragment : Fragment() {
                                 if (textFat != null) {
                                     if (textCarbohydrate != null) {
                                         showToast("更新:${textFoodName!!.text},熱量:${textCalorie!!.text},蛋白質:${textProtein!!.text},脂肪:${textFat!!.text},醣類:${textCarbohydrate!!.text}")
+                                        cleanEditText()
                                     }
                                 }
                             }
-                            cleanEditText()
                         } catch (e: Exception) {
                           //  showToast("更新失敗,請檢查輸入")
                         }
@@ -170,6 +170,7 @@ class InsertFragment : Fragment() {
             c.close() //關閉 Cursor
         }
 
+
         //即時更新listview(輸入不用enter即查詢資料庫內的資料)
         if (textFoodName != null) {
             textFoodName!!.addTextChangedListener(object : TextWatcher {
@@ -180,6 +181,7 @@ class InsertFragment : Fragment() {
                     //若無輸入品名則 SQL 語法為查詢全部菜色，反之查詢該品名資料
                     val queryString = "SELECT * FROM myFoodTable WHERE food_name LIKE '%${textFoodName!!.text}%'"
                     val c = dbrw.rawQuery(queryString, null)
+
                     c.moveToFirst() //從第一筆開始輸出
                     items.clear() //清空舊資料
                     showToast("共有${c.count}筆資料")

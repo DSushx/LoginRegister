@@ -11,12 +11,12 @@ class insert_food_DB(
 ) : SQLiteOpenHelper(context.requireContext(), name, factory, version) {
     companion object {
         private const val database = "editFoodDB" //資料庫名稱
-        private const val v = 2 //資料庫版本
+        private const val v = 4 //資料庫版本
 
     }
     override fun onCreate(db: SQLiteDatabase) {
         //建立 myFoodTable 資料表
-        db.execSQL("CREATE TABLE myFoodTable(food_name text PRIMARY KEY, calorie float NOT NULL, protein float, fat float, carbohydrate float, date datetime not null DEFAULT CURRENT_TIMESTAMP)")
+        db.execSQL("CREATE TABLE myFoodTable(food_name TEXT NOT NULL, calorie REAL NOT NULL, protein REAL, fat REAL, carbohydrate REAL, ID INTEGER PRIMARY KEY AUTOINCREMENT, date datetime not null DEFAULT CURRENT_TIMESTAMP)")
     }
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int,
                            newVersion: Int) {
