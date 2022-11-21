@@ -53,13 +53,7 @@ public class Login extends AppCompatActivity {
         buttonLogin= findViewById(R.id.buttonLogin);
         textViewSignUp= findViewById(R.id.signUpText);
         progressBar = findViewById(R.id.progress);
-        openFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putString("data", "From Activity");
-//
-//        // set Fragmentclass Arguments
-//        planFragment fragment = new planFragment ();
-//        fragment.setArguments(bundle);
+        //openFragment();
 
         textViewSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +66,7 @@ public class Login extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String fullname,username,password,email, height;
+                String username,password;
                 username = String.valueOf(textInputEditTextUsername.getText());
                 password = String.valueOf(textInputEditTextPassword.getText());
 

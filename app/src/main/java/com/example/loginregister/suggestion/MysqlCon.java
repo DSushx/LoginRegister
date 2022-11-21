@@ -16,7 +16,7 @@ import java.util.List;
 public class MysqlCon {
     String mysql_ip = "10.0.2.2";
     int mysql_port = 3306;
-    String db_name = "food_db";
+    String db_name = "loginregister";
     String url = "jdbc:mysql://" + mysql_ip + ":" + mysql_port + "/" + db_name;
     String db_user = "root";
     String db_password = "01234567";
@@ -95,4 +95,5 @@ public class MysqlCon {
         }
         return foodInfo;
     }
+
 }

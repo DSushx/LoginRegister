@@ -54,13 +54,13 @@ public class HomeActivity extends AppCompatActivity {
                         idx = 2;
                         title = "推薦飲食";
                         break;
-                    case R.id.radio_nav_person:
-                        idx = 3;
-                        title = "個人資料";
-                        break;
                     case R.id.radio_nav_heart:
-                        idx = 4;
+                        idx = 3;
                         title = "目標計畫";
+                        break;
+                    case R.id.radio_nav_person:
+                        idx = 4;
+                        title = "個人資料";
                         break;
                     default:
                         idx = 0;

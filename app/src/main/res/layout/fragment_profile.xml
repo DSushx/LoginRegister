@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
+        <TextView
             android:id="@+id/editTextTextPersonName5"
             android:layout_width="179dp"
             android:layout_height="44dp"
@@ -41,6 +41,8 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="170"
+            android:textColor="#020202"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.689"
@@ -61,7 +63,7 @@
             app:layout_constraintVertical_bias="0.267"
             tools:ignore="MissingConstraints" />
 
-        <EditText
+        <TextView
             android:id="@+id/editTextTextPersonName4"
             android:layout_width="179dp"
             android:layout_height="44dp"
@@ -69,6 +71,8 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="60"
+            android:textColor="#020202"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.689"
@@ -89,15 +93,17 @@
             app:layout_constraintVertical_bias="0.35"
             tools:ignore="MissingConstraints" />
 
-        <EditText
+        <TextView
             android:id="@+id/editTextTextPersonName3"
             android:layout_width="179dp"
             android:layout_height="44dp"
             android:layout_marginTop="16dp"
             android:ems="10"
+            android:textColor="#020202"
+            android:textSize="24sp"
+            android:textStyle="bold"
             android:inputType="textPersonName"
             android:text="2000-01-05"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.689"
             app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +123,7 @@
             app:layout_constraintVertical_bias="0.195"
             tools:ignore="MissingConstraints" />
 
-        <EditText
+        <TextView
             android:id="@+id/editTextTextPersonName"
             android:layout_width="179dp"
             android:layout_height="44dp"
@@ -125,6 +131,8 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="JIM"
+            android:textColor="#020202"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.689"
