@@ -21,6 +21,8 @@ class InsertFragment : Fragment() {
     var btnUpdate: Button? = null
     var btnDelete: Button? = null
     var btnQuery: Button? = null
+
+    var recordMeals: Int = 0
     var textFoodName: TextInputEditText? = null
     var textCalorie: TextInputEditText? = null
     var textProtein: TextInputEditText? = null
@@ -75,17 +77,20 @@ class InsertFragment : Fragment() {
                             if (textFat != null) {
                                 if (textCarbohydrate != null) {
                                     dbrw.execSQL(
-                                        "INSERT INTO myFoodTable(food_name, calorie, protein, fat, carbohydrate) VALUES(?,?,?,?,?)",
-                                        arrayOf(textFoodName!!.text.toString(),
+                                        "INSERT INTO myFoodTable(meals, food_name, calorie, protein, fat, carbohydrate) VALUES(?,?,?,?,?,?)",
+                                        arrayOf(
+                                            recordMeals,
+                                            textFoodName!!.text.toString(),
                                             textCalorie!!.text.toString(),
                                             textProtein!!.text.toString(),
                                             textFat!!.text.toString(),
                                             textCarbohydrate!!.text.toString())
                                     )
+                                    recordMeals++
                                 }
                             }
                         }
-                    }////////////////////////////////////////////////////////////////////////////////
+                    }
                     if (textProtein != null) {
                         if (textFat != null) {
                             if (textCarbohydrate != null) {
