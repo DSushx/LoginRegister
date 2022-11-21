@@ -1,5 +1,6 @@
 package com.example.loginregister.suggestion;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,10 +17,12 @@ import androidx.fragment.app.Fragment;
 import com.example.loginregister.R;
 import com.example.loginregister.datasets.DietStatus;
 import com.example.loginregister.datasets.FoodInfo;
+import com.example.loginregister.datasets.ItemInCart;
 import com.example.loginregister.datasets.UserInfo;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -30,20 +33,26 @@ public class SuggestionFragment extends Fragment {
         super(R.layout.fragment_suggest_food);
     }
 
+    Context mContext;
+    View mView;
     UserInfo userData;
     DietStatus dietStatus;
     List<FoodInfo> foodData;
+    List<ItemInCart> chosenItems = new ArrayList<>();
     CustomList customList;
     ProgressBar progressBar;
     TextView caloriesLimit, caloriesHad, proteinHad, carbsHad, fatHad, noResult;
     ProgressBar caloriesProgress, proteinProgress, carbsProgress, fatProgress;
     ListView lvShow;
     MysqlCon con;
+    OnDataPass dataPasser;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mView = view;
 
         caloriesLimit = view.findViewById(R.id.calories_limit);
         caloriesHad = view.findViewById(R.id.calories_had);
@@ -65,7 +74,7 @@ public class SuggestionFragment extends Fragment {
             con = new MysqlCon();
             con.run();
 
-            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
             String uname = pref.getString("username", null);
             Log.i("username", uname);
             userData = con.getUserData(uname);
@@ -86,6 +95,12 @@ public class SuggestionFragment extends Fragment {
 
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        dataPasser = (OnDataPass) context;
+        mContext = context;
+    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -203,15 +218,16 @@ public class SuggestionFragment extends Fragment {
         }
     }
 
-    public void updateStatus(double calories, double protein, double carbs, double fat) {
+    public DietStatus updateStatus(double calories, double protein, double carbs, double fat) {
         dietStatus.CaloriesAchieved += (int)calories;
         dietStatus.ProteinAchieved += protein;
         dietStatus.CarbsAchieved += carbs;
         dietStatus.FatAchieved += fat;
         updateBoard();
         int caloriesDifference = dietStatus.CaloriesPerMeal - dietStatus.CaloriesAchieved;
-        int newThreshold = caloriesDifference > 0 ? caloriesDifference : 0;
+        int newThreshold = Math.max(caloriesDifference, 0);
         refreshList(newThreshold);
+        return dietStatus;
     }
 
     public void refreshList(int threshold) {
@@ -223,9 +239,9 @@ public class SuggestionFragment extends Fragment {
             Log.v("OK", "食物資料已回傳");
             Log.i("foodData", foodData.toString());
 
-            getView().post(() -> {
+            mView.post(() -> {
                 progressBar.setVisibility(View.INVISIBLE);
-                customList = new CustomList(requireContext(), this, foodData);
+                customList = new CustomList(requireContext(), this, foodData, chosenItems, dietStatus);
                 lvShow.setAdapter(customList);
                 if (foodData.isEmpty()) {
                     noResult.setVisibility(View.VISIBLE);
@@ -233,5 +249,13 @@ public class SuggestionFragment extends Fragment {
             });
 
         }).start();
+    }
+
+    public interface OnDataPass {
+        void onDataPass(List<ItemInCart> chosenItems, DietStatus dietStatus);
+    }
+
+    public void passData(List<ItemInCart> chosenItems, DietStatus dietStatus) {
+        dataPasser.onDataPass(chosenItems, dietStatus);
     }
 }
