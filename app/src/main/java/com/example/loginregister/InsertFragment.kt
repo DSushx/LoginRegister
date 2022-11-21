@@ -79,10 +79,10 @@ class InsertFragment : Fragment() {
                                         "INSERT INTO myFoodTable(food_name, calorie, protein, fat, carbohydrate) VALUES(?,?,?,?,?)",
                                         arrayOf(
                                             textFoodName!!.text.toString(),
-                                            textCalorie!!.text.toString(),
-                                            textProtein!!.text.toString(),
-                                            textFat!!.text.toString(),
-                                            textCarbohydrate!!.text.toString())
+                                            textCalorie!!.text,
+                                            textProtein!!.text,
+                                            textFat!!.text,
+                                            textCarbohydrate!!.text)
                                     )
                                     showToast("新增:${textFoodName!!.text},熱量:${textCalorie!!.text},蛋白質:${textProtein!!.text},脂肪:${textFat!!.text},醣類:${textCarbohydrate!!.text}")
                                     cleanEditText()
@@ -158,9 +158,11 @@ class InsertFragment : Fragment() {
             else
                 "SELECT * FROM myFoodTable WHERE food_name LIKE '%${textFoodName!!.text}%'"
             val c = dbrw.rawQuery(queryString, null)
+
             c.moveToFirst() //從第一筆開始輸出
             items.clear() //清空舊資料
             showToast("共有${c.count}筆資料")
+
             for (i in 0 until c.count) {
                 //加入新資料
                 items.add("品名:${c.getString(0)}\t\t\t\t\t\t\t\t\t\t 熱量:${c.getInt(1)}")
