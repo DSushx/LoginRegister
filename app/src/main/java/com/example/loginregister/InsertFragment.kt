@@ -100,7 +100,7 @@ class InsertFragment : Fragment() {
                     }
                     cleanEditText()
                 } catch (e: Exception) {
-                   // showToast("新增失敗:$e")
+                    showToast("新增失敗，請正確輸入")
                 }
         }
 
@@ -137,7 +137,7 @@ class InsertFragment : Fragment() {
                             }
                             cleanEditText()
                         } catch (e: Exception) {
-                         //   showToast("更新失敗:$e")
+                            showToast("更新失敗,請檢查輸入")
                         }
                 }
             }
