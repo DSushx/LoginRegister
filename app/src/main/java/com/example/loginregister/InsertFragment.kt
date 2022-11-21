@@ -1,5 +1,6 @@
 package com.example.loginregister
 
+import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.text.Editable
@@ -7,7 +8,11 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputEditText
 
@@ -65,6 +70,12 @@ class InsertFragment : Fragment() {
     private fun setListener() {
 
         btnInsert?.setOnClickListener {
+
+            // 點擊新增按鈕 自動收回鍵盤
+            val imm: InputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(activity?.window?.decorView?.windowToken, 0);
+
             //判斷是否有填入品名或熱量
             if (textFoodName!!.length() < 1 || textCalorie!!.length() < 1)
                 showToast("品名、熱量欄位請勿留空")
@@ -96,6 +107,12 @@ class InsertFragment : Fragment() {
         }
 
         btnUpdate?.setOnClickListener {
+
+            // 點擊修改按鈕 自動收回鍵盤
+            val imm: InputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(activity?.window?.decorView?.windowToken, 0);
+
             //判斷是否有填入品名或熱量
             if (textFoodName != null) {
                 if (textCalorie != null) {
@@ -135,6 +152,12 @@ class InsertFragment : Fragment() {
         }
 
         btnDelete?.setOnClickListener {
+
+            // 點擊刪除按鈕 自動收回鍵盤
+            val imm: InputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(activity?.window?.decorView?.windowToken, 0);
+
             //判斷是否有填入品名
             if (textFoodName != null) {
                 if (textFoodName!!.length() < 1)
@@ -152,6 +175,12 @@ class InsertFragment : Fragment() {
         }
 
         btnQuery?.setOnClickListener {
+
+            // 點擊查詢按鈕 自動收回鍵盤
+            val imm: InputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(activity?.window?.decorView?.windowToken, 0);
+
             //若無輸入品名則 SQL 語法為查詢全部菜色，反之查詢該品名資料
             val queryString = if (textFoodName!!.length() < 1)
                 "SELECT * FROM myFoodTable"
@@ -186,7 +215,7 @@ class InsertFragment : Fragment() {
 
                     c.moveToFirst() //從第一筆開始輸出
                     items.clear() //清空舊資料
-                    showToast("共有${c.count}筆資料")
+                  //  showToast("共有${c.count}筆資料")
                     for (i in 0 until c.count) {
                         //加入新資料
                         items.add("品名:${c.getString(0)}\t\t\t\t\t\t\t\t\t\t 熱量:${c.getInt(1)}")
