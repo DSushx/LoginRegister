@@ -204,7 +204,7 @@ class InsertFragment : Fragment() {
 
     //建立 showToast 方法顯示 Toast 訊息
     private fun showToast(text: String) =
-        Toast.makeText(getActivity(),text, Toast.LENGTH_LONG).show()
+        Toast.makeText(requireActivity(),text, Toast.LENGTH_SHORT).show()
 
     //清空輸入的品名與各欄位值
     private fun cleanEditText() {
