@@ -21,8 +21,6 @@ class InsertFragment : Fragment() {
     var btnUpdate: Button? = null
     var btnDelete: Button? = null
     var btnQuery: Button? = null
-
-    var recordMeals: Int = 0
     var textFoodName: TextInputEditText? = null
     var textCalorie: TextInputEditText? = null
     var textProtein: TextInputEditText? = null
@@ -77,16 +75,14 @@ class InsertFragment : Fragment() {
                             if (textFat != null) {
                                 if (textCarbohydrate != null) {
                                     dbrw.execSQL(
-                                        "INSERT INTO myFoodTable(food_name, calorie, protein, fat, carbohydrate, meals) VALUES(?,?,?,?,?,?)",
+                                        "INSERT INTO myFoodTable(food_name, calorie, protein, fat, carbohydrate) VALUES(?,?,?,?,?)",
                                         arrayOf(
                                             textFoodName!!.text.toString(),
                                             textCalorie!!.text.toString(),
                                             textProtein!!.text.toString(),
                                             textFat!!.text.toString(),
-                                            textCarbohydrate!!.text.toString(),
-                                            recordMeals )
+                                            textCarbohydrate!!.text.toString())
                                     )
-                                    recordMeals++
                                 }
                             }
                         }
@@ -100,7 +96,7 @@ class InsertFragment : Fragment() {
                     }
                     cleanEditText()
                 } catch (e: Exception) {
-                    showToast("新增失敗，請正確輸入")
+                    //showToast("新增失敗，請正確輸入")
                 }
         }
 
@@ -137,7 +133,7 @@ class InsertFragment : Fragment() {
                             }
                             cleanEditText()
                         } catch (e: Exception) {
-                            showToast("更新失敗,請檢查輸入")
+                          //  showToast("更新失敗,請檢查輸入")
                         }
                 }
             }
