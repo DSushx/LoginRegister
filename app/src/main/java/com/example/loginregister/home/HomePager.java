@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.loginregister.InsertFragment;
 import com.example.loginregister.ProfileFragment;
-import com.example.loginregister.planFragment;
+import com.example.loginregister.PlanFragment;
 import com.example.loginregister.suggestion.SuggestionFragment;
 
 //import com.example.loginregister.profile2.userprofilefragment;
@@ -27,9 +27,6 @@ public class HomePager extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         Fragment fragment;
         switch(position) {
-            case 0:
-                fragment = new HomeFragment();
-                break;
             case 1:
                 fragment = new InsertFragment();
                 break;
@@ -37,13 +34,13 @@ public class HomePager extends FragmentStateAdapter {
                 fragment = new SuggestionFragment();
                 break;
             case 3:
-                fragment = new planFragment();
+                fragment = new PlanFragment();
                 break;
             case 4:
                 fragment = new ProfileFragment();
                 break;
             default:
-                fragment = new ProfileFragment();
+                fragment = new HomeFragment();
                 break;
         }
         return fragment;

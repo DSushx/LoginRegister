@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
                         title = "";
                         break;
                 }
-                binding.pagerHome.setCurrentItem(idx);
+                binding.pagerHome.setCurrentItem(idx, false);
                 if (title.equals("")) {
                     binding.toolBar.setVisibility(View.GONE);
                 }

@@ -28,7 +28,7 @@ import com.vishnusivadas.advanced_httpurlconnection.PutData;
 import java.util.Calendar;
 
 
-public class planFragment extends Fragment {
+public class PlanFragment extends Fragment {
     Button buttonSave,t;
     TextInputEditText plan_Weightnow;
     TextInputEditText plan_Weight;
