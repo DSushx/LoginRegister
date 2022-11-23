@@ -6,11 +6,21 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.loginregister.datasets.DietStatus;
 import com.example.loginregister.datasets.FoodInfo;
+import com.example.loginregister.datasets.ItemInCart;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class SharedViewModel extends ViewModel {
-    private MutableLiveData<DietStatus> dietStatus = new MutableLiveData<DietStatus>();
+    private MutableLiveData<DietStatus> dietStatus = new MutableLiveData<>();
     public LiveData<DietStatus> getDietStatus() {
         return dietStatus;
+    }
+
+    private MutableLiveData<List<ItemInCart>> chosenItems = new MutableLiveData<>(new ArrayList<>());
+    public LiveData<List<ItemInCart>> getChosenItems() {
+        return chosenItems;
     }
 
     public void setDietStatus(DietStatus dietStatus) {
@@ -37,5 +47,31 @@ public class SharedViewModel extends ViewModel {
 
     public double oneDecimal(double num) {
         return Math.round(num * 10.0) / 10.0;
+    }
+
+    public void setChosenItems(List<ItemInCart> chosenItems) {
+        this.chosenItems.setValue(chosenItems);
+    }
+
+    public void addToCart(ItemInCart item) {
+        List<ItemInCart> itemList = chosenItems.getValue();
+        itemList.add(item);
+        chosenItems.setValue(itemList);
+    }
+
+    public void addQuantity(int index) {
+        List<ItemInCart> itemList = chosenItems.getValue();
+        ItemInCart theItem = itemList.get(index);
+        theItem.addOne();
+        itemList.set(index, theItem);
+        chosenItems.setValue(itemList);
+    }
+
+    public void minusQuantity(int index) {
+        List<ItemInCart> itemList = chosenItems.getValue();
+        ItemInCart theItem = itemList.get(index);
+        theItem.minusOne();
+        itemList.set(index, theItem);
+        chosenItems.setValue(itemList);
     }
 }

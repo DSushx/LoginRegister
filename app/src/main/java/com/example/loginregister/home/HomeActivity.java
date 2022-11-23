@@ -21,16 +21,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.loginregister.R;
 import com.example.loginregister.databinding.ActivityHomeBinding;
-import com.example.loginregister.datasets.DietStatus;
-import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.ItemInCart;
 import com.example.loginregister.suggestion.CustomListSC;
-import com.example.loginregister.suggestion.SuggestionFragment.OnDataPass;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements OnDataPass {
+public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
 
@@ -38,7 +34,6 @@ public class HomeActivity extends AppCompatActivity implements OnDataPass {
 
     public SharedViewModel viewModel;
 
-    private List<ItemInCart> chosenItems = new ArrayList<>();
     private TextView tvEmptyCart;
     private CustomListSC customListSC;
     private ListView lvShowChosen;
@@ -103,11 +98,6 @@ public class HomeActivity extends AppCompatActivity implements OnDataPass {
         });
     }
 
-    @Override
-    public void onDataPass(List<ItemInCart> chosenItems) {
-        this.chosenItems = chosenItems;
-    }
-
     Button.OnClickListener listener= new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -149,7 +139,7 @@ public class HomeActivity extends AppCompatActivity implements OnDataPass {
             this.setBackgroundDrawable(dw);
             addBtn.setOnClickListener(this);
 
-            refreshCart(chosenItems);
+            refreshCart();
         }
 
         public void onClick(View V){
@@ -163,14 +153,14 @@ public class HomeActivity extends AppCompatActivity implements OnDataPass {
         }
     }
 
-    public void refreshCart(List<ItemInCart> items) {
+    public void refreshCart() {
+        List<ItemInCart> items = viewModel.getChosenItems().getValue();
         tvEmptyCart.setVisibility(View.INVISIBLE);
         customListSC = new CustomListSC(HomeActivity.this, items);
         lvShowChosen.setAdapter(customListSC);
         if (items.isEmpty()) {
             tvEmptyCart.setVisibility(View.VISIBLE);
         }
-        chosenItems = items;
-        Log.i("itemInCart", chosenItems.toString());
+        Log.i("itemInCart", items.toString());
     }
 }

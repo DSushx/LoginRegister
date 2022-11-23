@@ -16,6 +16,7 @@ import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.ItemInCart;
 import com.example.loginregister.home.HomeActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomListSC extends BaseAdapter {
@@ -65,9 +66,9 @@ public class CustomListSC extends BaseAdapter {
         RelativeLayout minus = list.findViewById(R.id.btn_minus);
         plus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                chosenItems.get(position).addOne();
+                ((HomeActivity)mContext).viewModel.addQuantity(position);
                 ((HomeActivity)mContext).viewModel.addToStatus(chosenItems.get(position).foodInfo);
-                ((HomeActivity)mContext).refreshCart(chosenItems);
+                ((HomeActivity)mContext).refreshCart();
             }
         });
 
@@ -82,7 +83,7 @@ public class CustomListSC extends BaseAdapter {
                         public void onClick(DialogInterface dialog, int which) {
                             ((HomeActivity)mContext).viewModel.minusFromStatus(chosenItems.get(position).foodInfo);
                             chosenItems.remove(position);
-                            ((HomeActivity)mContext).refreshCart(chosenItems);
+                            ((HomeActivity)mContext).refreshCart();
                         }
                     });
                     alertDialog.setNegativeButton("取消",(dialog, which) -> {
@@ -91,9 +92,9 @@ public class CustomListSC extends BaseAdapter {
                     alertDialog.setCancelable(false);
                     alertDialog.show();
                 } else {
-                    chosenItems.get(position).minusOne();
+                    ((HomeActivity)mContext).viewModel.minusQuantity(position);
                     ((HomeActivity)mContext).viewModel.minusFromStatus(chosenItems.get(position).foodInfo);
-                    ((HomeActivity)mContext).refreshCart(chosenItems);
+                    ((HomeActivity)mContext).refreshCart();
                 }
             }
         });

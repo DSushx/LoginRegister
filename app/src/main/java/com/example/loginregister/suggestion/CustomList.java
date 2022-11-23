@@ -2,6 +2,7 @@ package com.example.loginregister.suggestion;
 
 import android.content.Context;
 import android.os.Build;
+import android.sax.Element;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +25,11 @@ public class CustomList extends BaseAdapter {
     private final Context mContext;
     private final SuggestionFragment mFragment;
     private final List<FoodInfo> foodInfo;
-    private final List<ItemInCart> chosenItems;
 
-    public CustomList(Context c, SuggestionFragment f, List<FoodInfo> foodInfo, List<ItemInCart> chosenItems) {
+    public CustomList(Context c, SuggestionFragment f, List<FoodInfo> foodInfo) {
         mContext = c;
         mFragment = f;
         this.foodInfo = foodInfo;
-        this.chosenItems = chosenItems;
     }
 
     @Override
@@ -91,19 +90,19 @@ public class CustomList extends BaseAdapter {
                 ItemInCart item = new ItemInCart();
                 item.foodInfo = foodInfo.get(position);
                 item.quantity = 1;
-                AtomicInteger index = new AtomicInteger();
-                index.set(-1);
-                chosenItems.forEach(itemInCart -> {
+                int idx = -1;
+                int index = 0;
+                for(ItemInCart itemInCart: mFragment.viewModel.getChosenItems().getValue()) {
                     if (Objects.equals(itemInCart.foodInfo.food_id, item.foodInfo.food_id)) {
-                        itemInCart.addOne();
-                        index.set(chosenItems.indexOf(itemInCart));
-                        return;
+                        mFragment.viewModel.addQuantity(index);
+                        idx = index;
+                        break;
                     }
-                });
-                if (index.get() == -1) {
-                    chosenItems.add(item);
+                    index++;
                 }
-                mFragment.passData(chosenItems);
+                if (idx == -1) {
+                    mFragment.viewModel.addToCart(item);
+                }
             }
         });
 

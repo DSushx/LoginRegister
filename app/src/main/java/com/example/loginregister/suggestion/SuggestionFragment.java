@@ -42,14 +42,12 @@ public class SuggestionFragment extends Fragment {
     View mView;
     UserInfo userData;
     List<FoodInfo> foodData;
-    List<ItemInCart> chosenItems = new ArrayList<>();
     CustomList customList;
     ProgressBar progressBar;
     TextView caloriesLimit, caloriesHad, proteinHad, carbsHad, fatHad, noResult;
     ProgressBar caloriesProgress, proteinProgress, carbsProgress, fatProgress;
     ListView lvShow;
     MysqlCon con;
-    OnDataPass dataPasser;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -111,7 +109,6 @@ public class SuggestionFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        dataPasser = (OnDataPass) context;
         mContext = context;
     }
 
@@ -251,7 +248,7 @@ public class SuggestionFragment extends Fragment {
 
             mView.post(() -> {
                 progressBar.setVisibility(View.INVISIBLE);
-                customList = new CustomList(requireContext(), this, foodData, chosenItems);
+                customList = new CustomList(requireContext(), this, foodData);
                 lvShow.setAdapter(customList);
                 if (foodData.isEmpty()) {
                     noResult.setVisibility(View.VISIBLE);
@@ -259,13 +256,5 @@ public class SuggestionFragment extends Fragment {
             });
 
         }).start();
-    }
-
-    public interface OnDataPass {
-        void onDataPass(List<ItemInCart> chosenItems);
-    }
-
-    public void passData(List<ItemInCart> chosenItems) {
-        dataPasser.onDataPass(chosenItems);
     }
 }
