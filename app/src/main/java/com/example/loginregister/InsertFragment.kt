@@ -1,5 +1,6 @@
 package com.example.loginregister
 
+import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.text.Editable
@@ -7,7 +8,11 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputEditText
 
@@ -20,14 +25,12 @@ class InsertFragment : Fragment() {
     var btnInsert: Button? = null
     var btnUpdate: Button? = null
     var btnDelete: Button? = null
-    var btnQuery: Button? = null
-
-    var recordMeals: Int = 0
     var textFoodName: TextInputEditText? = null
     var textCalorie: TextInputEditText? = null
     var textProtein: TextInputEditText? = null
     var textFat: TextInputEditText? = null
     var textCarbohydrate: TextInputEditText? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +47,6 @@ class InsertFragment : Fragment() {
         btnInsert = view.findViewById(R.id.btn_insert);
         btnUpdate = view.findViewById(R.id.btn_update);
         btnDelete = view.findViewById(R.id.btn_delete);
-        btnQuery = view.findViewById(R.id.btn_query);
 
         //取得資料庫實體
         dbrw = insert_food_DB(this).writableDatabase
@@ -63,9 +65,16 @@ class InsertFragment : Fragment() {
         super.onDestroy()
     }
 
+    //設定監聽器
     private fun setListener() {
 
         btnInsert?.setOnClickListener {
+
+            // 點擊新增按鈕 自動收回鍵盤
+            val imm: InputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(activity?.window?.decorView?.windowToken, 0);
+
             //判斷是否有填入品名或熱量
             if (textFoodName!!.length() < 1 || textCalorie!!.length() < 1)
                 showToast("品名、熱量欄位請勿留空")
@@ -77,34 +86,32 @@ class InsertFragment : Fragment() {
                             if (textFat != null) {
                                 if (textCarbohydrate != null) {
                                     dbrw.execSQL(
-                                        "INSERT INTO myFoodTable(food_name, calorie, protein, fat, carbohydrate, meals) VALUES(?,?,?,?,?,?)",
+                                        "INSERT INTO myFoodTable(food_name, calorie, protein, fat, carbohydrate) VALUES(?,?,?,?,?)",
                                         arrayOf(
                                             textFoodName!!.text.toString(),
-                                            textCalorie!!.text.toString(),
-                                            textProtein!!.text.toString(),
-                                            textFat!!.text.toString(),
-                                            textCarbohydrate!!.text.toString(),
-                                            recordMeals )
+                                            textCalorie!!.text,
+                                            textProtein!!.text,
+                                            textFat!!.text,
+                                            textCarbohydrate!!.text)
                                     )
-                                    recordMeals++
+                                    showToast("新增:${textFoodName!!.text},熱量:${textCalorie!!.text},蛋白質:${textProtein!!.text},脂肪:${textFat!!.text},醣類:${textCarbohydrate!!.text}")
+                                    cleanEditText()
                                 }
                             }
                         }
                     }
-                    if (textProtein != null) {
-                        if (textFat != null) {
-                            if (textCarbohydrate != null) {
-                                showToast("新增:${textFoodName!!.text},熱量:${textCalorie!!.text},蛋白質:${textProtein!!.text},脂肪:${textFat!!.text},醣類:${textCarbohydrate!!.text}")
-                            }
-                        }
-                    }
-                    cleanEditText()
                 } catch (e: Exception) {
-                    showToast("新增失敗，請正確輸入")
+                    //showToast("新增失敗，請正確輸入")
                 }
         }
 
         btnUpdate?.setOnClickListener {
+
+            // 點擊修改按鈕 自動收回鍵盤
+            val imm: InputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(activity?.window?.decorView?.windowToken, 0);
+
             //判斷是否有填入品名或熱量
             if (textFoodName != null) {
                 if (textCalorie != null) {
@@ -132,18 +139,24 @@ class InsertFragment : Fragment() {
                                 if (textFat != null) {
                                     if (textCarbohydrate != null) {
                                         showToast("更新:${textFoodName!!.text},熱量:${textCalorie!!.text},蛋白質:${textProtein!!.text},脂肪:${textFat!!.text},醣類:${textCarbohydrate!!.text}")
+                                        cleanEditText()
                                     }
                                 }
                             }
-                            cleanEditText()
                         } catch (e: Exception) {
-                            showToast("更新失敗,請檢查輸入")
+                          //  showToast("更新失敗,請檢查輸入")
                         }
                 }
             }
         }
 
         btnDelete?.setOnClickListener {
+
+            // 點擊刪除按鈕 自動收回鍵盤
+            val imm: InputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(activity?.window?.decorView?.windowToken, 0);
+
             //判斷是否有填入品名
             if (textFoodName != null) {
                 if (textFoodName!!.length() < 1)
@@ -160,38 +173,22 @@ class InsertFragment : Fragment() {
             }
         }
 
-        btnQuery?.setOnClickListener {
-            //若無輸入品名則 SQL 語法為查詢全部菜色，反之查詢該品名資料
-            val queryString = if (textFoodName!!.length() < 1)
-                "SELECT * FROM myFoodTable"
-            else
-                "SELECT * FROM myFoodTable WHERE food_name LIKE '%${textFoodName!!.text}%'"
-            val c = dbrw.rawQuery(queryString, null)
-            c.moveToFirst() //從第一筆開始輸出
-            items.clear() //清空舊資料
-            showToast("共有${c.count}筆資料")
-            for (i in 0 until c.count) {
-                //加入新資料
-                items.add("品名:${c.getString(0)}\t\t\t\t\t\t\t\t\t\t 熱量:${c.getInt(1)}")
-                c.moveToNext() //移動到下一筆
-            }
-            adapter.notifyDataSetChanged() //更新列表資料
-            c.close() //關閉 Cursor
-        }
-
-        //即時更新listview(輸入不用enter即查詢資料庫內的資料)
+        // 使用此技術，可以拔掉一個查詢按鈕，增加使用者體驗度
+        // 即時更新listview(輸入不用enter即查詢資料庫內的資料，輸入時即可動態查詢!)
         if (textFoodName != null) {
             textFoodName!!.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
                 }
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
                     //若無輸入品名則 SQL 語法為查詢全部菜色，反之查詢該品名資料
                     val queryString = "SELECT * FROM myFoodTable WHERE food_name LIKE '%${textFoodName!!.text}%'"
                     val c = dbrw.rawQuery(queryString, null)
+
                     c.moveToFirst() //從第一筆開始輸出
                     items.clear() //清空舊資料
-                    showToast("共有${c.count}筆資料")
+                  //  showToast("共有${c.count}筆資料")
                     for (i in 0 until c.count) {
                         //加入新資料
                         items.add("品名:${c.getString(0)}\t\t\t\t\t\t\t\t\t\t 熱量:${c.getInt(1)}")
@@ -206,16 +203,18 @@ class InsertFragment : Fragment() {
             })
         }
     }
+
     //建立 showToast 方法顯示 Toast 訊息
     private fun showToast(text: String) =
-        Toast.makeText(getActivity(),text, Toast.LENGTH_LONG).show()
+        Toast.makeText(requireActivity(),text, Toast.LENGTH_SHORT).show()
+
     //清空輸入的品名與各欄位值
     private fun cleanEditText() {
-        view?.findViewById<EditText>(R.id.ed_food_name)?.setText("")
-        view?.findViewById<EditText>(R.id.ed_calorie)?.setText("")
-        view?.findViewById<EditText>(R.id.ed_protein)?.setText("")
-        view?.findViewById<EditText>(R.id.ed_fat)?.setText("")
-        view?.findViewById<EditText>(R.id.ed_carbohydrate)?.setText("")
+        textFoodName?.setText("")
+        textCalorie?.setText("")
+        textProtein?.setText("")
+        textFat?.setText("")
+        textCarbohydrate?.setText("")
     }
 
     private fun Button.setOnClickListener(eeee: Any) {
