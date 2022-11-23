@@ -34,8 +34,9 @@
 			android:layout_height="wrap_content"
 			android:gravity="center_horizontal"
 			android:layout_marginTop="20dp"
-			android:layout_marginBottom="0dp"
+			android:layout_marginBottom="20dp"
 			app:layout_constraintTop_toBottomOf="@id/tv_chosen_items"
+			app:layout_constraintBottom_toTopOf="@id/btn_add_items"
 			app:layout_constraintStart_toStartOf="parent" >
 
 			<ListView
@@ -63,7 +64,7 @@
 			android:layout_width="100dp"
 			android:layout_height="50dp"
 			android:layout_marginStart="280dp"
-			android:layout_marginTop="20dp"
+			android:layout_marginTop="0dp"
 			android:layout_marginBottom="20dp"
 			app:layout_constraintTop_toBottomOf="@id/chosen_items"
 			app:layout_constraintBottom_toBottomOf="parent"

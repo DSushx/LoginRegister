@@ -14,11 +14,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.loginregister.R;
 import com.example.loginregister.datasets.DietStatus;
 import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.ItemInCart;
 import com.example.loginregister.datasets.UserInfo;
+import com.example.loginregister.home.SharedViewModel;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -34,9 +38,9 @@ public class SuggestionFragment extends Fragment {
     }
 
     Context mContext;
+    SharedViewModel viewModel;
     View mView;
     UserInfo userData;
-    DietStatus dietStatus;
     List<FoodInfo> foodData;
     List<ItemInCart> chosenItems = new ArrayList<>();
     CustomList customList;
@@ -51,6 +55,18 @@ public class SuggestionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
+        final Observer<DietStatus> statusObserver = new Observer<DietStatus>() {
+            @Override
+            public void onChanged(DietStatus dietStatus) {
+                // Update the UI, in this case, a TextView.
+                update();
+                Log.i("dietStatus", viewModel.getDietStatus().getValue().toString());
+            }
+        };
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
+        viewModel.getDietStatus().observe(getViewLifecycleOwner(), statusObserver);
 
         mView = view;
 
@@ -81,15 +97,12 @@ public class SuggestionFragment extends Fragment {
             Log.v("OK", "使用者資料已回傳");
             Log.i("userData", userData.toString());
 
-            dietStatus = getDietStatus(userData);
-            Log.i("dietStatus", dietStatus.toString());
+            DietStatus dietStatus = getInitialDietStatus(userData);
 
             view.post(() -> {
+                viewModel.setDietStatus(dietStatus);
                 caloriesLimit.setText(String.format("%s", dietStatus.CaloriesPerMeal));
-                updateBoard();
             });
-
-            refreshList(dietStatus.CaloriesPerMeal);
 
         }).start();
 
@@ -102,9 +115,8 @@ public class SuggestionFragment extends Fragment {
         mContext = context;
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public DietStatus getDietStatus(UserInfo userInfo) {
+    public DietStatus getInitialDietStatus(UserInfo userInfo) {
         DietStatus dietStatus = new DietStatus();
         int age, activeLevel = 0, goal = 1;
         double BMR = 0, TDEE, proteinRatio, carbsRatio, fatRatio;
@@ -163,35 +175,37 @@ public class SuggestionFragment extends Fragment {
                 throw new IllegalStateException("Unexpected value: " + goal);
         }
 
+        Log.i("TDEE", String.valueOf((int)TDEE));
+
         dietStatus.CaloriesPerDay = (int)TDEE;
         dietStatus.CaloriesPerMeal = (int)(dietStatus.CaloriesPerDay * 0.4);  //早:五:晚 = 2:4:4
-        dietStatus.ProteinPerDay = dietStatus.CaloriesPerDay * proteinRatio / 4;
-        dietStatus.ProteinPerMeal = dietStatus.ProteinPerDay * 0.4;
-        dietStatus.CarbsPerDay = dietStatus.CaloriesPerDay * carbsRatio / 4;
-        dietStatus.CarbsPerMeal = dietStatus.CarbsPerDay * 0.4;
-        dietStatus.FatPerDay = dietStatus.CaloriesPerDay * fatRatio / 9;
-        dietStatus.FatPerMeal = dietStatus.FatPerDay * 0.4;
+        dietStatus.ProteinPerDay = viewModel.oneDecimal(dietStatus.CaloriesPerDay * proteinRatio / 4);
+        dietStatus.ProteinPerMeal = viewModel.oneDecimal(dietStatus.ProteinPerDay * 0.4);
+        dietStatus.CarbsPerDay = viewModel.oneDecimal(dietStatus.CaloriesPerDay * carbsRatio / 4);
+        dietStatus.CarbsPerMeal = viewModel.oneDecimal(dietStatus.CarbsPerDay * 0.4);
+        dietStatus.FatPerDay = viewModel.oneDecimal(dietStatus.CaloriesPerDay * fatRatio / 9);
+        dietStatus.FatPerMeal = viewModel.oneDecimal(dietStatus.FatPerDay * 0.4);
 
         return dietStatus;
     }
 
-    public void updateBoard() {
+    public void updateBoard(DietStatus dietStatus) {
         caloriesHad.setText(String.format("%s", dietStatus.CaloriesAchieved));
         caloriesProgress.setProgress((int)((double)dietStatus.CaloriesAchieved / dietStatus.CaloriesPerMeal * 360));
         updateRingColor();
-        proteinHad.setText(String.format("%s / %s g", String.format("%.1f", dietStatus.ProteinAchieved), String.format("%.1f", dietStatus.ProteinPerMeal)));
+        proteinHad.setText(String.format("%s / %s g", String.format("%s", dietStatus.ProteinAchieved), String.format("%s", dietStatus.ProteinPerMeal)));
         proteinProgress.setProgress((int)(dietStatus.ProteinAchieved / dietStatus.ProteinPerMeal * 100));
         updateBarColor(dietStatus.ProteinAchieved, dietStatus.ProteinPerMeal, proteinProgress, proteinHad);
-        carbsHad.setText(String.format("%s / %s g", String.format("%.1f", dietStatus.CarbsAchieved), String.format("%.1f", dietStatus.CarbsPerMeal)));
+        carbsHad.setText(String.format("%s / %s g", String.format("%s", dietStatus.CarbsAchieved), String.format("%s", dietStatus.CarbsPerMeal)));
         carbsProgress.setProgress((int)(dietStatus.CarbsAchieved / dietStatus.CarbsPerMeal * 100));
         updateBarColor(dietStatus.CarbsAchieved, dietStatus.CarbsPerMeal, carbsProgress, carbsHad);
-        fatHad.setText(String.format("%s / %s g", String.format("%.1f", dietStatus.FatAchieved), String.format("%.1f", dietStatus.FatPerMeal)));
+        fatHad.setText(String.format("%s / %s g", String.format("%s", dietStatus.FatAchieved), String.format("%s", dietStatus.FatPerMeal)));
         fatProgress.setProgress((int)(dietStatus.FatAchieved / dietStatus.FatPerMeal * 100));
         updateBarColor(dietStatus.FatAchieved, dietStatus.FatPerMeal, fatProgress, fatHad);
     }
 
     public void updateRingColor() {
-        double fillRate = (double)dietStatus.CaloriesAchieved / dietStatus.CaloriesPerMeal;
+        double fillRate = (double)viewModel.getDietStatus().getValue().CaloriesAchieved / viewModel.getDietStatus().getValue().CaloriesPerMeal;
         if (fillRate < 0.75) {
             caloriesProgress.setProgressDrawable(getResources().getDrawable(R.drawable.progressring_green));
             caloriesHad.setTextColor(getResources().getColor(R.color.green_7ec972));
@@ -218,19 +232,15 @@ public class SuggestionFragment extends Fragment {
         }
     }
 
-    public DietStatus updateStatus(double calories, double protein, double carbs, double fat) {
-        dietStatus.CaloriesAchieved += (int)calories;
-        dietStatus.ProteinAchieved += protein;
-        dietStatus.CarbsAchieved += carbs;
-        dietStatus.FatAchieved += fat;
-        updateBoard();
-        int caloriesDifference = dietStatus.CaloriesPerMeal - dietStatus.CaloriesAchieved;
-        int newThreshold = Math.max(caloriesDifference, 0);
-        refreshList(newThreshold);
-        return dietStatus;
+    public void update() {
+        DietStatus dietStatus = viewModel.getDietStatus().getValue();
+        updateBoard(dietStatus);
+        refreshList(dietStatus.CaloriesPerMeal, dietStatus.CaloriesAchieved);
     }
 
-    public void refreshList(int threshold) {
+    public void refreshList(int caloriesPerMeal, int caloriesAchieved) {
+        int caloriesDifference = caloriesPerMeal - caloriesAchieved;
+        int threshold = Math.max(caloriesDifference, 0);
         noResult.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
         new Thread(() -> {
@@ -241,7 +251,7 @@ public class SuggestionFragment extends Fragment {
 
             mView.post(() -> {
                 progressBar.setVisibility(View.INVISIBLE);
-                customList = new CustomList(requireContext(), this, foodData, chosenItems, dietStatus);
+                customList = new CustomList(requireContext(), this, foodData, chosenItems);
                 lvShow.setAdapter(customList);
                 if (foodData.isEmpty()) {
                     noResult.setVisibility(View.VISIBLE);
@@ -252,10 +262,10 @@ public class SuggestionFragment extends Fragment {
     }
 
     public interface OnDataPass {
-        void onDataPass(List<ItemInCart> chosenItems, DietStatus dietStatus);
+        void onDataPass(List<ItemInCart> chosenItems);
     }
 
-    public void passData(List<ItemInCart> chosenItems, DietStatus dietStatus) {
-        dataPasser.onDataPass(chosenItems, dietStatus);
+    public void passData(List<ItemInCart> chosenItems) {
+        dataPasser.onDataPass(chosenItems);
     }
 }

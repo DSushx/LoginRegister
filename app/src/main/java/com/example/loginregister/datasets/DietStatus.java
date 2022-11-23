@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 public class DietStatus {
     public Integer CaloriesPerDay;
-    public Integer CaloriesPerMeal;
+    public Integer CaloriesPerMeal = 0;
     public Integer CaloriesAchieved = 0;
     public double ProteinPerDay;
     public double ProteinPerMeal;

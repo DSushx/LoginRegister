@@ -1,36 +1,36 @@
 package com.example.loginregister.suggestion;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+
 import com.example.loginregister.R;
-import com.example.loginregister.datasets.DietStatus;
 import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.ItemInCart;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class CustomList extends BaseAdapter {
     private final Context mContext;
     private final SuggestionFragment mFragment;
     private final List<FoodInfo> foodInfo;
     private final List<ItemInCart> chosenItems;
-    private DietStatus dietStatus;
 
-    public CustomList(Context c, SuggestionFragment f, List<FoodInfo> foodInfo, List<ItemInCart> chosenItems, DietStatus dietStatus) {
+    public CustomList(Context c, SuggestionFragment f, List<FoodInfo> foodInfo, List<ItemInCart> chosenItems) {
         mContext = c;
         mFragment = f;
         this.foodInfo = foodInfo;
         this.chosenItems = chosenItems;
-        this.dietStatus = dietStatus;
     }
 
     @Override
@@ -85,14 +85,25 @@ public class CustomList extends BaseAdapter {
 
         RelativeLayout addToCart = (RelativeLayout) list.findViewById(R.id.btn_add_to_cart);
         addToCart.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             public void onClick(View v) {
-                dietStatus = mFragment.updateStatus(foodInfo.get(position).calories, foodInfo.get(position).protein,
-                        foodInfo.get(position).carbs, foodInfo.get(position).fat);
+                mFragment.viewModel.addToStatus(foodInfo.get(position));
                 ItemInCart item = new ItemInCart();
                 item.foodInfo = foodInfo.get(position);
                 item.quantity = 1;
-                chosenItems.add(item);
-                mFragment.passData(chosenItems, dietStatus);
+                AtomicInteger index = new AtomicInteger();
+                index.set(-1);
+                chosenItems.forEach(itemInCart -> {
+                    if (Objects.equals(itemInCart.foodInfo.food_id, item.foodInfo.food_id)) {
+                        itemInCart.addOne();
+                        index.set(chosenItems.indexOf(itemInCart));
+                        return;
+                    }
+                });
+                if (index.get() == -1) {
+                    chosenItems.add(item);
+                }
+                mFragment.passData(chosenItems);
             }
         });
 

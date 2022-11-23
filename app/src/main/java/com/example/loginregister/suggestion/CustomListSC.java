@@ -21,12 +21,10 @@ import java.util.List;
 public class CustomListSC extends BaseAdapter {
     private final Context mContext;
     private final List<ItemInCart> chosenItems;
-    private final DietStatus dietStatus;
 
-    public CustomListSC(Context c, List<ItemInCart> chosenItems, DietStatus dietStatus) {
+    public CustomListSC(Context c, List<ItemInCart> chosenItems) {
         mContext = c;
         this.chosenItems = chosenItems;
-        this.dietStatus = dietStatus;
     }
 
     @Override
@@ -67,9 +65,9 @@ public class CustomListSC extends BaseAdapter {
         RelativeLayout minus = list.findViewById(R.id.btn_minus);
         plus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                chosenItems.get(position).quantity += 1;
-                ((HomeActivity)mContext).refreshCart(chosenItems, dietStatus);
-
+                chosenItems.get(position).addOne();
+                ((HomeActivity)mContext).viewModel.addToStatus(chosenItems.get(position).foodInfo);
+                ((HomeActivity)mContext).refreshCart(chosenItems);
             }
         });
 
@@ -82,8 +80,9 @@ public class CustomListSC extends BaseAdapter {
                     alertDialog.setPositiveButton("確定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            ((HomeActivity)mContext).viewModel.minusFromStatus(chosenItems.get(position).foodInfo);
                             chosenItems.remove(position);
-                            ((HomeActivity)mContext).refreshCart(chosenItems, dietStatus);
+                            ((HomeActivity)mContext).refreshCart(chosenItems);
                         }
                     });
                     alertDialog.setNegativeButton("取消",(dialog, which) -> {
@@ -92,8 +91,9 @@ public class CustomListSC extends BaseAdapter {
                     alertDialog.setCancelable(false);
                     alertDialog.show();
                 } else {
-                    chosenItems.get(position).quantity -= 1;
-                    ((HomeActivity)mContext).refreshCart(chosenItems, dietStatus);
+                    chosenItems.get(position).minusOne();
+                    ((HomeActivity)mContext).viewModel.minusFromStatus(chosenItems.get(position).foodInfo);
+                    ((HomeActivity)mContext).refreshCart(chosenItems);
                 }
             }
         });

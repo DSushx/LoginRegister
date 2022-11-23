@@ -1,6 +1,7 @@
 package com.example.loginregister.home;
 
 import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.loginregister.R;
 import com.example.loginregister.databinding.ActivityHomeBinding;
@@ -34,15 +36,18 @@ public class HomeActivity extends AppCompatActivity implements OnDataPass {
 
     private HomePager pagerAdapter = new HomePager(this);
 
+    public SharedViewModel viewModel;
+
     private List<ItemInCart> chosenItems = new ArrayList<>();
     private TextView tvEmptyCart;
     private CustomListSC customListSC;
     private ListView lvShowChosen;
-    private DietStatus dietStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -99,9 +104,8 @@ public class HomeActivity extends AppCompatActivity implements OnDataPass {
     }
 
     @Override
-    public void onDataPass(List<ItemInCart> chosenItems, DietStatus dietStatus) {
+    public void onDataPass(List<ItemInCart> chosenItems) {
         this.chosenItems = chosenItems;
-        this.dietStatus = dietStatus;
     }
 
     Button.OnClickListener listener= new Button.OnClickListener() {
@@ -145,7 +149,7 @@ public class HomeActivity extends AppCompatActivity implements OnDataPass {
             this.setBackgroundDrawable(dw);
             addBtn.setOnClickListener(this);
 
-            refreshCart(chosenItems, dietStatus);
+            refreshCart(chosenItems);
         }
 
         public void onClick(View V){
@@ -159,24 +163,14 @@ public class HomeActivity extends AppCompatActivity implements OnDataPass {
         }
     }
 
-    public void refreshCart(List<ItemInCart> items, DietStatus status) {
+    public void refreshCart(List<ItemInCart> items) {
         tvEmptyCart.setVisibility(View.INVISIBLE);
-        customListSC = new CustomListSC(HomeActivity.this, items, status);
+        customListSC = new CustomListSC(HomeActivity.this, items);
         lvShowChosen.setAdapter(customListSC);
         if (items.isEmpty()) {
             tvEmptyCart.setVisibility(View.VISIBLE);
         }
         chosenItems = items;
-        dietStatus = status;
         Log.i("itemInCart", chosenItems.toString());
-        Log.i("dietStatus", dietStatus.toString());
-    }
-
-    public DietStatus recoverStatus(double calories, double protein, double carbs, double fat) {
-        dietStatus.CaloriesAchieved -= (int)calories;
-        dietStatus.ProteinAchieved -= protein;
-        dietStatus.CarbsAchieved -= carbs;
-        dietStatus.FatAchieved -= fat;
-        return dietStatus;
     }
 }
