@@ -42,15 +42,15 @@
 
     <RelativeLayout
         android:id="@+id/btn_plus"
-        android:layout_marginStart="305dp"
-        android:layout_centerVertical="true"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:background="@drawable/circle_yellow" >
+        android:layout_centerVertical="true"
+        android:layout_marginStart="305dp"
+        android:background="@drawable/circle_yellow">
 
         <ImageView
-            android:layout_width="10dp"
-            android:layout_height="10dp"
+            android:layout_width="6dp"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:contentDescription="plus_sign"
             android:src="@drawable/ic_plus" />

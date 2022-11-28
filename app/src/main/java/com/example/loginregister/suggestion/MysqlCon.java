@@ -44,7 +44,8 @@ public class MysqlCon {
         try {
             Connection con = DriverManager.getConnection(url, db_user, db_password);
             String sql = "SELECT * FROM users WHERE `username` = \"" + uname + "\"";
-            String sql2 = "SELECT * FROM plan WHERE `uname` = \"" + uname + "\"";
+            String sql2 = "SELECT * FROM plan WHERE `uname`= \"" + uname + "\"ORDER BY id DESC ";
+            //SELECT MAX(id),uname* FROM plan GROUP BY uname WHERE `uname`
             Statement st = con.createStatement();
             Statement st2 = con.createStatement();
             ResultSet rs = st.executeQuery(sql);

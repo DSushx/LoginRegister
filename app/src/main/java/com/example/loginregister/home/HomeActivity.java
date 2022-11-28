@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.pagerHome.setAdapter(pagerAdapter);
 
         binding.btnShoppingCart.setOnClickListener(listener);
-
+        binding.planList.setOnClickListener(listener2);
         binding.groupNav.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -90,6 +90,11 @@ public class HomeActivity extends AppCompatActivity {
                     binding.toolBar.setVisibility(View.VISIBLE);
                     binding.toolBarTitle.setText(title);
                 }
+                if (idx == 3) {
+                    binding.planList.setVisibility(View.VISIBLE);
+                } else {
+                    binding.planList.setVisibility(View.GONE);
+                }
                 if (idx == 2) {
                     binding.btnShoppingCart.setVisibility(View.VISIBLE);
                 } else {
@@ -98,7 +103,14 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-
+    Button.OnClickListener listener2= new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            popupWindow popupWindow = new popupWindow(HomeActivity.this);
+            View view = LayoutInflater.from(HomeActivity.this).inflate(R.layout.popup_shopping_cart, null);
+            popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        }
+    };
     Button.OnClickListener listener= new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
