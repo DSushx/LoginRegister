@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.loginregister.R;
@@ -162,5 +163,9 @@ public class HomeActivity extends AppCompatActivity {
             tvEmptyCart.setVisibility(View.VISIBLE);
         }
         Log.i("itemInCart", items.toString());
+    }
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 }
