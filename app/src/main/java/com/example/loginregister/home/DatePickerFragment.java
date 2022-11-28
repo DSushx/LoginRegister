@@ -42,11 +42,13 @@ public class DatePickerFragment extends DialogFragment
     @SuppressLint("RestrictedApi")
     public void onDateSet(DatePicker view, int year, int month, int day) {
         // Do something with the date chosen by the user
-
+        month+=1;
         Log.d(TAG,"onDataSet : yyyy/mm/dd: " + year + "/"+month+"/"+day );
         String date = year + "/"+month+"/"+day;
         TextView textdate = getActivity().findViewById(R.id.TextDate);
         textdate.setText(date);
+
+
 
 
     }
