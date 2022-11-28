@@ -1,8 +1,9 @@
 package com.example.loginregister.home;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,7 +16,9 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,6 +27,7 @@ import com.example.loginregister.R;
 import com.example.loginregister.databinding.ActivityHomeBinding;
 import com.example.loginregister.datasets.ItemInCart;
 import com.example.loginregister.suggestion.CustomListSC;
+import com.example.loginregister.insert_food_DB;
 
 import java.util.List;
 
@@ -39,9 +43,13 @@ public class HomeActivity extends AppCompatActivity {
     private CustomListSC customListSC;
     private ListView lvShowChosen;
 
+    private static SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        db = new insert_food_DB(this, "editFoodDB", null, 6).getWritableDatabase();
 
         viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
 
@@ -54,7 +62,6 @@ public class HomeActivity extends AppCompatActivity {
         binding.pagerHome.setAdapter(pagerAdapter);
 
         binding.btnShoppingCart.setOnClickListener(listener);
-        binding.planList.setOnClickListener(listener2);
         binding.groupNav.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -90,11 +97,7 @@ public class HomeActivity extends AppCompatActivity {
                     binding.toolBar.setVisibility(View.VISIBLE);
                     binding.toolBarTitle.setText(title);
                 }
-                if (idx == 3) {
-                    binding.planList.setVisibility(View.VISIBLE);
-                } else {
-                    binding.planList.setVisibility(View.GONE);
-                }
+
                 if (idx == 2) {
                     binding.btnShoppingCart.setVisibility(View.VISIBLE);
                 } else {
@@ -155,12 +158,30 @@ public class HomeActivity extends AppCompatActivity {
             refreshCart();
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         public void onClick(View V){
             int id=V.getId();
             switch(id){
+                //購物車確認新增按鈕
                 case R.id.btn_add_items:
-                    //加入SQLlite
-                    //改資料庫rating
+
+                    viewModel.getChosenItems().getValue().forEach(item -> {
+                        //加入SQLlite
+                        db.execSQL("INSERT INTO myFoodTable(food_name, calorie, protein, fat, carbohydrate, quantity, image)" +
+                                " VALUES(\"" + item.foodInfo.title + "\"," + item.foodInfo.calories + "," + item.foodInfo.protein
+                                + "," + item.foodInfo.fat + "," + item.foodInfo.carbs + "," + item.quantity + ",\"" + item.foodInfo.image + "\")");
+
+                        //改資料庫rating
+                        new Thread(() -> {
+                            viewModel.getCon().updateRating(viewModel.getUserId(), item.foodInfo.food_id);
+                        }).start();
+
+                    });
+
+                    Toast.makeText(getApplicationContext(),"已新增至飲食紀錄",Toast.LENGTH_SHORT).show();
+
+                    //清空購物車
+
                     break;
             }
         }

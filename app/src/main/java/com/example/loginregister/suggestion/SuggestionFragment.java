@@ -92,6 +92,7 @@ public class SuggestionFragment extends Fragment {
             userData = viewModel.getCon().getUserData(uname);
             Log.v("OK", "使用者資料已回傳");
             Log.i("userData", userData.toString());
+            viewModel.setUserId(userData.user_id);
 
             DietStatus dietStatus = getInitialDietStatus(userData);
 

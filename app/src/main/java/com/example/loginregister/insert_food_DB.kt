@@ -2,16 +2,18 @@ package com.example.loginregister
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.loginregister.home.HomeActivity
+
 //自訂建構子並繼承 SQLiteOpenHelper 類別
 class insert_food_DB(
-    context: InsertFragment,
+    context: HomeActivity,
     name: String = database,
     factory: SQLiteDatabase.CursorFactory? = null,
     version: Int = v
-) : SQLiteOpenHelper(context.requireContext(), name, factory, version) {
+) : SQLiteOpenHelper(context, name, factory, version) {
     companion object {
         private const val database = "editFoodDB" //資料庫名稱
-        private const val v = 5 //資料庫版本
+        private const val v = 6 //資料庫版本
 
     }
     override fun onCreate(db: SQLiteDatabase) {

@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.loginregister.home.HomeActivity
 import com.google.android.material.textfield.TextInputEditText
 
 
@@ -49,7 +50,7 @@ class InsertFragment : Fragment() {
         btnDelete = view.findViewById(R.id.btn_delete);
 
         //取得資料庫實體
-        dbrw = insert_food_DB(this).writableDatabase
+        dbrw = insert_food_DB(this.requireContext() as HomeActivity).writableDatabase
         //宣告 Adapter 並連結 ListView ! 好用!
         adapter = ArrayAdapter(requireActivity(),
             android.R.layout.simple_list_item_1, items)

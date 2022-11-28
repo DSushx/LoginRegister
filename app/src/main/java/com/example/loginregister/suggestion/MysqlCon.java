@@ -16,7 +16,7 @@ import java.util.List;
 public class MysqlCon {
     String mysql_ip = "10.0.2.2";
     int mysql_port = 3306;
-    String db_name = "loginregister";
+    String db_name = "food_db";
     String url = "jdbc:mysql://" + mysql_ip + ":" + mysql_port + "/" + db_name;
     String db_user = "root";
     String db_password = "";
@@ -101,6 +101,19 @@ public class MysqlCon {
             e.printStackTrace();
         }
         return foodInfo;
+    }
+
+    public void updateRating(int userId, int foodId) {
+        try {
+            Connection con = DriverManager.getConnection(url, db_user, db_password);
+            String sql = "UPDATE food_rating SET rating = rating + 1 WHERE user_id = "
+                    + userId + "&& food_id = " + foodId;
+            Statement st = con.createStatement();
+            st.executeUpdate(sql);
+            Log.i("OK", "user_id = " + userId + ", food_id = " + foodId + " -> Rating updated. ");
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

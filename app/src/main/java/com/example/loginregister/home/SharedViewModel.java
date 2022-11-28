@@ -14,11 +14,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class SharedViewModel extends ViewModel {
+    private int userId;
+    public int getUserId() { return userId; }
+    public void setUserId(int id) { this.userId = id; }
+
     private MysqlCon con = new MysqlCon();
     public MysqlCon getCon() { return con; }
-//    public void setCon(MysqlCon con) {
-//        this.con = con;
-//    }
 
     private MutableLiveData<DietStatus> dietStatus = new MutableLiveData<>();
     public LiveData<DietStatus> getDietStatus() {
