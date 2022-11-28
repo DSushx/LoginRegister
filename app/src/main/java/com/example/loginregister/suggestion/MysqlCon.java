@@ -16,10 +16,10 @@ import java.util.List;
 public class MysqlCon {
     String mysql_ip = "10.0.2.2";
     int mysql_port = 3306;
-    String db_name = "food_db";
+    String db_name = "loginregister";
     String url = "jdbc:mysql://" + mysql_ip + ":" + mysql_port + "/" + db_name;
     String db_user = "root";
-    String db_password = "";
+    String db_password = "01234567";
 
     public void run() {
         try {
@@ -44,10 +44,13 @@ public class MysqlCon {
         try {
             Connection con = DriverManager.getConnection(url, db_user, db_password);
             String sql = "SELECT * FROM users WHERE `username` = \"" + uname + "\"";
+            String sql2 = "SELECT * FROM plan WHERE `uname` = \"" + uname + "\"";
             Statement st = con.createStatement();
+            Statement st2 = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
+            ResultSet rs2 = st2.executeQuery(sql2);
             rs.next();
-
+            rs2.next();
             userInfo.user_id = rs.getInt("id");
             userInfo.fullname = rs.getString("fullname");
             userInfo.username = rs.getString("username");
@@ -57,8 +60,11 @@ public class MysqlCon {
             userInfo.weight = rs.getInt("weight");
             userInfo.birthday = rs.getDate("birthday");
             userInfo.gender = rs.getString("gender");
+            userInfo.disease = rs2.getString("special_dis");
+            userInfo.nutrient = rs2.getString("nutrient");
 
             st.close();
+            st2.close();
         } catch(SQLException e) {
             e.printStackTrace();
         }

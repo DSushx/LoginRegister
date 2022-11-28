@@ -46,6 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_user"
+                android:singleLine="true"
                 android:drawableRight="@drawable/ic_user"
                 android:fontFamily="@font/poppinsmedium"
                 tools:targetApi="jelly_bean" />
@@ -65,6 +66,8 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:password="true"
                 android:drawableEnd="@drawable/ic_pass"
                 android:drawableRight="@drawable/ic_pass"
                 android:fontFamily="@font/poppinsmedium"

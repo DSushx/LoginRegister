@@ -40,7 +40,7 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="170"
+            tools:text="170"
             android:textColor="#020202"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -70,7 +70,7 @@
             android:layout_marginTop="12dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="60"
+            tools:text="60"
             android:textColor="#020202"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -103,7 +103,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:inputType="textPersonName"
-            android:text="2000-01-05"
+            tools:text="2000-01-05"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.689"
             app:layout_constraintStart_toStartOf="parent"
@@ -130,7 +130,7 @@
             android:layout_marginTop="68dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="JIM"
+            tools:text="JIM"
             android:textColor="#020202"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -153,6 +153,65 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.105"
             tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/editTextTextPersonName8"
+            android:layout_width="179dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            tools:text="糖尿病"
+            android:textColor="#020202"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.689"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="疾病"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.09"
+            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName8"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.433"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/editTextTextPersonName9"
+            android:layout_width="179dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            tools:text="自訂"
+            android:textColor="#020202"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.689"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="營養素"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.09"
+            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName9"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.52"
+            tools:ignore="MissingConstraints" />
 
         <ImageView
         android:id="@+id/imageView4"
@@ -168,75 +227,30 @@
         app:layout_constraintVertical_bias="0.175"
         tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="396dp"
-        android:layout_height="157dp"
-        android:src="@drawable/exercise"
-        app:layout_constraintBottom_toTopOf="@+id/radioGroup1"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4"
-        tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/Gender"
+        <Button
+            android:id="@+id/buttonlogout"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="運動量"
-            android:textColor="#050505"
-            android:textSize="20sp"
 
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="登出"
 
-            app:layout_constraintEnd_toStartOf="@+id/radioGroup1"
-            app:layout_constraintHorizontal_bias="0.641"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.742" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup1"
-            android:layout_width="264dp"
-            android:layout_height="32dp"
-
-            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-
-            app:layout_constraintHorizontal_bias="0.775"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.747">
+            app:layout_constraintVertical_bias="0.702" />
 
-            <RadioButton
-                android:id="@+id/rb11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="低度"
-                android:textSize="20dp"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <RadioButton
-                android:id="@+id/rb22"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:text="中度"
-                android:textSize="20dp" />
-
-            <RadioButton
-                android:id="@+id/rb33"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:text="高度"
-                android:textSize="20dp" />
-
-        </RadioGroup>
+        <ProgressBar
+            android:id="@+id/progressBarpro"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
     </ScrollView>

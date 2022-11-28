@@ -7,12 +7,19 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.loginregister.datasets.DietStatus;
 import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.ItemInCart;
+import com.example.loginregister.suggestion.MysqlCon;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class SharedViewModel extends ViewModel {
+    private MysqlCon con = new MysqlCon();
+    public MysqlCon getCon() { return con; }
+//    public void setCon(MysqlCon con) {
+//        this.con = con;
+//    }
+
     private MutableLiveData<DietStatus> dietStatus = new MutableLiveData<>();
     public LiveData<DietStatus> getDietStatus() {
         return dietStatus;

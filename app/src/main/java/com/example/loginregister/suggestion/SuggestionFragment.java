@@ -47,7 +47,6 @@ public class SuggestionFragment extends Fragment {
     TextView caloriesLimit, caloriesHad, proteinHad, carbsHad, fatHad, noResult;
     ProgressBar caloriesProgress, proteinProgress, carbsProgress, fatProgress;
     ListView lvShow;
-    MysqlCon con;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -85,13 +84,12 @@ public class SuggestionFragment extends Fragment {
 
         new Thread(() -> {
 
-            con = new MysqlCon();
-            con.run();
+            viewModel.getCon().run();
 
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
             String uname = pref.getString("username", null);
             Log.i("username", uname);
-            userData = con.getUserData(uname);
+            userData = viewModel.getCon().getUserData(uname);
             Log.v("OK", "使用者資料已回傳");
             Log.i("userData", userData.toString());
 
@@ -242,7 +240,7 @@ public class SuggestionFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         new Thread(() -> {
 
-            foodData = con.getFoodData(threshold);
+            foodData = viewModel.getCon().getFoodData(threshold);
             Log.v("OK", "食物資料已回傳");
             Log.i("foodData", foodData.toString());
 
