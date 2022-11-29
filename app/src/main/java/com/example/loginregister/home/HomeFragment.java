@@ -1,52 +1,64 @@
 package com.example.loginregister.home;
 
+import static com.example.loginregister.home.HomeActivity.GetHomeFood;
+
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
+;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.example.loginregister.R;
 import com.example.loginregister.datasets.FoodInfo;
+import com.example.loginregister.insert_food_DB;
+import com.example.loginregister.suggestion.CustomList;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class HomeFragment extends Fragment {
-    private SQLiteOpenHelper dbHelperSqlite;
+    Context mContext;
+    List<FoodInfo> foodData;
+    HomeList homeList;
+    ListView listView;
+    View mView;
 
     public HomeFragment() {
         super(R.layout.fragment_main);
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mView = view;
+        listView=view.findViewById(R.id.lv_home);
+        foodData =GetHomeFood();
+
+        homeList = new HomeList(mContext, this, foodData);
+        listView.setAdapter(homeList);
+
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
     }
 
-    public ArrayList<FoodInfo> query(String _id) {
 
-        ArrayList<FoodInfo> list = new ArrayList<FoodInfo>();
 
-        SQLiteDatabase db = dbHelperSqlite.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select food_name, calories, image from myFoodTable where date= date('now')", new String[]{_id});
-        if (cursor != null && cursor.getCount() > 0) {
-//判断cursor中是否存在数据
-            while (cursor.moveToNext()) {
-                FoodInfo bean = new FoodInfo();
-                bean.food_id = cursor.getInt(0);
-                bean.calories = cursor.getInt(1);
-                bean.image = cursor.getString(2);
-                list.add(bean);
-                System.out.println("_id:" + bean.food_id + "; name: " + bean.calories + "; humi: " + bean.image);
-            }
-            cursor.close();
-        }
-        db.close();
-        return list;
-    }
+
 }
+
+
+
+
+

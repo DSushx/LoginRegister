@@ -6,7 +6,7 @@ import com.example.loginregister.home.HomeActivity
 
 //自訂建構子並繼承 SQLiteOpenHelper 類別
 class insert_food_DB(
-    context: HomeActivity,
+    context: Context,
     name: String = database,
     factory: SQLiteDatabase.CursorFactory? = null,
     version: Int = v
@@ -26,4 +26,5 @@ class insert_food_DB(
         db.execSQL("DROP TABLE IF EXISTS myFoodTable")
         onCreate(db)
     }
+
 }

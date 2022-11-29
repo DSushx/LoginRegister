@@ -1,6 +1,8 @@
 package com.example.loginregister.home;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -25,10 +27,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.loginregister.R;
 import com.example.loginregister.databinding.ActivityHomeBinding;
+import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.ItemInCart;
 import com.example.loginregister.suggestion.CustomListSC;
 import com.example.loginregister.insert_food_DB;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -44,23 +48,24 @@ public class HomeActivity extends AppCompatActivity {
     private ListView lvShowChosen;
 
     private static SQLiteDatabase db;
+    private static SQLiteDatabase dbread;
 
+    ////////////
+
+    /////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        ///////
+        ////////////////
         db = new insert_food_DB(this, "editFoodDB", null, 6).getWritableDatabase();
-
+        dbread = new insert_food_DB(this, "editFoodDB", null, 6).getWritableDatabase();
         viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
-
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
         binding.pagerHome.setUserInputEnabled(false);
-
         binding.pagerHome.setAdapter(pagerAdapter);
-
         binding.btnShoppingCart.setOnClickListener(listener);
         binding.groupNav.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -200,5 +205,26 @@ public class HomeActivity extends AppCompatActivity {
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
+
     }
+    public static ArrayList<FoodInfo> GetHomeFood() {
+
+        ArrayList<FoodInfo> list = new ArrayList<FoodInfo>();
+
+        Cursor cursor = dbread.rawQuery("select * from myFoodTable", null);
+        if (cursor != null && cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                FoodInfo bean = new FoodInfo();
+                bean.title = cursor.getString(0);
+                bean.calories = cursor.getInt(1);
+                bean.image = cursor.getString(7);
+                list.add(bean);
+            }
+            cursor.close();
+        }
+        dbread.close();
+        return list;
+    }
+
+
 }

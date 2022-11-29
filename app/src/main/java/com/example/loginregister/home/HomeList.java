@@ -25,6 +25,7 @@ public class HomeList extends BaseAdapter {
         mFragment = f;
         this.foodInfo = foodInfo;
     }
+
     @Override
     public int getCount() {
         return foodInfo.size();
@@ -69,6 +70,6 @@ public class HomeList extends BaseAdapter {
         } else {
             hmeFoodPhoto.setImageResource(R.drawable.img_food);
         }
-        return null;
+        return list;
     }
 }
