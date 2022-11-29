@@ -106,8 +106,9 @@ public class MysqlCon {
     public void updateRating(int userId, int foodId) {
         try {
             Connection con = DriverManager.getConnection(url, db_user, db_password);
-            String sql = "UPDATE food_rating SET rating = rating + 1 WHERE user_id = "
-                    + userId + "&& food_id = " + foodId;
+
+            String sql = "INSERT INTO food_rating(user_id, food_id, rating) VALUES (" +
+                    userId + "," + foodId + ",1) ON DUPLICATE KEY UPDATE rating = rating + 1";
             Statement st = con.createStatement();
             st.executeUpdate(sql);
             Log.i("OK", "user_id = " + userId + ", food_id = " + foodId + " -> Rating updated. ");
