@@ -1,7 +1,9 @@
 package com.example.loginregister.home;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
@@ -27,12 +29,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.loginregister.R;
 import com.example.loginregister.databinding.ActivityHomeBinding;
-import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.ItemInCart;
 import com.example.loginregister.suggestion.CustomListSC;
 import com.example.loginregister.insert_food_DB;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -50,22 +50,22 @@ public class HomeActivity extends AppCompatActivity {
     private static SQLiteDatabase db;
     private static SQLiteDatabase dbread;
 
-    ////////////
-
-    /////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ///////
-        ////////////////
+
         db = new insert_food_DB(this, "editFoodDB", null, 6).getWritableDatabase();
         dbread = new insert_food_DB(this, "editFoodDB", null, 6).getWritableDatabase();
         viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
         binding.pagerHome.setUserInputEnabled(false);
+
         binding.pagerHome.setAdapter(pagerAdapter);
+
         binding.btnShoppingCart.setOnClickListener(listener);
         binding.groupNav.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -169,23 +169,39 @@ public class HomeActivity extends AppCompatActivity {
             switch(id){
                 //購物車確認新增按鈕
                 case R.id.btn_add_items:
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeActivity.this);
+                    alertDialog.setTitle("新增至飲食紀錄");
+                    alertDialog.setMessage("確定新增?");
+                    alertDialog.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            viewModel.getChosenItems().getValue().forEach(item -> {
+                                //加入SQLlite
+                                db.execSQL("INSERT INTO myFoodTable(food_name, calorie, protein, fat, carbohydrate, quantity, image)" +
+                                        " VALUES(\"" + item.foodInfo.title + "\"," + item.foodInfo.calories + "," + item.foodInfo.protein
+                                        + "," + item.foodInfo.fat + "," + item.foodInfo.carbs + "," + item.quantity + ",\"" + item.foodInfo.image + "\")");
 
-                    viewModel.getChosenItems().getValue().forEach(item -> {
-                        //加入SQLlite
-                        db.execSQL("INSERT INTO myFoodTable(food_name, calorie, protein, fat, carbohydrate, quantity, image)" +
-                                " VALUES(\"" + item.foodInfo.title + "\"," + item.foodInfo.calories + "," + item.foodInfo.protein
-                                + "," + item.foodInfo.fat + "," + item.foodInfo.carbs + "," + item.quantity + ",\"" + item.foodInfo.image + "\")");
+                                //改資料庫rating
+                                new Thread(() -> {
+                                    viewModel.getCon().updateRating(viewModel.getUserId(), item.foodInfo.food_id);
+                                }).start();
 
-                        //改資料庫rating
-                        new Thread(() -> {
-                            viewModel.getCon().updateRating(viewModel.getUserId(), item.foodInfo.food_id);
-                        }).start();
+                            });
 
+                            //清空購物車
+                            viewModel.emptyCart();
+                            //清除狀態
+                            viewModel.emptyStatus();
+
+                            Toast.makeText(HomeActivity.this,"已新增至飲食紀錄",Toast.LENGTH_SHORT).show();
+                            dismiss();
+                        }
                     });
-
-                    Toast.makeText(getApplicationContext(),"已新增至飲食紀錄",Toast.LENGTH_SHORT).show();
-
-                    //清空購物車
+                    alertDialog.setNegativeButton("取消",(dialog, which) -> {
+                        return;
+                    });
+                    alertDialog.setCancelable(false);
+                    alertDialog.show();
 
                     break;
             }
@@ -205,7 +221,6 @@ public class HomeActivity extends AppCompatActivity {
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
-
     }
     public static ArrayList<FoodInfo> GetHomeFood() {
 

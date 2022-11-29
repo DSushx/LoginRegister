@@ -57,13 +57,14 @@ public class SuggestionFragment extends Fragment {
         final Observer<DietStatus> statusObserver = new Observer<DietStatus>() {
             @Override
             public void onChanged(DietStatus dietStatus) {
-                // Update the UI, in this case, a TextView.
+                // Update the UI.
                 update();
                 Log.i("dietStatus", viewModel.getDietStatus().getValue().toString());
             }
         };
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         viewModel.getDietStatus().observe(getViewLifecycleOwner(), statusObserver);
+
 
         mView = view;
 

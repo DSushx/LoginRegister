@@ -10,7 +10,6 @@ import com.example.loginregister.datasets.ItemInCart;
 import com.example.loginregister.suggestion.MysqlCon;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class SharedViewModel extends ViewModel {
@@ -53,12 +52,17 @@ public class SharedViewModel extends ViewModel {
         dietStatus.setValue(status);
     }
 
-    public double oneDecimal(double num) {
-        return Math.round(num * 10.0) / 10.0;
+    public void emptyStatus() {
+        DietStatus status = dietStatus.getValue();
+        status.CaloriesAchieved = 0;
+        status.ProteinAchieved = 0;
+        status.CarbsAchieved = 0;
+        status.FatAchieved = 0;
+        dietStatus.setValue(status);
     }
 
-    public void setChosenItems(List<ItemInCart> chosenItems) {
-        this.chosenItems.setValue(chosenItems);
+    public double oneDecimal(double num) {
+        return Math.round(num * 10.0) / 10.0;
     }
 
     public void addToCart(ItemInCart item) {
@@ -81,5 +85,10 @@ public class SharedViewModel extends ViewModel {
         theItem.minusOne();
         itemList.set(index, theItem);
         chosenItems.setValue(itemList);
+    }
+
+    public void emptyCart() {
+        List<ItemInCart> emptyList = new ArrayList<>();
+        chosenItems.setValue(emptyList);
     }
 }
