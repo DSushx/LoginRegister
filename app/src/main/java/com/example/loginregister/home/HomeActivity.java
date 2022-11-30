@@ -240,7 +240,7 @@ public class HomeActivity extends AppCompatActivity {
             }
             cursor.close();
         }
-        dbread.close();
+        //dbread.close();
         return list;
     }
 
