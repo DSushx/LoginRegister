@@ -29,10 +29,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.loginregister.R;
 import com.example.loginregister.databinding.ActivityHomeBinding;
+import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.ItemInCart;
 import com.example.loginregister.suggestion.CustomListSC;
 import com.example.loginregister.insert_food_DB;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -222,11 +224,12 @@ public class HomeActivity extends AppCompatActivity {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
+
     public static ArrayList<FoodInfo> GetHomeFood() {
 
         ArrayList<FoodInfo> list = new ArrayList<FoodInfo>();
 
-        Cursor cursor = dbread.rawQuery("select * from myFoodTable", null);
+        Cursor cursor = dbread.rawQuery("select * from myFoodTable ", null);
         if (cursor != null && cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
                 FoodInfo bean = new FoodInfo();

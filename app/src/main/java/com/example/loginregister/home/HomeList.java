@@ -17,12 +17,11 @@ import java.util.List;
 
 public class HomeList extends BaseAdapter {
     private Context mContext;
-    private HomeFragment mFragment;
     private List<FoodInfo> foodInfo;
 
-    public HomeList(Context c, HomeFragment f, List<FoodInfo> foodInfo) {
+    public HomeList(Context c, List<FoodInfo> foodInfo) {
         mContext = c;
-        mFragment = f;
+
         this.foodInfo = foodInfo;
     }
 
@@ -59,9 +58,9 @@ public class HomeList extends BaseAdapter {
 
         hmeFoodName.setSelected(true);
         hmeFoodName.setText(foodInfo.get(i).title);
-
-        hmeKcalContent.setText(String.format("%s kcal", (int)foodInfo.get(i).calories));
+        hmeKcalContent.setText(String.format("%s", (int)foodInfo.get(i).calories));
         int resID;
+
         if (foodInfo.get(i).image != null) {
             resID = mContext.getResources().getIdentifier(foodInfo.get(i).image, "drawable", mContext.getPackageName());
             if (resID != 0) {

@@ -35,7 +35,6 @@ public class HomeFragment extends Fragment {
         super(R.layout.fragment_main);
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -43,19 +42,14 @@ public class HomeFragment extends Fragment {
         listView=view.findViewById(R.id.lv_home);
         foodData =GetHomeFood();
 
-        homeList = new HomeList(mContext, this, foodData);
+        homeList = new HomeList(mContext,  foodData);
         listView.setAdapter(homeList);
-
     }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
     }
-
-
-
-
 }
 
 
