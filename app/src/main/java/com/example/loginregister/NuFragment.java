@@ -23,7 +23,14 @@ import com.vishnusivadas.advanced_httpurlconnection.PutData;
 public class NuFragment extends Fragment {
     Button nusave,back;
     TextInputEditText nu_kcal,nu_pro,nu_fat,nu_car,nu_sugar,nu_sod;
-
+    private void cleanEditText() {
+        nu_kcal.setText("");
+        nu_pro.setText("");
+        nu_fat.setText("");
+        nu_car.setText("");
+        nu_sugar.setText("");
+        nu_sod.setText("");
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,18 +101,16 @@ public class NuFragment extends Fragment {
                                 if (putData.onComplete()) {
 
                                     String result = putData.getResult();
-                                    if (result.equals("Success")){
+                                    if (result.equals("Success!")){
                                         Toast.makeText(getActivity(),result,Toast.LENGTH_SHORT).show();
-                                        //Intent intent = new Intent(getActivity(),NuFragment.class);
-                                        //startActivity(intent);
 
 
                                     }
                                     else{
-                                        //Toast.makeText(getActivity(),result,Toast.LENGTH_SHORT).show();
 
                                     }
                                     Log.i("PutData", result);
+                                    cleanEditText();
                                 }
                             }
                             //End Write and Read data with URL
@@ -117,7 +122,7 @@ public class NuFragment extends Fragment {
                 else {
 
                     Toast.makeText(getActivity(),"All fields required",Toast.LENGTH_SHORT).show();
-
+                    cleanEditText();
                 }
             }
         });
