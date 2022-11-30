@@ -34,27 +34,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/editTextTextPersonName5"
-            android:layout_width="179dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            tools:text="170"
-            android:textColor="#020202"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.689"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
             android:id="@+id/textView6"
             android:layout_width="42dp"
             android:layout_height="20dp"
             android:text="身高"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.133"
@@ -64,27 +48,11 @@
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/editTextTextPersonName4"
-            android:layout_width="179dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            tools:text="60"
-            android:textColor="#020202"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.689"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="體重"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.09"
@@ -94,27 +62,11 @@
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/editTextTextPersonName3"
-            android:layout_width="179dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:textColor="#020202"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:inputType="textPersonName"
-            tools:text="2000-01-05"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.689"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="生日"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.09"
@@ -130,15 +82,100 @@
             android:layout_marginTop="68dp"
             android:ems="10"
             android:inputType="textPersonName"
-            tools:text="JIM"
             android:textColor="#020202"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.689"
+            app:layout_constraintHorizontal_bias="0.706"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            tools:text="JIM" />
+
+        <TextView
+            android:id="@+id/editTextTextPersonName3"
+            android:layout_width="179dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="#020202"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.706"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+            tools:ignore="MissingConstraints"
+            tools:text="2000-01-05" />
+
+        <TextView
+            android:id="@+id/editTextTextPersonName5"
+            android:layout_width="179dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="#020202"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.706"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3"
+            tools:ignore="MissingConstraints"
+            tools:text="170" />
+
+        <TextView
+            android:id="@+id/editTextTextPersonName4"
+            android:layout_width="179dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="#020202"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.706"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5"
+            tools:ignore="MissingConstraints"
+            tools:text="60" />
+
+        <TextView
+            android:id="@+id/editTextTextPersonName8"
+            android:layout_width="179dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="#020202"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.706"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4"
+            tools:ignore="MissingConstraints"
+            tools:text="糖尿病" />
+
+        <TextView
+            android:id="@+id/editTextTextPersonName9"
+            android:layout_width="179dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="#020202"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.706"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8"
+            tools:ignore="MissingConstraints"
+            tools:text="自訂" />
 
         <TextView
             android:id="@+id/textView2"
@@ -149,25 +186,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
+            android:visibility="invisible"
             app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.105"
-            tools:ignore="MissingConstraints" />
-        <TextView
-            android:id="@+id/editTextTextPersonName8"
-            android:layout_width="179dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            tools:text="糖尿病"
-            android:textColor="#020202"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.689"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -175,6 +197,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="疾病"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.09"
@@ -184,27 +207,11 @@
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/editTextTextPersonName9"
-            android:layout_width="179dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            tools:text="自訂"
-            android:textColor="#020202"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.689"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="營養素"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.09"
@@ -214,27 +221,26 @@
             tools:ignore="MissingConstraints" />
 
         <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="134dp"
-        android:layout_height="194dp"
-        android:src="@drawable/ic_peo"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.057"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.175"
-        tools:ignore="MissingConstraints" />
+            android:id="@+id/imageView4"
+            android:layout_width="134dp"
+            android:layout_height="194dp"
+            android:src="@drawable/ic_peo"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.057"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.162"
+            tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/buttonlogout"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="登出"
-
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -242,6 +248,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.702" />
 
+        <ProgressBar
+            android:id="@+id/progressBarpro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.392" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

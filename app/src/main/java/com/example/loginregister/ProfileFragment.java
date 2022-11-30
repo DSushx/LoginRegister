@@ -18,12 +18,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.loginregister.datasets.UserInfo;
 import com.example.loginregister.home.SharedViewModel;
+import com.example.loginregister.suggestion.CustomList;
 import com.example.loginregister.suggestion.MysqlCon;
 
 /**
@@ -37,10 +39,13 @@ public class ProfileFragment extends Fragment {
     MysqlCon con;
     String ubirthday,disease,nutrient;
     Integer uheight,uweight;
-    TextView name,birthday,height,weight,dis,nu;
+    TextView name,birthday,height,weight,dis,nu,n,b,hh,ww,d,we;
     Button logout;
-    //ProgressBar progressBar;
+    ImageView profile;
+    View mView;
+    ProgressBar progressBar;
     @Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -49,7 +54,16 @@ public class ProfileFragment extends Fragment {
         viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
         String uname = pref.getString("username", null);
-
+        profile=(ImageView)view.findViewById(R.id.imageView4);
+        progressBar = view.findViewById(R.id.progressBarpro);
+        n =view.findViewById(R.id.textView5);
+        b =view.findViewById(R.id.textView2);
+        hh =view.findViewById(R.id.textView6);
+        ww =view.findViewById(R.id.textView7);
+        d =view.findViewById(R.id.textView8);
+        we =view.findViewById(R.id.textView9);
+        progressBar.setVisibility(View.VISIBLE);
+        mView = view;
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +99,18 @@ public class ProfileFragment extends Fragment {
             weight.setText(w);
             dis.setText(disease);
             nu.setText(nutrient);
+
+            mView.post(() -> {
+                profile.setVisibility(View.VISIBLE);
+                n.setVisibility(View.VISIBLE);
+                b.setVisibility(View.VISIBLE);
+                hh.setVisibility(View.VISIBLE);
+                ww.setVisibility(View.VISIBLE);
+                d.setVisibility(View.VISIBLE);
+                we.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
+                logout.setVisibility(View.VISIBLE);
+            });
         }).start();
 
 
