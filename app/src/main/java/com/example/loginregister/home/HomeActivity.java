@@ -226,7 +226,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public static ArrayList<FoodInfo> GetHomeFood() {
-
+//你有看到嗎？
         ArrayList<FoodInfo> list = new ArrayList<FoodInfo>();
 
         Cursor cursor = dbread.rawQuery("select * from myFoodTable ", null);
