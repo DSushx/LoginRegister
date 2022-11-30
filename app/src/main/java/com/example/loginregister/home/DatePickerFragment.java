@@ -60,12 +60,14 @@ public class DatePickerFragment extends DialogFragment
         textdate.setText(datestring);
         dbread = new insert_food_DB(getActivity(), "editFoodDB", null, 6).getWritableDatabase();
 
-        Cursor cursor = dbread.rawQuery("select * from myFoodTable", null);
+
+        Cursor cursor = dbread.rawQuery("select * from myFoodTable where date='"+datestring+"'", null);
 
         TextView fat = getActivity().findViewById(R.id.fatnum);
         TextView protein = getActivity().findViewById(R.id.pornum);
         TextView carb = getActivity().findViewById(R.id.carbnum);
         TextView kal = getActivity().findViewById(R.id.kcal);
+
         int total_fat=0;
         int total_pro=0;
         int total_carb=0;
