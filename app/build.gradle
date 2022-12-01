@@ -24,6 +24,7 @@ android {
                 install "pandas"
                 install "numpy"
                 install "scikit-learn"
+                install "pymysql"
 
 
             }
