@@ -26,13 +26,16 @@ import com.example.loginregister.R;
 import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.insert_food_DB;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
+    private Calendar c = Calendar.getInstance();
     private static SQLiteDatabase dbread;
 
     @Override
@@ -54,15 +57,26 @@ public class DatePickerFragment extends DialogFragment
     @SuppressLint("RestrictedApi")
     public void onDateSet(DatePicker view, int year, int month, int day) {
         // Do something with the date chosen by the user
-        month+=1;
+
         Log.d(TAG,"onDataSet : yyyy/mm/dd: " + year + "/"+month+"/"+day );
-        String datestring = year + "-"+month+"-"+day;
-        TextView textdate = getActivity().findViewById(R.id.TextDate);
-        textdate.setText(datestring);
+       // String datestring = year + "-"+month+"-"+day;
+
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH , month);
+        c.set(Calendar.DAY_OF_MONTH, day);
+
+        TextView edit_date = getActivity().findViewById(R.id.TextDate);
+
+        String myFormat = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.TAIWAN);
+        edit_date.setText(sdf.format(c.getTime()));
+
+
+
         dbread = new insert_food_DB(getActivity(), "editFoodDB", null, 6).getWritableDatabase();
 
 
-        Cursor cursor = dbread.rawQuery("select * from myFoodTable where date='"+datestring+"'", null);
+        Cursor cursor = dbread.rawQuery("select * from myFoodTable where date='"+sdf.format(c.getTime())+"' ", null);
 
         TextView fat = getActivity().findViewById(R.id.fatnum);
         TextView protein = getActivity().findViewById(R.id.pornum);

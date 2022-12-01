@@ -5,6 +5,7 @@ import static com.example.loginregister.home.HomeActivity.GetHomeFood;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.loginregister.R;
@@ -21,6 +23,8 @@ import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.insert_food_DB;
 import com.example.loginregister.suggestion.CustomList;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,6 +44,7 @@ public class HomeFragment extends Fragment {
         super(R.layout.fragment_main);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -49,13 +54,16 @@ public class HomeFragment extends Fragment {
         homeList = new HomeList(mContext,  foodData);
         listView.setAdapter(homeList);
         dbread = new insert_food_DB(mContext, "editFoodDB", null, 6).getWritableDatabase();
-        Date currentTime = Calendar.getInstance().getTime();
+        //Date currentTime = Calendar.getInstance().getTime();
+        Date date_of_today = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String stringDate= format.format(date_of_today);
 
         TextView textdate = view.findViewById(R.id.TextDate);
-        String date= String.valueOf(currentTime);
-        textdate.setText(date);
 
-        Cursor cursor = dbread.rawQuery("select * from myFoodTable'"+currentTime+"'", null);
+        textdate.setText(stringDate);
+
+        Cursor cursor = dbread.rawQuery("select * from myFoodTable where date='"+stringDate+"'", null);
 
         TextView fat = view.findViewById(R.id.fatnum);
         TextView protein = view.findViewById(R.id.pornum);
