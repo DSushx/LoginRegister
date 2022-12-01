@@ -9,6 +9,7 @@
         <entry key="..\:/Users/Bubu/AndroidStudioProjects/LoginRegister_new/app/src/main/res/layout/fragment_plan.xml" value="0.1" />
         <entry key="..\:/Users/Bubu/AndroidStudioProjects/LoginRegister_new/app/src/main/res/layout/fragment_suggest_food.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/Bubu/AndroidStudioProjects/LoginRegister_new/app/src/main/res/layout/item_suggest_food.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/drawable/rectangle_gray_stroke.xml" value="0.2125" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/____.xml" value="0.12335359675785208" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/activity_home.xml" value="0.19972826086956522" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/activity_login.xml" value="0.2" />
@@ -25,10 +26,12 @@
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/activity_test2.xml" value="0.2513586956521739" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/fragment_blank.xml" value="0.2513586956521739" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/fragment_first.xml" value="0.15989583333333332" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/fragment_insert.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/fragment_main.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/fragment_nu.xml" value="0.2" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/fragment_pastplan.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/fragment_plan.xml" value="0.264" />
-        <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/fragment_profilee.xml" value="0.2390625" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/fragment_second.xml" value="0.2513586956521739" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/fragment_suggest_food.xml" value="0.19972826086956522" />
@@ -40,6 +43,8 @@
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/item_suggest_food.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/item_suggest_food_new.xml" value="0.1" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/item_tool_bar.xml" value="0.12335359675785208" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/layout.xml" value="0.2390625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/nowplan.xml" value="0.264" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginRegister/app/src/main/res/layout/popup_shopping_cart.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/annya/AndroidStudioProjects/LoginRegister/app/src/main/res/drawable/ic_arrow_back.xml" value="0.2205" />
         <entry key="..\:/Users/annya/AndroidStudioProjects/LoginRegister/app/src/main/res/drawable/rectangle_gray.xml" value="0.2205" />

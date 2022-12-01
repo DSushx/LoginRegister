@@ -3,6 +3,7 @@ package com.example.loginregister.suggestion;
 import android.util.Log;
 
 import com.example.loginregister.datasets.FoodInfo;
+import com.example.loginregister.datasets.PlanInfo;
 import com.example.loginregister.datasets.UserInfo;
 
 import java.sql.Connection;
@@ -16,10 +17,10 @@ import java.util.List;
 public class MysqlCon {
     String mysql_ip = "10.0.2.2";
     int mysql_port = 3306;
-    String db_name = "food_db";
+    String db_name = "loginregister";
     String url = "jdbc:mysql://" + mysql_ip + ":" + mysql_port + "/" + db_name;
     String db_user = "root";
-    String db_password = "";
+    String db_password = "01234567";
 
     public void run() {
         try {
@@ -102,7 +103,29 @@ public class MysqlCon {
         }
         return foodInfo;
     }
+    public List<PlanInfo> getPlanData(String uname) {
+        List<PlanInfo> planInfo = new ArrayList<>();
+        try {
+            Connection con = DriverManager.getConnection(url, db_user, db_password);
+            String sql = "SELECT * FROM plan WHERE `uname` = \"" + uname + "\"";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
 
+            while (rs.next()) {
+                PlanInfo presult = new PlanInfo();
+                presult.enddate = rs.getString("end_date");
+                presult.startdate = rs.getString("startdate");
+                presult.plan_weight = rs.getDouble("plan_weight");
+                presult.plan_weightnow = rs.getDouble("plan_weightnow");
+                presult.final_weight = rs.getDouble("final_weight");
+                planInfo.add(presult);
+            }
+            st.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return planInfo;
+    }
     public void updateRating(int userId, int foodId) {
         try {
             Connection con = DriverManager.getConnection(url, db_user, db_password);

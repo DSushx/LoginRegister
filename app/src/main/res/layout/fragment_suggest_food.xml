@@ -100,8 +100,8 @@
                 android:layout_marginStart="150dp"
                 android:layout_marginTop="12dp"
                 android:max="100"
-                tools:progress="50"
-                android:progressDrawable="@drawable/progressbar_green" />
+                android:progressDrawable="@drawable/progressbar_green"
+                tools:progress="50" />
 
             <ProgressBar
                 android:id="@+id/carbsProgress"

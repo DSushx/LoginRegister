@@ -3,14 +3,16 @@ package com.example.loginregister.home;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.loginregister.InsertFragment;
-import com.example.loginregister.ProfileFragment;
 import com.example.loginregister.PlanFragment;
+import com.example.loginregister.ProfileFragment;
+import com.example.loginregister.R;
 import com.example.loginregister.suggestion.SuggestionFragment;
 
-//import com.example.loginregister.profile2.userprofilefragment;
+
 
 public class HomePager extends FragmentStateAdapter {
     public HomePager(FragmentActivity fragmentActivity) {
@@ -24,6 +26,7 @@ public class HomePager extends FragmentStateAdapter {
 
     @NonNull
     @Override
+
     public Fragment createFragment(int position) {
         Fragment fragment;
         switch(position) {
@@ -34,6 +37,7 @@ public class HomePager extends FragmentStateAdapter {
                 fragment = new SuggestionFragment();
                 break;
             case 3:
+
                 fragment = new PlanFragment();
                 break;
             case 4:
@@ -45,4 +49,6 @@ public class HomePager extends FragmentStateAdapter {
         }
         return fragment;
     }
+
+
 }
