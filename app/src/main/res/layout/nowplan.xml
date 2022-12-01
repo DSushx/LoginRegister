@@ -6,42 +6,6 @@
     android:gravity="center" >
 
 
-    <RelativeLayout
-        android:id="@+id/btn_add_to_cart"
-        android:layout_marginTop="13dp"
-        android:layout_marginStart="305dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
-
-        <View
-            android:layout_width="46.5dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:background="@drawable/rectangle_yellow" />
-
-        <ImageView
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_centerInParent="true"
-            android:contentDescription="plus_sign"
-            android:src="@drawable/ic_plus" />
-
-    </RelativeLayout>
-
-<!--    <TextView android:id="@+id/tv_price"-->
-<!--        android:textStyle="bold"-->
-<!--        android:layout_gravity="center_horizontal|center"-->
-<!--        android:gravity="center"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textColor="@color/gray_676565"-->
-<!--        android:layout_marginStart="2dp"-->
-<!--        android:layout_marginTop="88dp"-->
-<!--        android:layout_width="88dp"-->
-<!--        android:layout_height="25dp"-->
-<!--        tools:text="@string/price_28"-->
-<!--        />-->
 
 
     <RelativeLayout
@@ -59,10 +23,10 @@
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/protein"
+            android:text="初始體重"
             />
 
-        <TextView android:id="@+id/tv_protein_content"
+        <TextView android:id="@+id/np_weightnow"
             android:textStyle="bold|italic"
             android:layout_gravity="center_horizontal|center"
             android:gravity="center"
@@ -71,7 +35,7 @@
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="@string/gram_4"
+            tools:text="50kg"
             />
 
         <ImageView
@@ -100,10 +64,10 @@
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/carbs"
+            android:text="目標體重"
             />
 
-        <TextView android:id="@+id/tv_carbs_content"
+        <TextView android:id="@+id/np_weight"
             android:textStyle="bold|italic"
             android:layout_gravity="center_horizontal|center"
             android:gravity="center"
@@ -112,16 +76,16 @@
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/gram_40"
+            android:text="100kg"
             />
 
         <ImageView
-            android:src="@drawable/rectangle_orange_trans"
-            android:contentDescription="carbs_background_rectangle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:contentDescription="carbs_background_rectangle"
+            android:src="@drawable/rectangle_orange_trans" />
 
     </RelativeLayout>
 
@@ -141,10 +105,10 @@
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/fat"
+            android:text="最終體重"
             />
 
-        <TextView android:id="@+id/tv_fat_content"
+        <TextView android:id="@+id/np_finalweight"
             android:textStyle="bold|italic"
             android:layout_gravity="center_horizontal|center"
             android:gravity="center"
@@ -153,7 +117,7 @@
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="@string/gram_3"
+            tools:text="60kg"
             />
 
         <ImageView
@@ -167,7 +131,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_kcal_content"
+        android:id="@+id/nowplandate"
         android:textStyle="bold"
         android:textSize="18sp"
         android:textColor="@color/gray_6c6c6c"
@@ -175,11 +139,31 @@
         android:layout_marginTop="37dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="@string/kcal_213"
+        tools:text="2022-02-11"
         />
+    <TextView
+        android:id="@+id/nowplandate1.5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="223dp"
+        android:layout_marginTop="37dp"
+        android:textColor="@color/gray_6c6c6c"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="~" />
+    <TextView
+        android:id="@+id/nowplandate2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="37dp"
+        android:textColor="@color/gray_6c6c6c"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="2022-05-11" />
 
     <TextView
-        android:id="@+id/tv_food_name"
+        android:id="@+id/plan_name"
         android:textSize="18sp"
         android:textColor="@color/black"
         android:layout_marginStart="110dp"
@@ -192,9 +176,24 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:freezesText="true"
-        tools:text="@string/meat_floss_onigiri"
+        tools:text="完成率"
         />
-
+    <TextView
+        android:id="@+id/plan_ratio"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:freezesText="true"
+        tools:text="20%"
+        />
     <View
         android:layout_width="370dp"
         android:layout_height="140dp"
@@ -203,12 +202,12 @@
         android:background="@drawable/rectangle_gray_stroke" />
 
     <ImageView
-        android:id="@+id/iv_food_photo"
+        android:id="@+id/plan_photo"
         android:layout_width="95dp"
         android:layout_height="120dp"
         android:layout_centerVertical="true"
         android:layout_marginStart="7dp"
         android:contentDescription="photo_of_the_food"
-        android:src="@drawable/img_food" />
+        android:src="@drawable/ic_peo" />
 
 </RelativeLayout>

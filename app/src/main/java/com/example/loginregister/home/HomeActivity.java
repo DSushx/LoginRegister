@@ -25,12 +25,15 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.loginregister.R;
 import com.example.loginregister.databinding.ActivityHomeBinding;
 import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.ItemInCart;
+import com.example.loginregister.plan.pastplanFragment;
 import com.example.loginregister.suggestion.CustomListSC;
 import com.example.loginregister.insert_food_DB;
 
@@ -51,7 +54,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private static SQLiteDatabase db;
     private static SQLiteDatabase dbread;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,9 +71,11 @@ public class HomeActivity extends AppCompatActivity {
         binding.pagerHome.setAdapter(pagerAdapter);
 
         binding.btnShoppingCart.setOnClickListener(listener);
+        binding.planList.setOnClickListener(listener2);
         binding.groupNav.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+
                 int idx;
                 String title = "";
                 switch(checkedId) {
@@ -110,17 +114,25 @@ public class HomeActivity extends AppCompatActivity {
                 } else {
                     binding.btnShoppingCart.setVisibility(View.GONE);
                 }
+                if (idx == 3) {
+                    binding.planList.setVisibility(View.VISIBLE);
+                } else {
+                    binding.planList.setVisibility(View.GONE);
+                }
             }
         });
     }
     Button.OnClickListener listener2= new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
-            popupWindow popupWindow = new popupWindow(HomeActivity.this);
-            View view = LayoutInflater.from(HomeActivity.this).inflate(R.layout.popup_shopping_cart, null);
-            popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+            Fragment secondfrag = new pastplanFragment();
+            FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
+            fm.replace(R.id.container,secondfrag).commit();
+
         }
+
     };
+
     Button.OnClickListener listener= new Button.OnClickListener() {
         @Override
         public void onClick(View v) {

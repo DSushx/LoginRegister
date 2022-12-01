@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container2"
+    android:background="@color/white"
+    tools:context=".plan.pastplanFragment"
+    >
+
+    <RelativeLayout
+        android:id="@+id/pastplanlayout"
+        android:layout_width="413dp"
+        android:layout_height="299dp"
+        android:gravity="center"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-2dp">
+
+        <View
+            android:layout_width="370dp"
+            android:layout_height="140dp"
+
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="58dp"
+            android:layout_marginEnd="23dp"
+            android:background="@drawable/rectangle_gray_stroke"
+            android:gravity="center_horizontal" />
+
+        <Button
+            android:id="@+id/pastplanback"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="207dp"
+            android:layout_height="57dp"
+
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="101dp"
+            android:layout_marginTop="221dp"
+            android:layout_marginEnd="91dp"
+            android:background="#9F000000"
+            android:text="返回" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="416dp"
+        android:layout_height="416dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBarpastplan"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="-2dp"
+        tools:ignore="MissingConstraints">
+        <ListView
+            android:id="@+id/pastplan_show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="#00000000"
+            android:dividerHeight="10dp"/>
+        <TextView
+            android:id="@+id/pastplan_no_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="無過往計畫"
+            android:textSize="18dp"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarpastplan"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

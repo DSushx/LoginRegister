@@ -38,6 +38,8 @@ public class PlanFragment extends Fragment {
     RadioButton plan_selectedRadioButton;
     RadioButton plan_selectedRadioButton2;
     RadioButton plan_selectedRadioButton3;
+
+    ViewGroup c ;
     private EditText plan_applydate = null;
     private int plan_mYear, plan_mMonth, plan_mDay;
     TextInputEditText plan_Date;
