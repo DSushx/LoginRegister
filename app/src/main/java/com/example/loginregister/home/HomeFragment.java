@@ -37,6 +37,11 @@ public class HomeFragment extends Fragment {
     HomeList homeList;
     ListView listView;
     View mView;
+    String stringDate;
+    TextView fat;
+    TextView protein ;
+    TextView carb ;
+    TextView kal ;
 
     private static SQLiteDatabase dbread;
 
@@ -57,23 +62,39 @@ public class HomeFragment extends Fragment {
         //Date currentTime = Calendar.getInstance().getTime();
         Date date_of_today = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String stringDate= format.format(date_of_today);
-
+        stringDate= format.format(date_of_today);
         TextView textdate = view.findViewById(R.id.TextDate);
-
         textdate.setText(stringDate);
+        fat = view.findViewById(R.id.fatnum);
+        protein = view.findViewById(R.id.pornum);
+        carb = view.findViewById(R.id.carbnum);
+        kal = view.findViewById(R.id.kcal);
 
-        Cursor cursor = dbread.rawQuery("select * from myFoodTable where date='"+stringDate+"'", null);
+        setkal();
 
-        TextView fat = view.findViewById(R.id.fatnum);
-        TextView protein = view.findViewById(R.id.pornum);
-        TextView carb = view.findViewById(R.id.carbnum);
-        TextView kal = view.findViewById(R.id.kcal);
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        foodData= GetHomeFood();
+        homeList = new HomeList(mContext,  foodData);
+        listView.setAdapter(homeList);
+        setkal();
+    }
+
+    public void setkal(){
 
         int total_fat=0;
         int total_pro=0;
         int total_carb=0;
         int total_kal=0;
+        Cursor cursor = dbread.rawQuery("select * from myFoodTable where date='"+stringDate+"'", null);
 
         if (cursor != null && cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
@@ -92,20 +113,7 @@ public class HomeFragment extends Fragment {
         carb.setText(c);
         String k=Integer.toString(total_kal);
         kal.setText(k);
-        dbread.close();
-    }
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mContext = context;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        foodData= GetHomeFood();
-        homeList = new HomeList(mContext,  foodData);
-        listView.setAdapter(homeList);
+        //dbread.close();
     }
 }
 
