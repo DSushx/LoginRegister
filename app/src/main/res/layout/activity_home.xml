@@ -67,7 +67,7 @@
         <RadioGroup
             android:id="@+id/group_nav"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/rectangle_gray"
             android:checkedButton="@id/radio_nav_home"
             android:orientation="horizontal"
@@ -100,7 +100,7 @@
                 android:button="@null"
                 android:checked="false"
                 android:drawableTop="@drawable/ic_search"
-                android:gravity="center"/>
+                android:gravity="center" />
 
             <RadioButton
                 android:id="@+id/radio_nav_heart"
@@ -110,7 +110,7 @@
                 android:button="@null"
                 android:checked="false"
                 android:drawableTop="@drawable/ic_heart"
-                android:gravity="center"/>
+                android:gravity="center" />
 
             <RadioButton
                 android:id="@+id/radio_nav_person"

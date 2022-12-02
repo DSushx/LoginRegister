@@ -42,6 +42,7 @@ public class HomeFragment extends Fragment {
     TextView protein ;
     TextView carb ;
     TextView kal ;
+    TextView textdate;
 
     private static SQLiteDatabase dbread;
 
@@ -63,7 +64,7 @@ public class HomeFragment extends Fragment {
         Date date_of_today = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         stringDate= format.format(date_of_today);
-        TextView textdate = view.findViewById(R.id.TextDate);
+        textdate = view.findViewById(R.id.TextDate);
         textdate.setText(stringDate);
         fat = view.findViewById(R.id.fatnum);
         protein = view.findViewById(R.id.pornum);
@@ -85,6 +86,7 @@ public class HomeFragment extends Fragment {
         foodData= GetHomeFood();
         homeList = new HomeList(mContext,  foodData);
         listView.setAdapter(homeList);
+        textdate.setText(stringDate);
         setkal();
     }
 

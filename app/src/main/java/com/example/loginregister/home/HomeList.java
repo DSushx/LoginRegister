@@ -48,6 +48,7 @@ public class HomeList extends BaseAdapter {
 
         if (view == null) {
             list = inflater.inflate(R.layout.item_home, viewGroup, false);
+
         } else {
             list = view;
         }

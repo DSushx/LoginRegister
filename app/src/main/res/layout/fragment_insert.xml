@@ -8,193 +8,195 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout4"
+            android:layout_height="730dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <!--密碼輸入框-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ed_food_name"
                 android:layout_width="match_parent"
-                android:layout_height="730dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="品名:"
+
+                android:textColorHint="#020202"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                tools:ignore="MissingConstraints">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_food_name1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#CDFFC107"
+                    android:drawableEnd="@drawable/ic_baseline_create_24"
+                    android:drawableRight="@drawable/ic_baseline_create_24"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:singleLine="true"
 
 
-                <!--密碼輸入框-->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ed_food_name"
+                    tools:targetApi="jelly_bean" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ed_calorie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="熱量:"
+                android:textColorHint="#020202"
+                app:layout_constraintTop_toBottomOf="@+id/ed_food_name"
+                tools:layout_editor_absoluteX="0dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_calorie1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:hint="品名:"
-
-                    android:textColorHint="#020202"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="MissingConstraints">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ed_food_name1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="#CDFFC107"
-                        android:singleLine="true"
-                        android:drawableEnd="@drawable/ic_baseline_create_24"
-                        android:drawableRight="@drawable/ic_baseline_create_24"
-                        android:fontFamily="@font/poppinsmedium"
+                    android:backgroundTint="#CDFFC107"
+                    android:drawableEnd="@drawable/ic_baseline_local_fire_department_24"
+                    android:drawableRight="@drawable/ic_baseline_local_fire_department_24"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
+                    tools:targetApi="jelly_bean" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-                        tools:targetApi="jelly_bean" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ed_protein"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="蛋白質:"
+                android:textColorHint="#020202"
+                app:layout_constraintTop_toBottomOf="@+id/ed_calorie"
+                tools:layout_editor_absoluteX="0dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ed_calorie"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_protein1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:hint="熱量:"
-                    android:textColorHint="#020202"
-                    app:layout_constraintTop_toBottomOf="@+id/ed_food_name"
-                    tools:layout_editor_absoluteX="0dp">
+                    android:backgroundTint="#CDFFC107"
+                    android:drawableEnd="@drawable/ic_baseline_lunch_dining_24"
+                    android:drawableRight="@drawable/ic_baseline_lunch_dining_24"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
+                    tools:targetApi="jelly_bean" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ed_calorie1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#CDFFC107"
-                        android:inputType="numberDecimal"
-                        android:singleLine="true"
-                        android:drawableEnd="@drawable/ic_baseline_local_fire_department_24"
-                        android:drawableRight="@drawable/ic_baseline_local_fire_department_24"
-                        android:fontFamily="@font/poppinsmedium"
-                        tools:targetApi="jelly_bean" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ed_fat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="脂肪:"
+                android:textColorHint="#020202"
+                app:layout_constraintTop_toBottomOf="@+id/ed_protein"
+                tools:layout_editor_absoluteX="0dp">
 
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ed_protein"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_fat1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:hint="蛋白質:"
-                    android:textColorHint="#020202"
-                    app:layout_constraintTop_toBottomOf="@+id/ed_calorie"
-                    tools:layout_editor_absoluteX="0dp">
+                    android:backgroundTint="#CDFFC107"
+                    android:drawableEnd="@drawable/ic_baseline_fastfood_24"
+                    android:drawableRight="@drawable/ic_baseline_fastfood_24"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
+                    tools:targetApi="jelly_bean" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ed_protein1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#CDFFC107"
-                        android:inputType="numberDecimal"
-                        android:singleLine="true"
-                        android:drawableEnd="@drawable/ic_baseline_lunch_dining_24"
-                        android:drawableRight="@drawable/ic_baseline_lunch_dining_24"
-                        android:fontFamily="@font/poppinsmedium"
-                        tools:targetApi="jelly_bean" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ed_carbohydrate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:hint="醣類:"
+                android:textColorHint="#020202"
+                app:layout_constraintTop_toBottomOf="@+id/ed_fat"
+                tools:layout_editor_absoluteX="0dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ed_fat"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_carbohydrate1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:hint="脂肪:"
-                    android:textColorHint="#020202"
-                    app:layout_constraintTop_toBottomOf="@+id/ed_protein"
-                    tools:layout_editor_absoluteX="0dp">
+                    android:backgroundTint="#CDFFC107"
+                    android:drawableEnd="@drawable/ic_baseline_dinner_dining_24"
+                    android:drawableRight="@drawable/ic_baseline_dinner_dining_24"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
+                    tools:targetApi="jelly_bean" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ed_fat1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#CDFFC107"
-                        android:inputType="numberDecimal"
-                        android:singleLine="true"
-                        android:drawableEnd="@drawable/ic_baseline_fastfood_24"
-                        android:drawableRight="@drawable/ic_baseline_fastfood_24"
-                        android:fontFamily="@font/poppinsmedium"
-                        tools:targetApi="jelly_bean" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <!--體重輸入框-->
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ed_carbohydrate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:hint="醣類:"
-                    android:textColorHint="#020202"
-                    app:layout_constraintTop_toBottomOf="@+id/ed_fat"
-                    tools:layout_editor_absoluteX="0dp">
+            <Button
+                android:id="@+id/btn_insert"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:text="新增"
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ed_carbohydrate1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#CDFFC107"
-                        android:inputType="numberDecimal"
-                        android:singleLine="true"
-                        android:drawableEnd="@drawable/ic_baseline_dinner_dining_24"
-                        android:drawableRight="@drawable/ic_baseline_dinner_dining_24"
-                        android:fontFamily="@font/poppinsmedium"
-                        tools:targetApi="jelly_bean" />
-                </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_carbohydrate" />
 
-                <!--體重輸入框-->
+            <Button
+                android:id="@+id/btn_update"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:text="修改"
 
-                <Button
-                    android:id="@+id/btn_insert"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_weight="1"
-                    android:text="新增"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.50"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_carbohydrate" />
 
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.10"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ed_carbohydrate" />
-                <Button
-                    android:id="@+id/btn_update"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_weight="1"
-                    android:text="修改"
+            <Button
+                android:id="@+id/btn_delete"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:text="刪除"
 
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.50"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ed_carbohydrate" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.90"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_carbohydrate" />
 
-                <Button
-                    android:id="@+id/btn_delete"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_weight="1"
-                    android:text="刪除"
-
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.90"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ed_carbohydrate" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listView"
@@ -208,7 +210,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
 
 
 </RelativeLayout>
