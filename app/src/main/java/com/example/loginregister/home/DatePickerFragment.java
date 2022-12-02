@@ -37,17 +37,18 @@ public class DatePickerFragment extends DialogFragment
 
     private Calendar c = Calendar.getInstance();
     private static SQLiteDatabase dbread;
+    List<FoodInfo> foodData;
+    HomeList homeList;
+    ListView listView;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current date as the default date in the picker
+
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-
-
-
         //textdate=rootView.findViewById(R.id.TextDate);
         // Create a new instance of DatePickerDialog and return it
         return new DatePickerDialog(getActivity(), this, year, month, day);
@@ -60,22 +61,22 @@ public class DatePickerFragment extends DialogFragment
 
         Log.d(TAG,"onDataSet : yyyy/mm/dd: " + year + "/"+month+"/"+day );
        // String datestring = year + "-"+month+"-"+day;
+        listView=getActivity().findViewById(R.id.lv_home);
 
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH , month);
         c.set(Calendar.DAY_OF_MONTH, day);
 
         TextView edit_date = getActivity().findViewById(R.id.TextDate);
-
         String myFormat = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.TAIWAN);
         edit_date.setText(sdf.format(c.getTime()));
 
-
+        foodData= GetHomeFood(sdf.format(c.getTime()));
+        homeList = new HomeList(getActivity(),  foodData);
+        listView.setAdapter(homeList);
 
         dbread = new insert_food_DB(getActivity(), "editFoodDB", null, 6).getWritableDatabase();
-
-
         Cursor cursor = dbread.rawQuery("select * from myFoodTable where date='"+sdf.format(c.getTime())+"' ", null);
 
         TextView fat = getActivity().findViewById(R.id.fatnum);

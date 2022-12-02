@@ -225,12 +225,12 @@ public class HomeActivity extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    public static ArrayList<FoodInfo> GetHomeFood() {
+    public static ArrayList<FoodInfo> GetHomeFood(String date) {
 
         ArrayList<FoodInfo> list = new ArrayList<FoodInfo>();
 
         //哈囉
-        Cursor cursor = dbread.rawQuery("select * from myFoodTable ", null);
+        Cursor cursor = dbread.rawQuery("select * from myFoodTable where date='"+date+"' ", null);
         if (cursor != null && cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
                 FoodInfo bean = new FoodInfo();

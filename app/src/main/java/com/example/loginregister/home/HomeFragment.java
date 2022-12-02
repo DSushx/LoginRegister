@@ -56,9 +56,9 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mView = view;
         listView=view.findViewById(R.id.lv_home);
-        foodData =GetHomeFood();
-        homeList = new HomeList(mContext,  foodData);
-        listView.setAdapter(homeList);
+
+
+
         dbread = new insert_food_DB(mContext, "editFoodDB", null, 6).getWritableDatabase();
         //Date currentTime = Calendar.getInstance().getTime();
         Date date_of_today = new Date();
@@ -70,7 +70,9 @@ public class HomeFragment extends Fragment {
         protein = view.findViewById(R.id.pornum);
         carb = view.findViewById(R.id.carbnum);
         kal = view.findViewById(R.id.kcal);
-
+        foodData =GetHomeFood(stringDate);
+        homeList = new HomeList(mContext,  foodData);
+        listView.setAdapter(homeList);
         setkal();
 
     }
@@ -83,7 +85,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        foodData= GetHomeFood();
+        foodData= GetHomeFood(stringDate);
         homeList = new HomeList(mContext,  foodData);
         listView.setAdapter(homeList);
         textdate.setText(stringDate);
