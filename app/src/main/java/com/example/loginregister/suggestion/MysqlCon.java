@@ -3,6 +3,7 @@ package com.example.loginregister.suggestion;
 import android.util.Log;
 
 import com.example.loginregister.datasets.FoodInfo;
+import com.example.loginregister.datasets.NowPlanInfo;
 import com.example.loginregister.datasets.PlanInfo;
 import com.example.loginregister.datasets.UserInfo;
 
@@ -72,6 +73,24 @@ public class MysqlCon {
         }
         return userInfo;
     }
+    public NowPlanInfo getnowplanData(String uname) {
+        NowPlanInfo nowplan = new NowPlanInfo();
+        try {
+            Connection con = DriverManager.getConnection(url, db_user, db_password);
+            String sql2 = "SELECT * FROM plan WHERE `uname` = \"" + uname + "\" AND final_weight =0";
+            Statement st2 = con.createStatement();
+            ResultSet rs2 = st2.executeQuery(sql2);
+
+            rs2.next();
+            nowplan.nowstartdate = rs2.getString("startdate");
+            nowplan.nowplan_weight = rs2.getDouble("plan_weight");
+            nowplan.nowplan_weightnow = rs2.getDouble("plan_weightnow");
+            st2.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return nowplan;
+    }
 
     public List<FoodInfo> getFoodData(int calories) {
         List<FoodInfo> foodInfo = new ArrayList<>();
@@ -107,7 +126,7 @@ public class MysqlCon {
         List<PlanInfo> planInfo = new ArrayList<>();
         try {
             Connection con = DriverManager.getConnection(url, db_user, db_password);
-            String sql = "SELECT * FROM plan WHERE `uname` = \"" + uname + "\"";
+            String sql = "SELECT * FROM plan WHERE `uname` = \"" + uname + "\" AND final_weight !=0";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
@@ -121,11 +140,13 @@ public class MysqlCon {
                 planInfo.add(presult);
             }
             st.close();
+
         } catch(SQLException e) {
             e.printStackTrace();
         }
         return planInfo;
     }
+
     public void updateRating(int userId, int foodId) {
         try {
             Connection con = DriverManager.getConnection(url, db_user, db_password);

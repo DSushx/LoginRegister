@@ -47,9 +47,9 @@ public class PlanFragment extends Fragment {
         plan_Weightnow.setText("");
         plan_Weight.setText("");
         plan_Date.setText("");
-        plan_radioGroup.clearCheck();
-        plan_radioGroup2.clearCheck();
-        plan_radioGroup3.clearCheck();
+        plan_radioGroup.check(R.id.rb111);
+        plan_radioGroup2.check(R.id.rbnu11);
+        plan_radioGroup3.check(R.id.planrb11);
     }
 
     @Override

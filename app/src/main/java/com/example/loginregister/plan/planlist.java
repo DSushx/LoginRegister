@@ -24,7 +24,7 @@ public class planlist extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return planInfo.size();
     }
 
     @Override
@@ -40,12 +40,15 @@ public class planlist extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup container) {
         View list;
+
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
             list = inflater.inflate(R.layout.nowplan, container, false);
+
         } else {
+
             list = convertView;
         }
         TextView startdate = list.findViewById(R.id.nowplandate);
@@ -53,10 +56,21 @@ public class planlist extends BaseAdapter {
         TextView weightnow = list.findViewById(R.id.np_weightnow);
         TextView weightplan = list.findViewById(R.id.np_weight);
         TextView finalweight = list.findViewById(R.id.np_finalweight);
+        TextView timebar = list.findViewById(R.id.nowplandate1_5);
+        TextView plan_name = list.findViewById(R.id.plan_name);
+        TextView ratio = list.findViewById(R.id.plan_ratio);
+
+
+
+        timebar.setText("~");
+        String Str="%";
+        Double t =((planInfo.get(position).final_weight -planInfo.get(position).plan_weightnow)/(planInfo.get(position).plan_weight -planInfo.get(position).plan_weightnow))*100;
+        int i =  Integer.valueOf(t.intValue());
+        ratio.setText(String.format("%s %s", i,Str));
 
         startdate.setText(planInfo.get(position).startdate);
         enddate.setText(planInfo.get(position).enddate);
-        weightnow.setText(String.format("%s kg", (int)planInfo.get(position).plan_weightnow));
+        weightnow.setText(String.format("%s kg", planInfo.get(position).plan_weightnow));
         weightplan.setText(String.format("%s kg", planInfo.get(position).plan_weight));
         finalweight.setText(String.format("%s kg", planInfo.get(position).final_weight));
 

@@ -41,8 +41,8 @@
                         android:layout_height="100dp"
                         android:layout_centerHorizontal="true"
                         android:max="360"
-                        android:progressDrawable="@drawable/progressring_yellow"
                         android:progress="0"
+                        android:progressDrawable="@drawable/progressring_yellow"
                         tools:progress="315" />
 
                     <View

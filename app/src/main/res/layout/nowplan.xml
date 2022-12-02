@@ -164,19 +164,19 @@
 
     <TextView
         android:id="@+id/plan_name"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="12dp"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="12dp"
         android:ellipsize="marquee"
-        android:marqueeRepeatLimit="marquee_forever"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:freezesText="true"
-        tools:text="完成率"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:text="完成率"
         />
     <TextView
         android:id="@+id/plan_ratio"
@@ -194,6 +194,7 @@
         android:freezesText="true"
         tools:text="20%"
         />
+
     <View
         android:layout_width="370dp"
         android:layout_height="140dp"
