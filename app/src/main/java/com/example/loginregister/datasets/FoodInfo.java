@@ -3,7 +3,7 @@ package com.example.loginregister.datasets;
 import androidx.annotation.NonNull;
 
 public class FoodInfo {
-    public Integer food_id;
+    public int food_id;
     public String title;
     public String categories;
     public String tags;

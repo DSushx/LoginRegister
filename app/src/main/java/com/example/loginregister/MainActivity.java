@@ -14,6 +14,7 @@ import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
 import com.chaquo.python.android.AndroidPlatform;
 import com.example.loginregister.datasets.FoodInfo;
+import com.example.loginregister.datasets.FoodList;
 import com.example.loginregister.home.HomeActivity;
 import com.example.loginregister.suggestion.MysqlCon;
 
@@ -57,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final PyObject cofilResult = py.getModule("collab_filter").callAttr("main", 67);
-
-        Log.i("cofilResult", String.valueOf(result));
+        FoodList result = cofilResult.toJava(FoodList.class);
+        Log.i("cofilResult", result.foodInfoList.toString());
 
 
     }

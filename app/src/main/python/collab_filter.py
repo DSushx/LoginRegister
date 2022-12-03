@@ -117,10 +117,24 @@ def main(id):
     top10_food = recommend(id, num=20)
     result = food_data.loc[food_data["food_id"].isin(top10_food)]
 
-    List = jclass("java.util.List")
-    FoodData = jclass("com.example.loginregister.datasets.FoodInfo")
+    FoodList = jclass("com.example.loginregister.datasets.FoodList")
+    FoodInfo = jclass("com.example.loginregister.datasets.FoodInfo")
+    data = FoodList()
 
     for ind in result.index:
+        item = FoodInfo()
+        item.food_id = result['food_id'][ind]
+        item.title = result['title'][ind]
+        item.categories = result['categories'][ind]
+        item.tags = result['tags'][ind]
+        item.weight = result['重量(g)'][ind]
+        item.calories = result['熱量'][ind]
+        item.protein = result['蛋白質(g)'][ind]
+        item.carbs = result['碳水化合物(g)'][ind]
+        item.fat = result['脂肪(g)'][ind]
+        item.sugar = result['糖'][ind]
+        item.sodium = result['鈉'][ind]
+        item.image = result['image'][ind]
+        data.addItem(item)
 
-
-    return result
+    return data
