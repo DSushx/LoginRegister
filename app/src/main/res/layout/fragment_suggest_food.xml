@@ -41,8 +41,8 @@
                         android:layout_height="100dp"
                         android:layout_centerHorizontal="true"
                         android:max="360"
-                        android:progressDrawable="@drawable/progressring_yellow"
                         android:progress="0"
+                        android:progressDrawable="@drawable/progressring_yellow"
                         tools:progress="315" />
 
                     <View
@@ -100,8 +100,8 @@
                 android:layout_marginStart="150dp"
                 android:layout_marginTop="12dp"
                 android:max="100"
-                tools:progress="50"
-                android:progressDrawable="@drawable/progressbar_green" />
+                android:progressDrawable="@drawable/progressbar_green"
+                tools:progress="50" />
 
             <ProgressBar
                 android:id="@+id/carbsProgress"
@@ -269,7 +269,7 @@
             android:layout_centerInParent="true"
             android:text="無符合剩餘熱量需求的結果"
             android:textSize="18dp"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
     </RelativeLayout>
 

@@ -3,6 +3,8 @@ package com.example.loginregister.suggestion;
 import android.util.Log;
 
 import com.example.loginregister.datasets.FoodInfo;
+import com.example.loginregister.datasets.NowPlanInfo;
+import com.example.loginregister.datasets.PlanInfo;
 import com.example.loginregister.datasets.UserInfo;
 
 import java.io.BufferedWriter;
@@ -19,10 +21,10 @@ import java.util.List;
 public class MysqlCon {
     String mysql_ip = "10.0.2.2";
     int mysql_port = 3306;
-    String db_name = "food_db";
+    String db_name = "loginregister";
     String url = "jdbc:mysql://" + mysql_ip + ":" + mysql_port + "/" + db_name;
     String db_user = "root";
-    String db_password = "";
+    String db_password = "01234567";
 
     public void run() {
         try {
@@ -47,10 +49,14 @@ public class MysqlCon {
         try {
             Connection con = DriverManager.getConnection(url, db_user, db_password);
             String sql = "SELECT * FROM users WHERE `username` = \"" + uname + "\"";
+            String sql2 = "SELECT * FROM plan WHERE `uname`= \"" + uname + "\"ORDER BY id DESC ";
+            //SELECT MAX(id),uname* FROM plan GROUP BY uname WHERE `uname`
             Statement st = con.createStatement();
+            Statement st2 = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
+            ResultSet rs2 = st2.executeQuery(sql2);
             rs.next();
-
+            rs2.next();
             userInfo.user_id = rs.getInt("id");
             userInfo.fullname = rs.getString("fullname");
             userInfo.username = rs.getString("username");
@@ -60,12 +66,33 @@ public class MysqlCon {
             userInfo.weight = rs.getInt("weight");
             userInfo.birthday = rs.getDate("birthday");
             userInfo.gender = rs.getString("gender");
+            userInfo.disease = rs2.getString("special_dis");
+            userInfo.nutrient = rs2.getString("nutrient");
 
             st.close();
+            st2.close();
         } catch(SQLException e) {
             e.printStackTrace();
         }
         return userInfo;
+    }
+    public NowPlanInfo getnowplanData(String uname) {
+        NowPlanInfo nowplan = new NowPlanInfo();
+        try {
+            Connection con = DriverManager.getConnection(url, db_user, db_password);
+            String sql2 = "SELECT * FROM plan WHERE `uname` = \"" + uname + "\" AND final_weight =0";
+            Statement st2 = con.createStatement();
+            ResultSet rs2 = st2.executeQuery(sql2);
+
+            rs2.next();
+            nowplan.nowstartdate = rs2.getString("startdate");
+            nowplan.nowplan_weight = rs2.getDouble("plan_weight");
+            nowplan.nowplan_weightnow = rs2.getDouble("plan_weightnow");
+            st2.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return nowplan;
     }
 
     public void testGetFoodData(int cal) {
@@ -138,6 +165,44 @@ public class MysqlCon {
             e.printStackTrace();
         }
         return foodInfo;
+    }
+    public List<PlanInfo> getPlanData(String uname) {
+        List<PlanInfo> planInfo = new ArrayList<>();
+        try {
+            Connection con = DriverManager.getConnection(url, db_user, db_password);
+            String sql = "SELECT * FROM plan WHERE `uname` = \"" + uname + "\" AND final_weight !=0";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                PlanInfo presult = new PlanInfo();
+                presult.enddate = rs.getString("end_date");
+                presult.startdate = rs.getString("startdate");
+                presult.plan_weight = rs.getDouble("plan_weight");
+                presult.plan_weightnow = rs.getDouble("plan_weightnow");
+                presult.final_weight = rs.getDouble("final_weight");
+                planInfo.add(presult);
+            }
+            st.close();
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return planInfo;
+    }
+
+    public void updateRating(int userId, int foodId) {
+        try {
+            Connection con = DriverManager.getConnection(url, db_user, db_password);
+
+            String sql = "INSERT INTO food_rating(user_id, food_id, rating) VALUES (" +
+                    userId + "," + foodId + ",1) ON DUPLICATE KEY UPDATE rating = rating + 1";
+            Statement st = con.createStatement();
+            st.executeUpdate(sql);
+            Log.i("OK", "user_id = " + userId + ", food_id = " + foodId + " -> Rating updated. ");
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

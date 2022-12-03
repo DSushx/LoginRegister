@@ -54,7 +54,7 @@
                         android:layout_height="match_parent"
                         android:backgroundTint="#CDFFC107"
                         android:fontFamily="@font/poppinsmedium"
-
+                        android:inputType="numberDecimal"
 
                         tools:targetApi="jelly_bean" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -76,6 +76,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="#CDFFC107"
                         android:fontFamily="@font/poppinsmedium"
+                        android:inputType="numberDecimal"
                         tools:targetApi="jelly_bean" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,6 +97,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#CDFFC107"
+                        android:inputType="numberDecimal"
                         android:fontFamily="@font/poppinsmedium"
                         tools:targetApi="jelly_bean" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -117,6 +119,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="#CDFFC107"
                         android:fontFamily="@font/poppinsmedium"
+                        android:inputType="numberDecimal"
                         tools:targetApi="jelly_bean" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
@@ -136,6 +139,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="#CDFFC107"
                         android:fontFamily="@font/poppinsmedium"
+                        android:inputType="numberDecimal"
                         tools:targetApi="jelly_bean" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
@@ -155,6 +159,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="#CDFFC107"
                         android:fontFamily="@font/poppinsmedium"
+                        android:inputType="numberDecimal"
                         tools:targetApi="jelly_bean" />
                 </com.google.android.material.textfield.TextInputLayout>
 

@@ -1,8 +1,13 @@
 package com.example.loginregister.home;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,15 +20,24 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.loginregister.R;
 import com.example.loginregister.databinding.ActivityHomeBinding;
+import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.ItemInCart;
+import com.example.loginregister.plan.pastplanFragment;
 import com.example.loginregister.suggestion.CustomListSC;
+import com.example.loginregister.insert_food_DB;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -38,10 +52,14 @@ public class HomeActivity extends AppCompatActivity {
     private CustomListSC customListSC;
     private ListView lvShowChosen;
 
+    private static SQLiteDatabase db;
+    private static SQLiteDatabase dbread;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        db = new insert_food_DB(this, "editFoodDB", null, 6).getWritableDatabase();
+        dbread = new insert_food_DB(this, "editFoodDB", null, 6).getWritableDatabase();
         viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
@@ -53,10 +71,11 @@ public class HomeActivity extends AppCompatActivity {
         binding.pagerHome.setAdapter(pagerAdapter);
 
         binding.btnShoppingCart.setOnClickListener(listener);
-
+        binding.planList.setOnClickListener(listener2);
         binding.groupNav.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+
                 int idx;
                 String title = "";
                 switch(checkedId) {
@@ -89,14 +108,30 @@ public class HomeActivity extends AppCompatActivity {
                     binding.toolBar.setVisibility(View.VISIBLE);
                     binding.toolBarTitle.setText(title);
                 }
+
                 if (idx == 2) {
                     binding.btnShoppingCart.setVisibility(View.VISIBLE);
                 } else {
                     binding.btnShoppingCart.setVisibility(View.GONE);
                 }
+                if (idx == 3) {
+                    binding.planList.setVisibility(View.VISIBLE);
+                } else {
+                    binding.planList.setVisibility(View.GONE);
+                }
             }
         });
     }
+    Button.OnClickListener listener2= new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Fragment secondfrag = new pastplanFragment();
+            FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
+            fm.replace(R.id.container,secondfrag).commit();
+
+        }
+
+    };
 
     Button.OnClickListener listener= new Button.OnClickListener() {
         @Override
@@ -142,12 +177,46 @@ public class HomeActivity extends AppCompatActivity {
             refreshCart();
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         public void onClick(View V){
             int id=V.getId();
             switch(id){
+                //購物車確認新增按鈕
                 case R.id.btn_add_items:
-                    //加入SQLlite
-                    //改資料庫rating
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeActivity.this);
+                    alertDialog.setTitle("新增至飲食紀錄");
+                    alertDialog.setMessage("確定新增?");
+                    alertDialog.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            viewModel.getChosenItems().getValue().forEach(item -> {
+                                //加入SQLlite
+                                db.execSQL("INSERT INTO myFoodTable(food_name, calorie, protein, fat, carbohydrate, quantity, image)" +
+                                        " VALUES(\"" + item.foodInfo.title + "\"," + item.foodInfo.calories + "," + item.foodInfo.protein
+                                        + "," + item.foodInfo.fat + "," + item.foodInfo.carbs + "," + item.quantity + ",\"" + item.foodInfo.image + "\")");
+
+                                //改資料庫rating
+                                new Thread(() -> {
+                                    viewModel.getCon().updateRating(viewModel.getUserId(), item.foodInfo.food_id);
+                                }).start();
+
+                            });
+
+                            //清空購物車
+                            viewModel.emptyCart();
+                            //清除狀態
+                            viewModel.emptyStatus();
+
+                            Toast.makeText(HomeActivity.this,"已新增至飲食紀錄",Toast.LENGTH_SHORT).show();
+                            dismiss();
+                        }
+                    });
+                    alertDialog.setNegativeButton("取消",(dialog, which) -> {
+                        return;
+                    });
+                    alertDialog.setCancelable(false);
+                    alertDialog.show();
+
                     break;
             }
         }
@@ -163,4 +232,30 @@ public class HomeActivity extends AppCompatActivity {
         }
         Log.i("itemInCart", items.toString());
     }
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public static ArrayList<FoodInfo> GetHomeFood(String date) {
+
+        ArrayList<FoodInfo> list = new ArrayList<FoodInfo>();
+
+        //哈囉
+        Cursor cursor = dbread.rawQuery("select * from myFoodTable where date='"+date+"' ", null);
+        if (cursor != null && cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                FoodInfo bean = new FoodInfo();
+                bean.title = cursor.getString(0);
+                bean.calories = cursor.getInt(1);
+                bean.image = cursor.getString(7);
+                list.add(bean);
+            }
+            cursor.close();
+        }
+        //dbread.close();
+        return list;
+    }
+
+
 }

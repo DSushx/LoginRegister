@@ -7,12 +7,19 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.loginregister.datasets.DietStatus;
 import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.ItemInCart;
+import com.example.loginregister.suggestion.MysqlCon;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class SharedViewModel extends ViewModel {
+    private int userId;
+    public int getUserId() { return userId; }
+    public void setUserId(int id) { this.userId = id; }
+
+    private MysqlCon con = new MysqlCon();
+    public MysqlCon getCon() { return con; }
+
     private MutableLiveData<DietStatus> dietStatus = new MutableLiveData<>();
     public LiveData<DietStatus> getDietStatus() {
         return dietStatus;
@@ -45,12 +52,17 @@ public class SharedViewModel extends ViewModel {
         dietStatus.setValue(status);
     }
 
-    public double oneDecimal(double num) {
-        return Math.round(num * 10.0) / 10.0;
+    public void emptyStatus() {
+        DietStatus status = dietStatus.getValue();
+        status.CaloriesAchieved = 0;
+        status.ProteinAchieved = 0;
+        status.CarbsAchieved = 0;
+        status.FatAchieved = 0;
+        dietStatus.setValue(status);
     }
 
-    public void setChosenItems(List<ItemInCart> chosenItems) {
-        this.chosenItems.setValue(chosenItems);
+    public double oneDecimal(double num) {
+        return Math.round(num * 10.0) / 10.0;
     }
 
     public void addToCart(ItemInCart item) {
@@ -73,5 +85,10 @@ public class SharedViewModel extends ViewModel {
         theItem.minusOne();
         itemList.set(index, theItem);
         chosenItems.setValue(itemList);
+    }
+
+    public void emptyCart() {
+        List<ItemInCart> emptyList = new ArrayList<>();
+        chosenItems.setValue(emptyList);
     }
 }

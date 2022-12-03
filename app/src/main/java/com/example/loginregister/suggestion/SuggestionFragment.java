@@ -47,7 +47,6 @@ public class SuggestionFragment extends Fragment {
     TextView caloriesLimit, caloriesHad, proteinHad, carbsHad, fatHad, noResult;
     ProgressBar caloriesProgress, proteinProgress, carbsProgress, fatProgress;
     ListView lvShow;
-    MysqlCon con;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -58,13 +57,14 @@ public class SuggestionFragment extends Fragment {
         final Observer<DietStatus> statusObserver = new Observer<DietStatus>() {
             @Override
             public void onChanged(DietStatus dietStatus) {
-                // Update the UI, in this case, a TextView.
+                // Update the UI.
                 update();
                 Log.i("dietStatus", viewModel.getDietStatus().getValue().toString());
             }
         };
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         viewModel.getDietStatus().observe(getViewLifecycleOwner(), statusObserver);
+
 
         mView = view;
 
@@ -85,15 +85,15 @@ public class SuggestionFragment extends Fragment {
 
         new Thread(() -> {
 
-            con = new MysqlCon();
-            con.run();
+            viewModel.getCon().run();
 
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
             String uname = pref.getString("username", null);
             Log.i("username", uname);
-            userData = con.getUserData(uname);
+            userData = viewModel.getCon().getUserData(uname);
             Log.v("OK", "使用者資料已回傳");
             Log.i("userData", userData.toString());
+            viewModel.setUserId(userData.user_id);
 
             DietStatus dietStatus = getInitialDietStatus(userData);
 
@@ -242,7 +242,7 @@ public class SuggestionFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         new Thread(() -> {
 
-            foodData = con.getFoodData(threshold);
+            foodData = viewModel.getCon().getFoodData(threshold);
             Log.v("OK", "食物資料已回傳");
             Log.i("foodData", foodData.toString());
 

@@ -38,9 +38,19 @@ public class PlanFragment extends Fragment {
     RadioButton plan_selectedRadioButton;
     RadioButton plan_selectedRadioButton2;
     RadioButton plan_selectedRadioButton3;
+
+    ViewGroup c ;
     private EditText plan_applydate = null;
     private int plan_mYear, plan_mMonth, plan_mDay;
     TextInputEditText plan_Date;
+    private void cleanEditText() {
+        plan_Weightnow.setText("");
+        plan_Weight.setText("");
+        plan_Date.setText("");
+        plan_radioGroup.check(R.id.rb111);
+        plan_radioGroup2.check(R.id.rbnu11);
+        plan_radioGroup3.check(R.id.planrb11);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +65,7 @@ public class PlanFragment extends Fragment {
         plan_radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup11);
         plan_radioGroup2 = (RadioGroup) view.findViewById(R.id.radioGroup21);
         plan_radioGroup3 = (RadioGroup) view.findViewById(R.id.exragr);
+
         t.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +125,7 @@ public class PlanFragment extends Fragment {
                                 if (putData.onComplete()) {
 
                                     String result = putData.getResult();
-                                    if (result.equals("Plan Success")){
+                                    if (result.equals("Plan Success!")){
                                         Toast.makeText(getActivity(),result,Toast.LENGTH_SHORT).show();
                                         //Intent intent = new Intent(getActivity(),planFragment.class);
                                         //startActivity(intent);
@@ -126,6 +137,7 @@ public class PlanFragment extends Fragment {
 
                                     }
                                     Log.i("PutData", result);
+                                    cleanEditText();
                                 }
                             }
                             //End Write and Read data with URL
@@ -137,7 +149,7 @@ public class PlanFragment extends Fragment {
                 else {
 
                     Toast.makeText(getActivity(),"All fields required",Toast.LENGTH_SHORT).show();
-
+                    cleanEditText();
                 }
             }
         });

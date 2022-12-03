@@ -14,7 +14,8 @@ public class UserInfo {
     public Integer weight;
     public Date birthday;
     public String gender;
-
+    public String disease;
+    public String nutrient;
     @NonNull
     public String toString(){
         return "[" + user_id + "," + fullname + "," + username + "," + password + "," +

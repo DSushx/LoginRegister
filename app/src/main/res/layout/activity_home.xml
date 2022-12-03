@@ -36,7 +36,14 @@
             android:layout_marginEnd="10dp"
             android:visibility="gone"
             android:src="@drawable/ic_shopping_cart" />
-
+        <ImageButton
+            android:id="@+id/plan_list"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:visibility="gone"
+            android:src="@drawable/ic_baseline_document_scanner_24" />
     </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.viewpager2.widget.ViewPager2
@@ -60,7 +67,7 @@
         <RadioGroup
             android:id="@+id/group_nav"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/rectangle_gray"
             android:checkedButton="@id/radio_nav_home"
             android:orientation="horizontal"
@@ -93,7 +100,7 @@
                 android:button="@null"
                 android:checked="false"
                 android:drawableTop="@drawable/ic_search"
-                android:gravity="center"/>
+                android:gravity="center" />
 
             <RadioButton
                 android:id="@+id/radio_nav_heart"
@@ -103,7 +110,7 @@
                 android:button="@null"
                 android:checked="false"
                 android:drawableTop="@drawable/ic_heart"
-                android:gravity="center"/>
+                android:gravity="center" />
 
             <RadioButton
                 android:id="@+id/radio_nav_person"
