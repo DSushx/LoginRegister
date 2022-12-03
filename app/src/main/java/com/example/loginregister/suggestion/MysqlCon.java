@@ -19,12 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MysqlCon {
-    String mysql_ip = "10.0.2.2";
+    String mysql_ip = "192.168.1.211";
     int mysql_port = 3306;
-    String db_name = "loginregister";
+    String db_name = "food_db";
     String url = "jdbc:mysql://" + mysql_ip + ":" + mysql_port + "/" + db_name;
     String db_user = "root";
-    String db_password = "01234567";
+    String db_password = "";
 
     public void run() {
         try {
@@ -93,47 +93,6 @@ public class MysqlCon {
             e.printStackTrace();
         }
         return nowplan;
-    }
-
-    public void testGetFoodData(int cal) {
-        try {
-            Connection con = DriverManager.getConnection(url, db_user, db_password);
-            String sql = "SELECT * FROM food_seven WHERE `熱量` <= " + cal;
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-
-            String csvFilePath = "app/src/main/python/test.csv";
-            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(csvFilePath));
-            // write header line containing column names
-            fileWriter.write("food_id,title,categories,tags,weight,calories,protein,carbs,fat,sugar,sodium,image");
-
-            while (rs.next()) {
-                int food_id = rs.getInt("food_id");
-                String title = rs.getString("title");
-                String categories = rs.getString("categories");
-                String tags = rs.getString("tags");
-                double weight = rs.getDouble("重量(g)");
-                double calories = rs.getDouble("熱量");
-                double protein = rs.getDouble("蛋白質(g)");
-                double carbs = rs.getDouble("碳水化合物(g)");
-                double fat = rs.getDouble("脂肪(g)");
-                double sugar = rs.getDouble("糖");
-                double sodium = rs.getDouble("鈉");
-                String image = rs.getString("image");
-
-                String line = String.format("%d,%s,%s,%s,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%s",
-                        food_id, title, categories, tags, weight, calories, protein, carbs, fat, sugar, sodium, image);
-
-                fileWriter.newLine();
-                fileWriter.write(line);
-            }
-
-            st.close();
-            fileWriter.close();
-
-        } catch(SQLException | IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public List<FoodInfo> getFoodData(int calories) {

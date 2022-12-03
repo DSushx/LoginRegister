@@ -17,9 +17,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 import com.example.loginregister.R;
 import com.example.loginregister.datasets.DietStatus;
 import com.example.loginregister.datasets.FoodInfo;
+import com.example.loginregister.datasets.FoodList;
 import com.example.loginregister.datasets.ItemInCart;
 import com.example.loginregister.datasets.UserInfo;
 import com.example.loginregister.home.SharedViewModel;
@@ -94,6 +98,13 @@ public class SuggestionFragment extends Fragment {
             Log.v("OK", "使用者資料已回傳");
             Log.i("userData", userData.toString());
             viewModel.setUserId(userData.user_id);
+
+            if (!Python.isStarted())
+                Python.start (new AndroidPlatform(requireActivity()));
+            Python py=Python.getInstance();
+            final PyObject cofilResult = py.getModule("collab_filter").callAttr("main", userData.user_id);
+            FoodList result = cofilResult.toJava(FoodList.class);
+            foodData = result.foodInfoList;
 
             DietStatus dietStatus = getInitialDietStatus(userData);
 
@@ -229,12 +240,14 @@ public class SuggestionFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void update() {
         DietStatus dietStatus = viewModel.getDietStatus().getValue();
         updateBoard(dietStatus);
         refreshList(dietStatus.CaloriesPerMeal, dietStatus.CaloriesAchieved);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void refreshList(int caloriesPerMeal, int caloriesAchieved) {
         int caloriesDifference = caloriesPerMeal - caloriesAchieved;
         int threshold = Math.max(caloriesDifference, 0);
@@ -242,19 +255,32 @@ public class SuggestionFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         new Thread(() -> {
 
-            foodData = viewModel.getCon().getFoodData(threshold);
+//            foodData = viewModel.getCon().getFoodData(threshold);
+            List<FoodInfo> newFoodData = CaloriesFilter(foodData, threshold);
+
             Log.v("OK", "食物資料已回傳");
-            Log.i("foodData", foodData.toString());
+            Log.i("foodData", newFoodData.toString());
 
             mView.post(() -> {
                 progressBar.setVisibility(View.INVISIBLE);
-                customList = new CustomList(requireContext(), this, foodData);
+                customList = new CustomList(requireContext(), this, newFoodData);
                 lvShow.setAdapter(customList);
-                if (foodData.isEmpty()) {
+                if (newFoodData.isEmpty()) {
                     noResult.setVisibility(View.VISIBLE);
                 }
             });
 
         }).start();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List<FoodInfo> CaloriesFilter(List<FoodInfo> list, int threshold) {
+        List<FoodInfo> newList = new ArrayList<>();
+        list.forEach(item -> {
+            if (item.calories <= threshold) {
+                newList.add(item);
+            }
+        });
+        return newList;
     }
 }

@@ -8,7 +8,7 @@ from java import jclass
 def main(id):
 
     # database connection
-    connection = pymysql.connect(host="10.0.2.2", port=3306, user="root", passwd="", database="food_db")
+    connection = pymysql.connect(host="192.168.1.211", port=3306, user="root", passwd="", database="food_db")
     cursor = connection.cursor()
 
     # get food data

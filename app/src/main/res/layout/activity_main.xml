@@ -262,10 +262,6 @@
                     app:layout_constraintStart_toStartOf="@+id/view6"
                     app:layout_constraintTop_toBottomOf="@+id/breakfast">
 
-                    <include layout="@layout/item1" />
-
-                    <include layout="@layout/item2" />
-
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

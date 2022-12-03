@@ -38,13 +38,13 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         textView = (TextView)findViewById(R.id.textview);
-        if (! Python.isStarted()) {
-            Python.start(new AndroidPlatform(this));
-        }
-        Python py =Python.getInstance();
-        PyObject pyobj =py.getModule("myscript");
-        PyObject obj =pyobj.callAttr("main");
-        textView.setText(obj.toString());
+//        if (! Python.isStarted()) {
+//            Python.start(new AndroidPlatform(this));
+//        }
+//        Python py =Python.getInstance();
+//        PyObject pyobj =py.getModule("myscript");
+//        PyObject obj =pyobj.callAttr("main");
+//        textView.setText(obj.toString());
 
 
 
@@ -85,12 +85,12 @@ public class Login extends AppCompatActivity {
                             String[] data = new String[2];
                             data[0] = username;
                             data[1] = password;
-                            PutData putData = new PutData("http://10.0.2.2/LoginRegister/login.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.1.211/LoginRegister/login.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     progressBar.setVisibility(View.GONE);
                                     String result = putData.getResult();
-                                    if (result.equals("Login Success!")){
+                                    if (result.equals("Login Success")){
 
                                         new Thread(() -> {
                                             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
