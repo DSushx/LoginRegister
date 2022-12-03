@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
                 switch(checkedId) {
                     case R.id.radio_nav_add:
                         idx = 1;
-                        title = "";
+                        title = "新增飲食";
                         break;
                     case R.id.radio_nav_search:
                         idx = 2;

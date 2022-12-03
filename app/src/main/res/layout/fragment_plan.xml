@@ -55,6 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:backgroundTint="#CDFFC107"
+                    android:inputType="date"
                     android:drawableEnd="@drawable/ic_user"
                     android:drawableRight="@drawable/ic_user"
                     android:fontFamily="@font/poppinsmedium"
@@ -147,6 +148,7 @@
                 android:layout_marginTop="268dp"
 
                 android:text="新增計畫"
+                android:background="@drawable/rectangle_yellow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -159,10 +161,10 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="207dp"
                 android:layout_height="57dp"
-
                 android:layout_marginTop="104dp"
-                android:background="#9F000000"
+
                 android:text="營養素自訂"
+                android:background="@drawable/btn_radius"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.495"

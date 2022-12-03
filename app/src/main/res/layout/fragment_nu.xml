@@ -170,6 +170,7 @@
                     android:layout_height="wrap_content"
 
                     android:text="新增"
+                    android:background="@drawable/rectangle_yellow"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
