@@ -118,7 +118,7 @@ public class PlanFragment extends Fragment {
                             data[4] = nutrient;
                             data[5] = exercise;
                             data[6] = uname;
-                            PutData putData = new PutData("http://192.168.1.116/LoginRegister/plan.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.1.211/LoginRegister/plan.php", "POST", field, data);
 
                             Toast.makeText(getActivity(),result.toString(),Toast.LENGTH_LONG).show();
                             if (putData.startPut()) {

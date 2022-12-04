@@ -29,6 +29,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 import com.example.loginregister.R;
 import com.example.loginregister.databinding.ActivityHomeBinding;
 import com.example.loginregister.datasets.FoodInfo;
@@ -69,6 +71,8 @@ public class HomeActivity extends AppCompatActivity {
         binding.pagerHome.setUserInputEnabled(false);
 
         binding.pagerHome.setAdapter(pagerAdapter);
+
+        binding.pagerHome.setOffscreenPageLimit(5);
 
         binding.btnShoppingCart.setOnClickListener(listener);
         binding.planList.setOnClickListener(listener2);

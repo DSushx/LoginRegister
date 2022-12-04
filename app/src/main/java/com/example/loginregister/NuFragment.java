@@ -94,7 +94,7 @@ public class NuFragment extends Fragment {
                             data[4] = sugar;
                             data[5] = sodium;
                             data[6] = uname;
-                            PutData putData = new PutData("http://192.168.1.116/LoginRegister/nu.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.1.211/LoginRegister/nu.php", "POST", field, data);
 
                             Toast.makeText(getActivity(),result.toString(),Toast.LENGTH_LONG).show();
                             if (putData.startPut()) {

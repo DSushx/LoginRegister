@@ -23,7 +23,13 @@ import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.ItemInCart;
 import com.example.loginregister.datasets.UserInfo;
 import com.example.loginregister.home.SharedViewModel;
+import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -41,7 +47,7 @@ public class SuggestionFragment extends Fragment {
     SharedViewModel viewModel;
     View mView;
     UserInfo userData;
-    List<FoodInfo> foodData;
+    List<FoodInfo> foodData = new ArrayList<>();
     CustomList customList;
     ProgressBar progressBar;
     TextView caloriesLimit, caloriesHad, proteinHad, carbsHad, fatHad, noResult;
@@ -94,6 +100,51 @@ public class SuggestionFragment extends Fragment {
             Log.v("OK", "使用者資料已回傳");
             Log.i("userData", userData.toString());
             viewModel.setUserId(userData.user_id);
+
+            String[] field =  new String[1];
+            field[0] = "id";
+            //Creating array for data
+            String[] data = new String[1];
+            data[0] = String.valueOf(userData.user_id);
+
+            PutData putData = new PutData("http://192.168.1.211/PythonSuggestion/getSuggestion.php", "POST", field, data);
+            if (putData.startPut()) {
+                if (putData.onComplete()) {
+                    String result = putData.getResult();
+                    String encoded_result = null;
+                    try {
+                        encoded_result = new String(result.getBytes("ISO-8859-1"), "utf-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.i("PutData", encoded_result);
+
+                    try {
+                        JSONObject obj = new JSONObject(encoded_result);
+                        JSONArray arr = obj.getJSONArray("data");
+                        for (int i = 0; i < arr.length(); i++) {
+                            FoodInfo item = new FoodInfo();
+                            item.food_id = arr.getJSONObject(i).getInt("food_id");
+                            item.title = arr.getJSONObject(i).getString("title");
+                            item.categories = arr.getJSONObject(i).getString("categories");
+                            item.tags = arr.getJSONObject(i).getString("tags");
+                            item.weight = arr.getJSONObject(i).getDouble("重量(g)");
+                            item.calories = arr.getJSONObject(i).getDouble("熱量");
+                            item.protein = arr.getJSONObject(i).getDouble("蛋白質(g)");
+                            item.fat = arr.getJSONObject(i).getDouble("脂肪(g)");
+                            item.carbs = arr.getJSONObject(i).getDouble("碳水化合物(g)");
+                            item.sugar = arr.getJSONObject(i).getDouble("糖");
+                            item.sodium = arr.getJSONObject(i).getDouble("鈉");
+                            item.image = arr.getJSONObject(i).getString("image");
+                            foodData.add(item);
+                        }
+                        Log.i("foodData", foodData.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
             DietStatus dietStatus = getInitialDietStatus(userData);
 
@@ -233,12 +284,14 @@ public class SuggestionFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void update() {
         DietStatus dietStatus = viewModel.getDietStatus().getValue();
         updateBoard(dietStatus);
         refreshList(dietStatus.CaloriesPerMeal, dietStatus.CaloriesAchieved);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void refreshList(int caloriesPerMeal, int caloriesAchieved) {
         int caloriesDifference = caloriesPerMeal - caloriesAchieved;
         int threshold = Math.max(caloriesDifference, 0);
@@ -246,18 +299,30 @@ public class SuggestionFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         new Thread(() -> {
 
-            foodData = viewModel.getCon().getFoodData(threshold);
+//            foodData = viewModel.getCon().getFoodData(threshold);
+            List<FoodInfo> newFoodData = CaloriesFilter(foodData, threshold);
             Log.v("OK", "食物資料已回傳");
-            Log.i("foodData", foodData.toString());
+            Log.i("foodData", newFoodData.toString());
 
             mView.post(() -> {
                 progressBar.setVisibility(View.INVISIBLE);
-                customList = new CustomList(requireContext(), this, foodData);
+                customList = new CustomList(requireContext(), this, newFoodData);
                 lvShow.setAdapter(customList);
                 if (foodData.isEmpty()) {
                     noResult.setVisibility(View.VISIBLE);
                 }
             });
         }).start();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List<FoodInfo> CaloriesFilter(List<FoodInfo> list, int threshold) {
+        List<FoodInfo> newList = new ArrayList<>();
+        list.forEach(item -> {
+            if (item.calories <= threshold) {
+                newList.add(item);
+            }
+        });
+        return newList;
     }
 }
