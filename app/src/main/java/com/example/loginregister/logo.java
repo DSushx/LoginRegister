@@ -12,7 +12,7 @@ public class logo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logo);
-        mHandler.sendEmptyMessageDelayed(GOTO_Login_ACTIVITY, 500);
+        mHandler.sendEmptyMessageDelayed(GOTO_Login_ACTIVITY, 200);
     }
     private static final int GOTO_Login_ACTIVITY = 0;
     private Handler mHandler = new Handler() {

@@ -188,6 +188,7 @@ class InsertFragment : Fragment() {
                     val c = dbrw.rawQuery(queryString, null)
 
                     c.moveToFirst() //從第一筆開始輸出
+                    //hi
                     items.clear() //清空舊資料
                   //  showToast("共有${c.count}筆資料")
                     for (i in 0 until c.count) {
