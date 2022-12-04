@@ -83,6 +83,7 @@ public class MysqlCon {
 
             rs2.next();
             nowplan.nowstartdate = rs2.getString("startdate");
+            nowplan.exercise = rs2.getString("exercise");
             nowplan.nowplan_weight = rs2.getDouble("plan_weight");
             nowplan.nowplan_weightnow = rs2.getDouble("plan_weightnow");
             st2.close();

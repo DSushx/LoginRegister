@@ -115,7 +115,11 @@ public class SuggestionFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public DietStatus getInitialDietStatus(UserInfo userInfo) {
         DietStatus dietStatus = new DietStatus();
-        int age, activeLevel = 0, goal = 1;
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        int goal = pref.getInt("goal", 1);
+        int activeLevel = pref.getInt("activeLevel", 0);
+
+        int age = 0;
         double BMR = 0, TDEE, proteinRatio, carbsRatio, fatRatio;
 
         Calendar bday = Calendar.getInstance();

@@ -50,7 +50,7 @@ public class pastplanFragment extends Fragment {
     planlist planlist;
     ListView pastplan_show,show;
     SharedViewModel viewModel;
-    String startdate;
+    String startdate,exercise;
     Double weight,weightnow;
     View mView;
     @Override
@@ -171,11 +171,31 @@ public class pastplanFragment extends Fragment {
             startdate=nowplanData.nowstartdate;
             weight= nowplanData.nowplan_weight;
             weightnow=nowplanData.nowplan_weightnow;
+            exercise=nowplanData.exercise;
             String i = String.valueOf(weight.intValue());
             String j = String.valueOf(weightnow.intValue());
             realstartdate = view.findViewById(R.id.realnowplandate);
             realweightnow = view.findViewById(R.id.realnp_weightnow);
             realweightplan = view.findViewById(R.id.realnp_weight);
+            int goal,activeLevel;
+            if (weight-weightnow>0){
+                goal=2;
+            }
+            else if (weight-weightnow==0){
+                goal=1;
+            }
+            else   {goal=0;}
+            if (exercise=="低度"){
+                activeLevel=0;
+            }
+            else if (exercise=="中度"){
+                activeLevel=1;
+            }
+            else   {activeLevel=2;}
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putInt("goal", goal);
+            editor.putInt("activeLevel", activeLevel);// Storing string
+            editor.apply();
             view.post(() -> {
                 if (weight==0) {
                     upresult.setVisibility(View.VISIBLE);
