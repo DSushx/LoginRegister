@@ -208,8 +208,11 @@ public class HomeActivity extends AppCompatActivity {
 
                             //清空購物車
                             viewModel.emptyCart();
+                            //更新推薦
+                            viewModel.getSuggestion();
                             //清除狀態
                             viewModel.emptyStatus();
+
 
                             Toast.makeText(HomeActivity.this,"已新增至飲食紀錄",Toast.LENGTH_SHORT).show();
                             dismiss();

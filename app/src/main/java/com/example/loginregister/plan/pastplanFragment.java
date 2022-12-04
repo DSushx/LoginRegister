@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.loginregister.PlanFragment;
 import com.example.loginregister.R;
 import com.example.loginregister.datasets.FoodInfo;
+import com.example.loginregister.datasets.GoalActiveLevel;
 import com.example.loginregister.datasets.NowPlanInfo;
 import com.example.loginregister.datasets.PlanInfo;
 import com.example.loginregister.datasets.UserInfo;
@@ -126,7 +127,7 @@ public class pastplanFragment extends Fragment {
                             data[3] = end_date;
                             data[4] = final_weight;
 
-                            PutData putData = new PutData("http://10.0.2.2/LoginRegister/nowplan.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.1.211/LoginRegister/nowplan.php", "POST", field, data);
 
                             Toast.makeText(getActivity(),result.toString(),Toast.LENGTH_LONG).show();
                             if (putData.startPut()) {
@@ -192,11 +193,18 @@ public class pastplanFragment extends Fragment {
                 activeLevel=1;
             }
             else   {activeLevel=2;}
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putInt("goal", goal);
-            editor.putInt("activeLevel", activeLevel);// Storing string
-            editor.apply();
+//            SharedPreferences.Editor editor = pref.edit();
+//            editor.putInt("goal", goal);
+//            editor.putInt("activeLevel", activeLevel);// Storing string
+//            editor.apply();
+            GoalActiveLevel goalActiveLevel = new GoalActiveLevel();
+            goalActiveLevel.Goal = goal;
+            goalActiveLevel.ActiveLevel = activeLevel;
+
+
             view.post(() -> {
+                viewModel.setGoalActiveLevel(goalActiveLevel);
+
                 if (weight==0) {
                     upresult.setVisibility(View.VISIBLE);
 

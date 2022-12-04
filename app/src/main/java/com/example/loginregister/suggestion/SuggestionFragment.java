@@ -20,7 +20,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.loginregister.R;
 import com.example.loginregister.datasets.DietStatus;
 import com.example.loginregister.datasets.FoodInfo;
+import com.example.loginregister.datasets.GoalActiveLevel;
 import com.example.loginregister.datasets.ItemInCart;
+import com.example.loginregister.datasets.NowPlanInfo;
 import com.example.loginregister.datasets.UserInfo;
 import com.example.loginregister.home.SharedViewModel;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
@@ -47,12 +49,13 @@ public class SuggestionFragment extends Fragment {
     SharedViewModel viewModel;
     View mView;
     UserInfo userData;
-    List<FoodInfo> foodData = new ArrayList<>();
+    NowPlanInfo nowplandata;
     CustomList customList;
     ProgressBar progressBar;
     TextView caloriesLimit, caloriesHad, proteinHad, carbsHad, fatHad, noResult;
     ProgressBar caloriesProgress, proteinProgress, carbsProgress, fatProgress;
     ListView lvShow;
+    int goal, activeLevel;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -70,6 +73,17 @@ public class SuggestionFragment extends Fragment {
         };
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         viewModel.getDietStatus().observe(getViewLifecycleOwner(), statusObserver);
+
+        final Observer<GoalActiveLevel> goalActiveLevelObserver = new Observer<GoalActiveLevel>() {
+            @Override
+            public void onChanged(GoalActiveLevel goalActiveLevel) {
+                // Update the UI.
+                viewModel.setDietStatus(getInitialDietStatus(userData));
+                caloriesLimit.setText(String.format("%s", viewModel.getDietStatus().getValue().CaloriesPerMeal));
+            }
+        };
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
+//        viewModel.getGoalActiveLevel().observe(getViewLifecycleOwner(), goalActiveLevelObserver);
 
 
         mView = view;
@@ -90,67 +104,52 @@ public class SuggestionFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
 
         new Thread(() -> {
-
-            viewModel.getCon().run();
-
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
             String uname = pref.getString("username", null);
+            viewModel.getCon().run();
+            nowplandata = viewModel.getCon().getnowplanData(uname);
+            Log.i("nowplanData", nowplandata.toString());
+            double  weight= nowplandata.nowplan_weight;
+            double weightnow=nowplandata.nowplan_weightnow;
+            String  exercise=nowplandata.exercise;
+            int goal,activeLevel;
+            if (weight-weightnow>0){
+                goal=2;
+            }
+            else if (weight-weightnow==0){
+                goal=1;
+            }
+            else   {goal=0;}
+            if (exercise=="高度"){
+                activeLevel=2;
+            }
+            else if (exercise=="中度"){
+                activeLevel=1;
+            }
+            else   {activeLevel=0;}
+
+            GoalActiveLevel goalActiveLevel = new GoalActiveLevel();
+            goalActiveLevel.Goal = goal;
+            goalActiveLevel.ActiveLevel = activeLevel;
+
+            view.post(() -> {
+                viewModel.setGoalActiveLevel(goalActiveLevel);
+            });
+
             Log.i("username", uname);
             userData = viewModel.getCon().getUserData(uname);
             Log.v("OK", "使用者資料已回傳");
             Log.i("userData", userData.toString());
             viewModel.setUserId(userData.user_id);
 
-            String[] field =  new String[1];
-            field[0] = "id";
-            //Creating array for data
-            String[] data = new String[1];
-            data[0] = String.valueOf(userData.user_id);
-
-            PutData putData = new PutData("http://192.168.1.211/PythonSuggestion/getSuggestion.php", "POST", field, data);
-            if (putData.startPut()) {
-                if (putData.onComplete()) {
-                    String result = putData.getResult();
-                    String encoded_result = null;
-                    try {
-                        encoded_result = new String(result.getBytes("ISO-8859-1"), "utf-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-
-                    Log.i("PutData", encoded_result);
-
-                    try {
-                        JSONObject obj = new JSONObject(encoded_result);
-                        JSONArray arr = obj.getJSONArray("data");
-                        for (int i = 0; i < arr.length(); i++) {
-                            FoodInfo item = new FoodInfo();
-                            item.food_id = arr.getJSONObject(i).getInt("food_id");
-                            item.title = arr.getJSONObject(i).getString("title");
-                            item.categories = arr.getJSONObject(i).getString("categories");
-                            item.tags = arr.getJSONObject(i).getString("tags");
-                            item.weight = arr.getJSONObject(i).getDouble("重量(g)");
-                            item.calories = arr.getJSONObject(i).getDouble("熱量");
-                            item.protein = arr.getJSONObject(i).getDouble("蛋白質(g)");
-                            item.fat = arr.getJSONObject(i).getDouble("脂肪(g)");
-                            item.carbs = arr.getJSONObject(i).getDouble("碳水化合物(g)");
-                            item.sugar = arr.getJSONObject(i).getDouble("糖");
-                            item.sodium = arr.getJSONObject(i).getDouble("鈉");
-                            item.image = arr.getJSONObject(i).getString("image");
-                            foodData.add(item);
-                        }
-                        Log.i("foodData", foodData.toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+            viewModel.getSuggestion();
 
             DietStatus dietStatus = getInitialDietStatus(userData);
 
             view.post(() -> {
                 viewModel.setDietStatus(dietStatus);
                 caloriesLimit.setText(String.format("%s", dietStatus.CaloriesPerMeal));
+                viewModel.getGoalActiveLevel().observe(getViewLifecycleOwner(), goalActiveLevelObserver);
             });
 
         }).start();
@@ -164,11 +163,23 @@ public class SuggestionFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onResume() {
+        super.onResume();
+//        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+//        int currentGoal = pref.getInt("goal", 1);
+//        int currentActiveLevel = pref.getInt("activeLevel", 0);
+//        if (currentGoal != goal || currentActiveLevel != activeLevel) {
+//            goal = currentGoal;
+//            activeLevel = currentActiveLevel;
+//            viewModel.setDietStatus(getInitialDietStatus(userData));
+//            caloriesLimit.setText(String.format("%s", viewModel.getDietStatus().getValue().CaloriesPerMeal));
+//        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public DietStatus getInitialDietStatus(UserInfo userInfo) {
         DietStatus dietStatus = new DietStatus();
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
-        int goal = pref.getInt("goal", 1);
-        int activeLevel = pref.getInt("activeLevel", 0);
 
         int age = 0;
         double BMR = 0, TDEE, proteinRatio, carbsRatio, fatRatio;
@@ -183,15 +194,17 @@ public class SuggestionFragment extends Fragment {
 
         Log.i("age", Integer.toString(age));
 
-        if (Objects.equals(userInfo.gender, "Male")) {
+        if (Objects.equals(userInfo.gender, "男")) {
             BMR = 66 + (13.7 * userInfo.weight + 5 * userInfo.height - 6.8 * age);
-        } else if (Objects.equals(userInfo.gender, "Female")){
+        } else if (Objects.equals(userInfo.gender, "女")){
             BMR = 655 + (9.6 * userInfo.weight + 1.8 * userInfo.height - 4.7 * age);
         }
 
         Log.i("BMR", String.valueOf(BMR));
+        Log.i("ActiveLevel", String.valueOf(viewModel.getGoalActiveLevel().getValue().ActiveLevel));
+        Log.i("Goal", String.valueOf(viewModel.getGoalActiveLevel().getValue().Goal));
 
-        switch(activeLevel) {
+        switch(viewModel.getGoalActiveLevel().getValue().ActiveLevel) {
             case 0:  //低度
                 TDEE = BMR * 1.2;
                 break;
@@ -205,7 +218,7 @@ public class SuggestionFragment extends Fragment {
                 throw new IllegalStateException("Unexpected value: " + activeLevel);
         }
 
-        switch(goal) {
+        switch(viewModel.getGoalActiveLevel().getValue().Goal) {
             case 0:  //減脂
                 proteinRatio = 0.35;
                 carbsRatio = 0.4;
@@ -229,14 +242,28 @@ public class SuggestionFragment extends Fragment {
 
         Log.i("TDEE", String.valueOf((int)TDEE));
 
+        double ratio;
+
+        Calendar currentTime = Calendar.getInstance();
+        Calendar noon = Calendar.getInstance();
+        noon.set(Calendar.HOUR_OF_DAY, 12);
+        noon.set(Calendar.MINUTE, 0);
+        if (currentTime.before(noon)) {
+            ratio = 0.2;
+        } else {
+            ratio = 0.4;
+        }
+        Log.i("currentTime", String.valueOf(currentTime));
+        Log.i("noon", String.valueOf(noon));
+
         dietStatus.CaloriesPerDay = (int)TDEE;
-        dietStatus.CaloriesPerMeal = (int)(dietStatus.CaloriesPerDay * 0.4);  //早:五:晚 = 2:4:4
+        dietStatus.CaloriesPerMeal = (int)(dietStatus.CaloriesPerDay * ratio);  //早:午:晚 = 2:4:4
         dietStatus.ProteinPerDay = viewModel.oneDecimal(dietStatus.CaloriesPerDay * proteinRatio / 4);
-        dietStatus.ProteinPerMeal = viewModel.oneDecimal(dietStatus.ProteinPerDay * 0.4);
+        dietStatus.ProteinPerMeal = viewModel.oneDecimal(dietStatus.ProteinPerDay * ratio);
         dietStatus.CarbsPerDay = viewModel.oneDecimal(dietStatus.CaloriesPerDay * carbsRatio / 4);
-        dietStatus.CarbsPerMeal = viewModel.oneDecimal(dietStatus.CarbsPerDay * 0.4);
+        dietStatus.CarbsPerMeal = viewModel.oneDecimal(dietStatus.CarbsPerDay * ratio);
         dietStatus.FatPerDay = viewModel.oneDecimal(dietStatus.CaloriesPerDay * fatRatio / 9);
-        dietStatus.FatPerMeal = viewModel.oneDecimal(dietStatus.FatPerDay * 0.4);
+        dietStatus.FatPerMeal = viewModel.oneDecimal(dietStatus.FatPerDay * ratio);
 
         return dietStatus;
     }
@@ -300,7 +327,7 @@ public class SuggestionFragment extends Fragment {
         new Thread(() -> {
 
 //            foodData = viewModel.getCon().getFoodData(threshold);
-            List<FoodInfo> newFoodData = CaloriesFilter(foodData, threshold);
+            List<FoodInfo> newFoodData = CaloriesFilter(viewModel.getFoodData(), threshold);
             Log.v("OK", "食物資料已回傳");
             Log.i("foodData", newFoodData.toString());
 
@@ -308,7 +335,7 @@ public class SuggestionFragment extends Fragment {
                 progressBar.setVisibility(View.INVISIBLE);
                 customList = new CustomList(requireContext(), this, newFoodData);
                 lvShow.setAdapter(customList);
-                if (foodData.isEmpty()) {
+                if (newFoodData.isEmpty()) {
                     noResult.setVisibility(View.VISIBLE);
                 }
             });
