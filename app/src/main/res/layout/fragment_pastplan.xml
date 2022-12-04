@@ -49,13 +49,13 @@
 
             <ImageView
                 android:id="@+id/nowplanima1"
-                android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="0dp"
                 android:contentDescription="protein_background_rectangle"
-                android:src="@drawable/rectangle_orange_trans" />
+                android:src="@drawable/rectangle_orange_trans"
+                android:visibility="invisible" />
 
         </RelativeLayout>
 
@@ -94,13 +94,13 @@
 
             <ImageView
                 android:id="@+id/nowplanima2"
-                android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="0dp"
                 android:contentDescription="carbs_background_rectangle"
-                android:src="@drawable/rectangle_orange_trans" />
+                android:src="@drawable/rectangle_orange_trans"
+                android:visibility="invisible" />
 
 
 
@@ -208,6 +208,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="154dp"
+            android:gravity="center"
             android:text="無目前計畫"
             android:textSize="18dp"
             android:visibility="invisible" />
@@ -261,10 +264,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginEnd="16dp"
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pastplanlayout"
         app:layout_constraintVertical_bias="0.0">
 
@@ -281,7 +284,13 @@
             android:id="@+id/pastplan_no_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="148dp"
+            android:layout_marginEnd="160dp"
+
             android:text="無過往計畫"
             android:textSize="18dp"
             android:visibility="invisible" />
