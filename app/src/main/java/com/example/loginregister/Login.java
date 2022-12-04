@@ -90,7 +90,7 @@ public class Login extends AppCompatActivity {
                                 if (putData.onComplete()) {
                                     progressBar.setVisibility(View.GONE);
                                     String result = putData.getResult();
-                                    if (result.equals("Login Success")){
+                                    if (result.equals("Login Success!")){
 
                                         new Thread(() -> {
                                             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
