@@ -21,6 +21,7 @@ import com.example.loginregister.R;
 import com.example.loginregister.datasets.DietStatus;
 import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.ItemInCart;
+import com.example.loginregister.datasets.NuInfo;
 import com.example.loginregister.datasets.UserInfo;
 import com.example.loginregister.home.SharedViewModel;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
@@ -53,7 +54,7 @@ public class SuggestionFragment extends Fragment {
     TextView caloriesLimit, caloriesHad, proteinHad, carbsHad, fatHad, noResult;
     ProgressBar caloriesProgress, proteinProgress, carbsProgress, fatProgress;
     ListView lvShow;
-
+    NuInfo nudata;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -95,6 +96,9 @@ public class SuggestionFragment extends Fragment {
 
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
             String uname = pref.getString("username", null);
+
+            nudata = viewModel.getCon().getNuData(uname);
+            Log.i("NUData", nudata.toString());//營養素在這
             Log.i("username", uname);
             userData = viewModel.getCon().getUserData(uname);
             Log.v("OK", "使用者資料已回傳");
@@ -107,7 +111,7 @@ public class SuggestionFragment extends Fragment {
             String[] data = new String[1];
             data[0] = String.valueOf(userData.user_id);
 
-            PutData putData = new PutData("http://192.168.1.211/PythonSuggestion/getSuggestion.php", "POST", field, data);
+            PutData putData = new PutData("http://192.168.1.116/PythonSuggestion/getSuggestion.php", "POST", field, data);
             if (putData.startPut()) {
                 if (putData.onComplete()) {
                     String result = putData.getResult();
