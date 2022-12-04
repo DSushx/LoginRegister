@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 ;
 
@@ -43,6 +44,7 @@ public class HomeFragment extends Fragment {
     TextView carb ;
     TextView kal ;
     TextView textdate;
+    ProgressBar kcalProgress;
 
     private static SQLiteDatabase dbread;
 
@@ -56,9 +58,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mView = view;
         listView=view.findViewById(R.id.lv_home);
-
-
-
+        kcalProgress = view.findViewById(R.id.progressBar3);
         dbread = new insert_food_DB(mContext, "editFoodDB", null, 6).getWritableDatabase();
         //Date currentTime = Calendar.getInstance().getTime();
         Date date_of_today = new Date();
@@ -118,6 +118,9 @@ public class HomeFragment extends Fragment {
         String k=Integer.toString(total_kal);
         kal.setText(k);
         //dbread.close();
+    }
+    public void circleupdate(){
+
     }
 }
 

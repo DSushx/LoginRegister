@@ -254,7 +254,6 @@ public class SuggestionFragment extends Fragment {
                     noResult.setVisibility(View.VISIBLE);
                 }
             });
-
         }).start();
     }
 }
