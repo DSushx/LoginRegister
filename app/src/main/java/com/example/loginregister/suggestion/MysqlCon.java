@@ -18,10 +18,10 @@ import java.util.List;
 public class MysqlCon {
     String mysql_ip = "10.0.2.2";
     int mysql_port = 3306;
-    String db_name = "food_db";
+    String db_name = "loginregister";
     String url = "jdbc:mysql://" + mysql_ip + ":" + mysql_port + "/" + db_name;
     String db_user = "root";
-    String db_password = "";
+    String db_password = "01234567";
 
     public void run() {
         try {
@@ -126,7 +126,7 @@ public class MysqlCon {
         List<PlanInfo> planInfo = new ArrayList<>();
         try {
             Connection con = DriverManager.getConnection(url, db_user, db_password);
-            String sql = "SELECT * FROM plan WHERE `uname` = \"" + uname + "\" AND final_weight !=0";
+            String sql = "SELECT * FROM plan WHERE `uname` = \"" + uname + "\" AND final_weight !=0 ORDER BY id DESC";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
 

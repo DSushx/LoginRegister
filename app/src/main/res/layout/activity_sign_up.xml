@@ -221,6 +221,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="88dp"
                 android:text="註冊"
+                android:background="@drawable/rectangle_yellow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"

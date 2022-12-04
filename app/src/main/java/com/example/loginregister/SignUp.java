@@ -105,7 +105,7 @@ public class SignUp extends AppCompatActivity {
                             data[5] = weight;
                             data[6] = birthday;
                             data[7] = gender;
-                            PutData putData = new PutData("http://192.168.1.72/LoginRegister/signup.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.1.116/LoginRegister/signup.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     progressBar.setVisibility(View.GONE);

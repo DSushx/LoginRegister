@@ -87,6 +87,7 @@ public class pastplanFragment extends Fragment {
                 Fragment secondfrag = new PlanFragment();
                 FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
                 fm.replace(R.id.container,secondfrag).commit();
+
             }
         });
         save.setOnClickListener(new View.OnClickListener() {
@@ -158,9 +159,10 @@ public class pastplanFragment extends Fragment {
                     Toast.makeText(getActivity(),"All fields required",Toast.LENGTH_SHORT).show();
 
                 }
-                Fragment secondfrag = new PlanFragment();
+
                 FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
-                fm.replace(R.id.container,secondfrag).commit();
+                Fragment nextfrag = new pastplanFragment();
+                fm.replace(R.id.container,nextfrag).commit();
             }
         });
         new Thread(() -> {
