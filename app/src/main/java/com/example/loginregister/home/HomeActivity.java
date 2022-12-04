@@ -29,6 +29,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 import com.example.loginregister.R;
 import com.example.loginregister.databinding.ActivityHomeBinding;
 import com.example.loginregister.datasets.FoodInfo;
@@ -57,6 +59,9 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!Python.isStarted())
+            Python.start (new AndroidPlatform(this));
 
         db = new insert_food_DB(this, "editFoodDB", null, 6).getWritableDatabase();
         dbread = new insert_food_DB(this, "editFoodDB", null, 6).getWritableDatabase();
