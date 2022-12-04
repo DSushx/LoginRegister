@@ -280,12 +280,14 @@ public class SuggestionFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void update() {
         DietStatus dietStatus = viewModel.getDietStatus().getValue();
         updateBoard(dietStatus);
         refreshList(dietStatus.CaloriesPerMeal, dietStatus.CaloriesAchieved);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void refreshList(int caloriesPerMeal, int caloriesAchieved) {
         int caloriesDifference = caloriesPerMeal - caloriesAchieved;
         int threshold = Math.max(caloriesDifference, 0);
@@ -294,17 +296,29 @@ public class SuggestionFragment extends Fragment {
         new Thread(() -> {
 
 //            foodData = viewModel.getCon().getFoodData(threshold);
+            List<FoodInfo> newFoodData = CaloriesFilter(foodData, threshold);
             Log.v("OK", "食物資料已回傳");
-            Log.i("foodData", foodData.toString());
+            Log.i("foodData", newFoodData.toString());
 
             mView.post(() -> {
                 progressBar.setVisibility(View.INVISIBLE);
-                customList = new CustomList(requireContext(), this, foodData);
+                customList = new CustomList(requireContext(), this, newFoodData);
                 lvShow.setAdapter(customList);
                 if (foodData.isEmpty()) {
                     noResult.setVisibility(View.VISIBLE);
                 }
             });
         }).start();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public List<FoodInfo> CaloriesFilter(List<FoodInfo> list, int threshold) {
+        List<FoodInfo> newList = new ArrayList<>();
+        list.forEach(item -> {
+            if (item.calories <= threshold) {
+                newList.add(item);
+            }
+        });
+        return newList;
     }
 }
