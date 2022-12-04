@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EEEEEE"
+
     tools:context=".Login">
 
     <TextView
@@ -13,7 +15,7 @@
         android:layout_marginTop="100dp"
         android:fontFamily="@font/poppinsbold"
         android:gravity="center"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/yellow_f7b400"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
