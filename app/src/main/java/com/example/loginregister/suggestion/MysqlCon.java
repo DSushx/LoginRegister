@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.NowPlanInfo;
+import com.example.loginregister.datasets.NuInfo;
 import com.example.loginregister.datasets.PlanInfo;
 import com.example.loginregister.datasets.UserInfo;
 
@@ -16,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MysqlCon {
-    String mysql_ip = "192.168.1.211";
+    String mysql_ip = "192.168.1.116";
     int mysql_port = 3306;
-    String db_name = "food_db";
+    String db_name = "loginregister";
     String url = "jdbc:mysql://" + mysql_ip + ":" + mysql_port + "/" + db_name;
     String db_user = "root";
     String db_password = "";
@@ -46,7 +47,7 @@ public class MysqlCon {
         try {
             Connection con = DriverManager.getConnection(url, db_user, db_password);
             String sql = "SELECT * FROM users WHERE `username` = \"" + uname + "\"";
-            String sql2 = "SELECT * FROM plan WHERE `uname`= \"" + uname + "\"ORDER BY id DESC ";
+            String sql2 = "SELECT * FROM plan WHERE finish=0 AND `uname`= \"" + uname + "\"ORDER BY id DESC ";
             //SELECT MAX(id),uname* FROM plan GROUP BY uname WHERE `uname`
             Statement st = con.createStatement();
             Statement st2 = con.createStatement();
@@ -92,7 +93,27 @@ public class MysqlCon {
         }
         return nowplan;
     }
+    public NuInfo getNuData(String uname) {
+        NuInfo nudata = new NuInfo();
+        try {
+            Connection con = DriverManager.getConnection(url, db_user, db_password);
+            String sql2 = "SELECT * FROM nutrient WHERE `uname` = \"" + uname + "\" ORDER BY id DESC ";
+            Statement st2 = con.createStatement();
+            ResultSet rs2 = st2.executeQuery(sql2);
 
+            rs2.next();
+            nudata.calorie = rs2.getInt("calorie");
+            nudata.protein = rs2.getInt("protein");
+            nudata.fat = rs2.getInt("fat");
+            nudata.carbohy = rs2.getInt("carbohy");
+            nudata.sugar = rs2.getInt("sugar");
+            nudata.sodium = rs2.getInt("sodium");
+            st2.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return nudata;
+    }
     public List<FoodInfo> getFoodData(int calories) {
         List<FoodInfo> foodInfo = new ArrayList<>();
         try {

@@ -23,6 +23,7 @@ import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.GoalActiveLevel;
 import com.example.loginregister.datasets.ItemInCart;
 import com.example.loginregister.datasets.NowPlanInfo;
+import com.example.loginregister.datasets.NuInfo;
 import com.example.loginregister.datasets.UserInfo;
 import com.example.loginregister.home.SharedViewModel;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
@@ -57,6 +58,7 @@ public class SuggestionFragment extends Fragment {
     ListView lvShow;
     int goal, activeLevel;
 
+    NuInfo nudata;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -136,6 +138,9 @@ public class SuggestionFragment extends Fragment {
                 viewModel.setGoalActiveLevel(goalActiveLevel);
             });
 
+
+            nudata = viewModel.getCon().getNuData(uname);
+            Log.i("NUData", nudata.toString());//營養素在這
             Log.i("username", uname);
             userData = viewModel.getCon().getUserData(uname);
             Log.v("OK", "使用者資料已回傳");
@@ -160,21 +165,6 @@ public class SuggestionFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    public void onResume() {
-        super.onResume();
-//        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
-//        int currentGoal = pref.getInt("goal", 1);
-//        int currentActiveLevel = pref.getInt("activeLevel", 0);
-//        if (currentGoal != goal || currentActiveLevel != activeLevel) {
-//            goal = currentGoal;
-//            activeLevel = currentActiveLevel;
-//            viewModel.setDietStatus(getInitialDietStatus(userData));
-//            caloriesLimit.setText(String.format("%s", viewModel.getDietStatus().getValue().CaloriesPerMeal));
-//        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

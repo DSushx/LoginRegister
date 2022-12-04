@@ -10,6 +10,7 @@ import com.example.loginregister.InsertFragment;
 import com.example.loginregister.PlanFragment;
 import com.example.loginregister.ProfileFragment;
 import com.example.loginregister.R;
+import com.example.loginregister.plan.pastplanFragment;
 import com.example.loginregister.suggestion.SuggestionFragment;
 
 
@@ -29,6 +30,8 @@ public class HomePager extends FragmentStateAdapter {
 
     public Fragment createFragment(int position) {
         Fragment fragment;
+
+
         switch(position) {
             case 1:
                 fragment = new InsertFragment();
@@ -42,6 +45,7 @@ public class HomePager extends FragmentStateAdapter {
                 break;
             case 4:
                 fragment = new ProfileFragment();
+
                 break;
             default:
                 fragment = new HomeFragment();
