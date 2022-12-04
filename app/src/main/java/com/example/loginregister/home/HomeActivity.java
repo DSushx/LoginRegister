@@ -60,9 +60,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!Python.isStarted())
-            Python.start (new AndroidPlatform(this));
-
         db = new insert_food_DB(this, "editFoodDB", null, 6).getWritableDatabase();
         dbread = new insert_food_DB(this, "editFoodDB", null, 6).getWritableDatabase();
         viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
@@ -74,6 +71,8 @@ public class HomeActivity extends AppCompatActivity {
         binding.pagerHome.setUserInputEnabled(false);
 
         binding.pagerHome.setAdapter(pagerAdapter);
+
+        binding.pagerHome.setOffscreenPageLimit(5);
 
         binding.btnShoppingCart.setOnClickListener(listener);
         binding.planList.setOnClickListener(listener2);
