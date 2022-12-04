@@ -127,8 +127,9 @@ public class PlanFragment extends Fragment {
                                     String result = putData.getResult();
                                     if (result.equals("Plan Success!")){
                                         Toast.makeText(getActivity(),result,Toast.LENGTH_SHORT).show();
-                                        //Intent intent = new Intent(getActivity(),planFragment.class);
-                                        //startActivity(intent);
+                                        Fragment secondfrag = new PlanFragment();
+                                        FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
+                                        fm.replace(R.id.container,secondfrag).commit();
 
 
                                     }

@@ -103,7 +103,9 @@ public class NuFragment extends Fragment {
                                     String result = putData.getResult();
                                     if (result.equals("Success!")){
                                         Toast.makeText(getActivity(),result,Toast.LENGTH_SHORT).show();
-
+                                        Fragment secondfrag = new NuFragment();
+                                        FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
+                                        fm.replace(R.id.container,secondfrag).commit();
 
                                     }
                                     else{

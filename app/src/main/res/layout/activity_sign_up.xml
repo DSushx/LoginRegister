@@ -28,7 +28,7 @@
                 android:fontFamily="@font/poppinsbold"
                 android:gravity="center"
                 android:text="註冊"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/yellow_f7b400"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
