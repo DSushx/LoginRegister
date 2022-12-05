@@ -73,7 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
                             data[3] = email;
                             data[4] = height;
 
-                            PutData putData = new PutData("http://192.168.1.72/LoginRegister/signup.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.1.211/LoginRegister/signup.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
 

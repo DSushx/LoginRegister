@@ -25,7 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.loginregister.datasets.Disease;
-import com.example.loginregister.datasets.GoalActiveLevel;
+import com.example.loginregister.datasets.GoalActiveLevelNu;
 import com.example.loginregister.datasets.UserInfo;
 import com.example.loginregister.home.SharedViewModel;
 import com.example.loginregister.suggestion.CustomList;

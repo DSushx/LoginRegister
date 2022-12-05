@@ -20,24 +20,16 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.loginregister.R;
 import com.example.loginregister.datasets.DietStatus;
 import com.example.loginregister.datasets.FoodInfo;
-import com.example.loginregister.datasets.GoalActiveLevel;
-import com.example.loginregister.datasets.ItemInCart;
+import com.example.loginregister.datasets.GoalActiveLevelNu;
 import com.example.loginregister.datasets.NowPlanInfo;
 import com.example.loginregister.datasets.NuInfo;
 import com.example.loginregister.datasets.UserInfo;
 import com.example.loginregister.home.SharedViewModel;
-import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -58,7 +50,7 @@ public class SuggestionFragment extends Fragment {
     ListView lvShow;
     int goal, activeLevel;
 
-    NuInfo nudata;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -76,12 +68,13 @@ public class SuggestionFragment extends Fragment {
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         viewModel.getDietStatus().observe(getViewLifecycleOwner(), statusObserver);
 
-        final Observer<GoalActiveLevel> goalActiveLevelObserver = new Observer<GoalActiveLevel>() {
+        final Observer<GoalActiveLevelNu> goalActiveLevelNuObserver = new Observer<GoalActiveLevelNu>() {
             @Override
-            public void onChanged(GoalActiveLevel goalActiveLevel) {
+            public void onChanged(GoalActiveLevelNu goalActiveLevel) {
                 // Update the UI.
                 viewModel.setDietStatus(getInitialDietStatus(userData));
                 caloriesLimit.setText(String.format("%s", viewModel.getDietStatus().getValue().CaloriesPerMeal));
+                viewModel.emptyCart();
             }
         };
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
@@ -108,13 +101,15 @@ public class SuggestionFragment extends Fragment {
         new Thread(() -> {
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
             String uname = pref.getString("username", null);
+            Log.i("username", uname);
             viewModel.getCon().run();
+
             nowplandata = viewModel.getCon().getnowplanData(uname);
             Log.i("nowplanData", nowplandata.toString());
             double  weight= nowplandata.nowplan_weight;
             double weightnow=nowplandata.nowplan_weightnow;
             String  exercise=nowplandata.exercise;
-            int goal,activeLevel;
+
             if (weight-weightnow>0){
                 goal=2;
             }
@@ -130,18 +125,15 @@ public class SuggestionFragment extends Fragment {
             }
             else   {activeLevel=0;}
 
-            GoalActiveLevel goalActiveLevel = new GoalActiveLevel();
-            goalActiveLevel.Goal = goal;
-            goalActiveLevel.ActiveLevel = activeLevel;
-
             view.post(() -> {
-                viewModel.setGoalActiveLevel(goalActiveLevel);
+                viewModel.setGoalActiveLevel(goal, activeLevel);
             });
 
-
-            nudata = viewModel.getCon().getNuData(uname);
+            NuInfo nudata = viewModel.getCon().getNuData(uname);
             Log.i("NUData", nudata.toString());//營養素在這
-            Log.i("username", uname);
+            view.post(() -> {
+               viewModel.setNu(nudata);
+            });
 
             userData = viewModel.getCon().getUserData(uname);
             Log.v("OK", "使用者資料已回傳");
@@ -151,7 +143,7 @@ public class SuggestionFragment extends Fragment {
             viewModel.getSuggestion();
 
             view.post(() -> {
-                viewModel.getGoalActiveLevel().observe(getViewLifecycleOwner(), goalActiveLevelObserver);
+                viewModel.getGoalActiveLevelNu().observe(getViewLifecycleOwner(), goalActiveLevelNuObserver);
             });
 
         }).start();
@@ -167,67 +159,82 @@ public class SuggestionFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public DietStatus getInitialDietStatus(UserInfo userInfo) {
         DietStatus dietStatus = new DietStatus();
+        NuInfo nudata = viewModel.getGoalActiveLevelNu().getValue().NuInfo;
 
-        int age = 0;
-        double BMR = 0, TDEE, proteinRatio, carbsRatio, fatRatio;
+        if (nudata.calorie == 0 && nudata.protein == 0 && nudata.carbohy == 0 && nudata.fat == 0) {
+            int age = 0;
+            double BMR = 0, TDEE, proteinRatio, carbsRatio, fatRatio;
 
-        Calendar bday = Calendar.getInstance();
-        bday.setTime(userInfo.birthday);
+            Calendar bday = Calendar.getInstance();
+            bday.setTime(userInfo.birthday);
 
-        age = Period.between(
-                LocalDate.of(bday.get(Calendar.YEAR), bday.get(Calendar.MONTH), bday.get(Calendar.DAY_OF_MONTH)),
-                LocalDate.now())
-                .getYears();
+            age = Period.between(
+                            LocalDate.of(bday.get(Calendar.YEAR), bday.get(Calendar.MONTH), bday.get(Calendar.DAY_OF_MONTH)),
+                            LocalDate.now())
+                    .getYears();
 
-        Log.i("age", Integer.toString(age));
+            Log.i("age", Integer.toString(age));
 
-        if (Objects.equals(userInfo.gender, "男")) {
-            BMR = 66 + (13.7 * userInfo.weight + 5 * userInfo.height - 6.8 * age);
-        } else if (Objects.equals(userInfo.gender, "女")){
-            BMR = 655 + (9.6 * userInfo.weight + 1.8 * userInfo.height - 4.7 * age);
+            if (Objects.equals(userInfo.gender, "男")) {
+                BMR = 66 + (13.7 * userInfo.weight + 5 * userInfo.height - 6.8 * age);
+            } else if (Objects.equals(userInfo.gender, "女")){
+                BMR = 655 + (9.6 * userInfo.weight + 1.8 * userInfo.height - 4.7 * age);
+            }
+
+            Log.i("BMR", String.valueOf(BMR));
+            Log.i("ActiveLevel", String.valueOf(viewModel.getGoalActiveLevelNu().getValue().ActiveLevel));
+            Log.i("Goal", String.valueOf(viewModel.getGoalActiveLevelNu().getValue().Goal));
+
+            switch(viewModel.getGoalActiveLevelNu().getValue().ActiveLevel) {
+                case 0:  //低度
+                    TDEE = BMR * 1.2;
+                    break;
+                case 1:  //中度
+                    TDEE = BMR * 1.4;
+                    break;
+                case 2:  //高度
+                    TDEE = BMR * 1.6;
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + activeLevel);
+            }
+
+            switch(viewModel.getGoalActiveLevelNu().getValue().Goal) {
+                case 0:  //減脂
+                    proteinRatio = 0.35;
+                    carbsRatio = 0.4;
+                    fatRatio = 0.25;
+                    TDEE *= 0.9;
+                    break;
+                case 1:  //維持
+                    proteinRatio = 0.2;
+                    carbsRatio = 0.5;
+                    fatRatio = 0.3;
+                    break;
+                case 2:  //增肌
+                    proteinRatio = 0.25;
+                    carbsRatio = 0.55;
+                    fatRatio = 0.2;
+                    TDEE *= 1.1;
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + goal);
+            }
+
+            Log.i("TDEE", String.valueOf((int)TDEE));
+
+
+            dietStatus.CaloriesPerDay = (int)TDEE;
+            dietStatus.ProteinPerDay = viewModel.oneDecimal(dietStatus.CaloriesPerDay * proteinRatio / 4);
+            dietStatus.CarbsPerDay = viewModel.oneDecimal(dietStatus.CaloriesPerDay * carbsRatio / 4);
+            dietStatus.FatPerDay = viewModel.oneDecimal(dietStatus.CaloriesPerDay * fatRatio / 9);
         }
-
-        Log.i("BMR", String.valueOf(BMR));
-        Log.i("ActiveLevel", String.valueOf(viewModel.getGoalActiveLevel().getValue().ActiveLevel));
-        Log.i("Goal", String.valueOf(viewModel.getGoalActiveLevel().getValue().Goal));
-
-        switch(viewModel.getGoalActiveLevel().getValue().ActiveLevel) {
-            case 0:  //低度
-                TDEE = BMR * 1.2;
-                break;
-            case 1:  //中度
-                TDEE = BMR * 1.4;
-                break;
-            case 2:  //高度
-                TDEE = BMR * 1.6;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + activeLevel);
+        else {
+            dietStatus.CaloriesPerDay = nudata.calorie;
+            dietStatus.ProteinPerDay = nudata.protein;
+            dietStatus.CarbsPerDay = nudata.carbohy;
+            dietStatus.FatPerDay = nudata.fat;
         }
-
-        switch(viewModel.getGoalActiveLevel().getValue().Goal) {
-            case 0:  //減脂
-                proteinRatio = 0.35;
-                carbsRatio = 0.4;
-                fatRatio = 0.25;
-                TDEE *= 0.9;
-                break;
-            case 1:  //維持
-                proteinRatio = 0.2;
-                carbsRatio = 0.5;
-                fatRatio = 0.3;
-                break;
-            case 2:  //增肌
-                proteinRatio = 0.25;
-                carbsRatio = 0.55;
-                fatRatio = 0.2;
-                TDEE *= 1.1;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + goal);
-        }
-
-        Log.i("TDEE", String.valueOf((int)TDEE));
 
         double ratio;
 
@@ -240,16 +247,10 @@ public class SuggestionFragment extends Fragment {
         } else {
             ratio = 0.4;
         }
-//        Log.i("currentTime", String.valueOf(currentTime));
-//        Log.i("noon", String.valueOf(noon));
 
-        dietStatus.CaloriesPerDay = (int)TDEE;
         dietStatus.CaloriesPerMeal = (int)(dietStatus.CaloriesPerDay * ratio);  //早:午:晚 = 2:4:4
-        dietStatus.ProteinPerDay = viewModel.oneDecimal(dietStatus.CaloriesPerDay * proteinRatio / 4);
         dietStatus.ProteinPerMeal = viewModel.oneDecimal(dietStatus.ProteinPerDay * ratio);
-        dietStatus.CarbsPerDay = viewModel.oneDecimal(dietStatus.CaloriesPerDay * carbsRatio / 4);
         dietStatus.CarbsPerMeal = viewModel.oneDecimal(dietStatus.CarbsPerDay * ratio);
-        dietStatus.FatPerDay = viewModel.oneDecimal(dietStatus.CaloriesPerDay * fatRatio / 9);
         dietStatus.FatPerMeal = viewModel.oneDecimal(dietStatus.FatPerDay * ratio);
 
         return dietStatus;
