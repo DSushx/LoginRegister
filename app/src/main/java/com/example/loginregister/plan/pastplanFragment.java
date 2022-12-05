@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.loginregister.PlanFragment;
 import com.example.loginregister.R;
+import com.example.loginregister.datasets.Disease;
 import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.GoalActiveLevel;
 import com.example.loginregister.datasets.NowPlanInfo;
@@ -139,7 +140,12 @@ public class pastplanFragment extends Fragment {
                                         //Intent intent = new Intent(getActivity(),planFragment.class);
                                         //startActivity(intent);
 
+                                        Disease diseaseandnu  = new Disease();
+                                        diseaseandnu.dis = " ";
+                                        diseaseandnu.nu = " ";
+                                        diseaseandnu.weight = final_weight;
 
+                                        viewModel.setdiseaseandnu(diseaseandnu);
                                     }
                                     else{
                                         Toast.makeText(getActivity(),result,Toast.LENGTH_SHORT).show();
