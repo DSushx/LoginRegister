@@ -91,10 +91,14 @@ public class DatePickerFragment extends DialogFragment
 
         if (cursor != null && cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
-                total_kal+=cursor.getInt(1);
-                total_fat+=cursor.getInt(3);
-                total_pro+=cursor.getInt(2);
-                total_carb+=cursor.getInt(4);
+                int i =cursor.getInt(5);
+                while (i!=0){
+                    total_kal+=cursor.getInt(1);
+                    total_fat+=cursor.getInt(3);
+                    total_pro+=cursor.getInt(2);
+                    total_carb+=cursor.getInt(4);
+                    i--;
+                }
             }
             cursor.close();
         }
