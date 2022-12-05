@@ -24,7 +24,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.loginregister.datasets.Disease;
-import com.example.loginregister.datasets.GoalActiveLevel;
+import com.example.loginregister.datasets.GoalActiveLevelNu;
 import com.example.loginregister.home.SharedViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
@@ -150,11 +150,7 @@ public class PlanFragment extends Fragment {
                                         }
                                         else   {activeLevel=0;}
 
-                                        GoalActiveLevel goalActiveLevel = new GoalActiveLevel();
-                                        goalActiveLevel.Goal = goal;
-                                        goalActiveLevel.ActiveLevel = activeLevel;
-
-                                        viewModel.setGoalActiveLevel(goalActiveLevel);
+                                        viewModel.setGoalActiveLevel(goal, activeLevel);
 
                                         Disease diseaseandnu  = new Disease();
                                         diseaseandnu.dis = special_dis;

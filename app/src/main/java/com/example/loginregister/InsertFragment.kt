@@ -254,7 +254,7 @@ class InsertFragment : Fragment() {
     private var mThread: Runnable? = Runnable {
         try {
 
-            val url = URL("http://192.168.56.1/GetData.php?foodname=$target")
+            val url = URL("http://192.168.1.116/GetData.php?foodname=$target")
             // 開始宣告 HTTP 連線需要的物件，這邊通常都是一綑的
             val connection = url.openConnection() as HttpURLConnection
             // 建立 Google 比較挺的 HttpURLConnection 物件
