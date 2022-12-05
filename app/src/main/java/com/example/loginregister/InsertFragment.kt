@@ -267,6 +267,7 @@ class InsertFragment : Fragment() {
             val responseCode = connection.responseCode // 建立取得回應的物件
             if (responseCode == HttpURLConnection.HTTP_OK) {
 
+
                 // 如果 HTTP 回傳狀態是 OK ，而不是 Error
                 val inputStream = connection.inputStream
                 // 取得輸入串流
