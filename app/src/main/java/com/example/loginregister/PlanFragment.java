@@ -26,6 +26,8 @@ import com.example.loginregister.home.SharedViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
+import java.util.Calendar;
+
 
 public class PlanFragment extends Fragment {
     SharedViewModel viewModel;
@@ -119,7 +121,7 @@ public class PlanFragment extends Fragment {
                             data[4] = nutrient;
                             data[5] = exercise;
                             data[6] = uname;
-                            PutData putData = new PutData("http://192.168.1.211/LoginRegister/plan.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.1.72/LoginRegister/plan.php", "POST", field, data);
 
                             Toast.makeText(getActivity(),result.toString(),Toast.LENGTH_LONG).show();
                             if (putData.startPut()) {
