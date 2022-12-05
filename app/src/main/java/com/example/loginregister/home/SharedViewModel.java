@@ -133,7 +133,7 @@ public class SharedViewModel extends ViewModel {
         String[] data = new String[1];
         data[0] = String.valueOf(userId);
 
-        PutData putData = new PutData("http://192.168.1.211/PythonSuggestion/getSuggestion.php", "POST", field, data);
+        PutData putData = new PutData("http://192.168.1.72/PythonSuggestion/getSuggestion.php", "POST", field, data);
         if (putData.startPut()) {
             if (putData.onComplete()) {
                 String result = putData.getResult();

@@ -1,5 +1,8 @@
 package com.example.loginregister.home;
 
+import static java.sql.DriverManager.println;
+import static java.sql.Types.NULL;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -258,10 +261,17 @@ public class HomeActivity extends AppCompatActivity {
                 bean.calories = cursor.getInt(1);
                 bean.image = cursor.getString(7);
                 int i =cursor.getInt(5);
-                while (i!=0){
+                if(cursor.getInt(5)==NULL){
                     list.add(bean);
-                    i--;
+                    println("有喔有喔有喔");
                 }
+                else{
+                    while (i!=0){
+                        list.add(bean);
+                        i--;
+                    }
+                }
+
 
             }
             cursor.close();
