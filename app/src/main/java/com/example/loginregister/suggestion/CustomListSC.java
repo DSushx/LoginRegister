@@ -66,9 +66,30 @@ public class CustomListSC extends BaseAdapter {
         RelativeLayout minus = list.findViewById(R.id.btn_minus);
         plus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                ((HomeActivity)mContext).viewModel.addQuantity(position);
-                ((HomeActivity)mContext).viewModel.addToStatus(chosenItems.get(position).foodInfo);
-                ((HomeActivity)mContext).refreshCart();
+                int curCalories = ((HomeActivity)mContext).viewModel.getDietStatus().getValue().CaloriesAchieved;
+                if (curCalories + chosenItems.get(position).foodInfo.calories > ((HomeActivity)mContext).viewModel.getDietStatus().getValue().CaloriesPerMeal) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+                    alertDialog.setTitle("熱量即將超標!");
+                    alertDialog.setMessage("確定增加?");
+                    alertDialog.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ((HomeActivity)mContext).viewModel.addQuantity(position);
+                            ((HomeActivity)mContext).viewModel.addToStatus(chosenItems.get(position).foodInfo);
+                            ((HomeActivity)mContext).refreshCart();
+                        }
+                    });
+                    alertDialog.setNegativeButton("取消",(dialog, which) -> {
+                        return;
+                    });
+                    alertDialog.setCancelable(false);
+                    alertDialog.show();
+                }
+                else {
+                    ((HomeActivity) mContext).viewModel.addQuantity(position);
+                    ((HomeActivity) mContext).viewModel.addToStatus(chosenItems.get(position).foodInfo);
+                    ((HomeActivity) mContext).refreshCart();
+                }
             }
         });
 

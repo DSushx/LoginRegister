@@ -178,33 +178,8 @@ public class pastplanFragment extends Fragment {
             realstartdate = view.findViewById(R.id.realnowplandate);
             realweightnow = view.findViewById(R.id.realnp_weightnow);
             realweightplan = view.findViewById(R.id.realnp_weight);
-            int goal,activeLevel;
-            if (weight-weightnow>0){
-                goal=2;
-            }
-            else if (weight-weightnow==0){
-                goal=1;
-            }
-            else   {goal=0;}
-            if (exercise=="低度"){
-                activeLevel=0;
-            }
-            else if (exercise=="中度"){
-                activeLevel=1;
-            }
-            else   {activeLevel=2;}
-//            SharedPreferences.Editor editor = pref.edit();
-//            editor.putInt("goal", goal);
-//            editor.putInt("activeLevel", activeLevel);// Storing string
-//            editor.apply();
-            GoalActiveLevel goalActiveLevel = new GoalActiveLevel();
-            goalActiveLevel.Goal = goal;
-            goalActiveLevel.ActiveLevel = activeLevel;
-
 
             view.post(() -> {
-                viewModel.setGoalActiveLevel(goalActiveLevel);
-
                 if (weight==0) {
                     upresult.setVisibility(View.VISIBLE);
 

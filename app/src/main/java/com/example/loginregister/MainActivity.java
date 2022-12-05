@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         String[] data = new String[1];
         data[0] = String.valueOf(id);
 
-        PutData putData = new PutData("http://192.168.1.116/PythonSuggestion/getSuggestion.php", "POST", field, data);
+        PutData putData = new PutData("http://192.168.1.211/PythonSuggestion/getSuggestion.php", "POST", field, data);
         if (putData.startPut()) {
             if (putData.onComplete()) {
                 String result = putData.getResult();
