@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:hint="品名:"
+                android:hint="品名: (必填)"
 
                 android:textColorHint="#020202"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:hint="熱量:"
+                android:hint="熱量: (必填)"
                 android:textColorHint="#020202"
                 app:layout_constraintTop_toBottomOf="@+id/ed_food_name"
                 tools:layout_editor_absoluteX="0dp">
