@@ -9,13 +9,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.text.set
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.example.loginregister.home.HomeActivity
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 class InsertFragment : Fragment() {
@@ -32,6 +36,13 @@ class InsertFragment : Fragment() {
     var textFat: TextInputEditText? = null
     var textCarbohydrate: TextInputEditText? = null
 
+    var textCalorie1: TextInputLayout? = null
+
+    var result: String? = null
+    var textView: TextView? = null
+    var button: Button? = null
+
+    var target: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +59,11 @@ class InsertFragment : Fragment() {
         btnInsert = view.findViewById(R.id.btn_insert);
         btnUpdate = view.findViewById(R.id.btn_update);
         btnDelete = view.findViewById(R.id.btn_delete);
+
+        button = view.findViewById(R.id.btn_delete)
+        textView = view.findViewById(R.id.textView)
+
+        textCalorie1 = view.findViewById<View>(R.id.ed_calorie) as TextInputLayout
 
         //取得資料庫實體
         dbrw = insert_food_DB(this.requireContext() as HomeActivity).writableDatabase
@@ -153,6 +169,7 @@ class InsertFragment : Fragment() {
 
         btnDelete?.setOnClickListener {
 
+            // 按鈕事件
             // 點擊刪除按鈕 自動收回鍵盤
             val imm: InputMethodManager =
                 requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -182,7 +199,7 @@ class InsertFragment : Fragment() {
 
                 }
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
+/*
                     //若無輸入品名則 SQL 語法為查詢全部菜色，反之查詢該品名資料
                     val queryString = "SELECT * FROM myFoodTable WHERE food_name LIKE '%${textFoodName!!.text}%'"
                     val c = dbrw.rawQuery(queryString, null)
@@ -198,12 +215,22 @@ class InsertFragment : Fragment() {
                     }
                     adapter.notifyDataSetChanged() //更新列表資料
                     c.close() //關閉 Cursor
+
+ */
+
                 }
                 override fun afterTextChanged(s: Editable?) {
+                    println("進入2")
+                    target=textFoodName?.text.toString()
 
+                    // 宣告執行緒
+                    val thread: Thread = Thread(mThread)
+                    thread.start() // 開始執行
+                    println(target)
                 }
             })
         }
+
     }
 
     //建立 showToast 方法顯示 Toast 訊息
@@ -217,6 +244,87 @@ class InsertFragment : Fragment() {
         textProtein?.setText("")
         textFat?.setText("")
         textCarbohydrate?.setText("")
+    }
+
+    /* ======================================== */ // 建立一個執行緒執行的事件取得網路資料
+    // Android 有規定，連線網際網路的動作都不能再主線程做執行
+    // 畢竟如果使用者連上網路結果等太久整個系統流程就卡死了
+    /* ======================================== */ // 畢竟如果使用者連上網路結果等太久整個系統流程就卡死了
+    private var mThread: Runnable? = Runnable {
+        try {
+            print("看這裡")
+            val url = URL("http://192.168.56.1/GetData.php?foodname=$target")
+            // 開始宣告 HTTP 連線需要的物件，這邊通常都是一綑的
+            val connection = url.openConnection() as HttpURLConnection
+            // 建立 Google 比較挺的 HttpURLConnection 物件
+            connection.requestMethod = "POST"
+            // 設定連線方式為 POST
+            connection.doOutput = true // 允許輸出
+            connection.doInput = true // 允許讀入
+            connection.useCaches = false // 不使用快取
+            connection.connect() // 開始連線
+            val responseCode = connection.responseCode // 建立取得回應的物件
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                println("進入qwer")
+                // 如果 HTTP 回傳狀態是 OK ，而不是 Error
+                val inputStream = connection.inputStream
+                // 取得輸入串流
+                val bufReader = BufferedReader(InputStreamReader(inputStream, "utf-8"), 8)
+                // 讀取輸入串流的資料
+                var box = "" // 宣告存放用字串
+                var line: String? = null // 宣告讀取用的字串
+                while (bufReader.readLine().also { line = it } != null) {
+                    box += """
+                        $line
+                        
+                        """.trimIndent() // 每當讀取出一列，就加到存放字串後面
+                }
+                inputStream.close() // 關閉輸入串流
+
+
+                var dataIndex:Int? = 1
+                val targetLen = target!!.length
+                val targetData = FloatArray(6)
+                val getSubstring = box.substring(
+                    box.indexOf(target!!)+targetLen ,
+                    box.indexOf(target!!) + targetLen + 60
+                ) // 邊界處理很重要!!!
+
+                print("Here")
+                println(getSubstring)
+
+                val targetSubstring=getSubstring.split(',',':','熱','量','"',' ', '蛋','白','質','(',')','g','脂','肪','碳','水','化','合','物','{','}').toTypedArray()
+
+            //    box = targetSubstring.toString()
+             //   result = box // 把存放用字串放到全域變數
+                println("進入*****")
+
+
+                for (i in targetSubstring!!.indices) {
+               //     println(i)
+               //     println("呱呱")
+               //     println(targetSubstring[i])
+
+                }
+                println(targetSubstring[8])
+                println(targetSubstring[20])
+                println(targetSubstring[31])
+                println(targetSubstring[45])
+                textCalorie1!!.editText!!.setText(targetSubstring[8])
+
+
+            }
+            // 讀取輸入串流並存到字串的部分
+            // 取得資料後想用不同的格式
+            // 例如 Json 等等，都是在這一段做處理
+        } catch (e: java.lang.Exception) {
+            result = e.toString() // 如果出事，回傳錯誤訊息
+        }
+
+        // 當這個執行緒完全跑完後執行
+        activity?.runOnUiThread(Runnable {
+          print("跑完了")
+        })
     }
 
     private fun Button.setOnClickListener(eeee: Any) {
