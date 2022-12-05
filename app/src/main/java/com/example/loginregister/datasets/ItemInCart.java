@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 public class ItemInCart {
     public FoodInfo foodInfo;
     public int quantity;
-
     public void addOne() {
         this.quantity += 1;
     }

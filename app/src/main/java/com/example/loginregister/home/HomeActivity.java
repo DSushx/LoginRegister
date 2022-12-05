@@ -256,7 +256,12 @@ public class HomeActivity extends AppCompatActivity {
                 bean.title = cursor.getString(0);
                 bean.calories = cursor.getInt(1);
                 bean.image = cursor.getString(7);
-                list.add(bean);
+                int i =cursor.getInt(5);
+                while (i!=0){
+                    list.add(bean);
+                    i--;
+                }
+
             }
             cursor.close();
         }

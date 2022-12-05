@@ -183,9 +183,9 @@
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="207dp"
                     android:layout_height="57dp"
-
+                    android:background="@drawable/btn_radius"
                     android:layout_marginTop="104dp"
-                    android:background="#9F000000"
+
                     android:text="返回"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
