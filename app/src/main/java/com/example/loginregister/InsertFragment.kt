@@ -37,6 +37,9 @@ class InsertFragment : Fragment() {
     var textCarbohydrate: TextInputEditText? = null
 
     var textCalorie1: TextInputLayout? = null
+    //var textProtein1: TextInputLayout? = null
+    //var textFat1: TextInputLayout? = null
+    //var textCarbohydrate1: TextInputLayout? = null
 
     var result: String? = null
     var textView: TextView? = null
@@ -60,10 +63,10 @@ class InsertFragment : Fragment() {
         btnUpdate = view.findViewById(R.id.btn_update);
         btnDelete = view.findViewById(R.id.btn_delete);
 
-        button = view.findViewById(R.id.btn_delete)
-        textView = view.findViewById(R.id.textView)
-
         textCalorie1 = view.findViewById<View>(R.id.ed_calorie) as TextInputLayout
+       // textProtein1 = view.findViewById<View>(R.id.ed_protein) as TextInputLayout
+       // textFat1 = view.findViewById<View>(R.id.ed_fat) as TextInputLayout
+       // textCarbohydrate1 = view.findViewById<View>(R.id.ed_carbohydrate) as TextInputLayout
 
         //取得資料庫實體
         dbrw = insert_food_DB(this.requireContext() as HomeActivity).writableDatabase
@@ -220,13 +223,13 @@ class InsertFragment : Fragment() {
 
                 }
                 override fun afterTextChanged(s: Editable?) {
-                    println("進入2")
+                //    println("進入2")
                     target=textFoodName?.text.toString()
 
                     // 宣告執行緒
                     val thread: Thread = Thread(mThread)
                     thread.start() // 開始執行
-                    println(target)
+                 //   println(target)
                 }
             })
         }
@@ -248,11 +251,9 @@ class InsertFragment : Fragment() {
 
     /* ======================================== */ // 建立一個執行緒執行的事件取得網路資料
     // Android 有規定，連線網際網路的動作都不能再主線程做執行
-    // 畢竟如果使用者連上網路結果等太久整個系統流程就卡死了
-    /* ======================================== */ // 畢竟如果使用者連上網路結果等太久整個系統流程就卡死了
     private var mThread: Runnable? = Runnable {
         try {
-            print("看這裡")
+
             val url = URL("http://192.168.56.1/GetData.php?foodname=$target")
             // 開始宣告 HTTP 連線需要的物件，這邊通常都是一綑的
             val connection = url.openConnection() as HttpURLConnection
@@ -265,7 +266,7 @@ class InsertFragment : Fragment() {
             connection.connect() // 開始連線
             val responseCode = connection.responseCode // 建立取得回應的物件
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                println("進入qwer")
+
                 // 如果 HTTP 回傳狀態是 OK ，而不是 Error
                 val inputStream = connection.inputStream
                 // 取得輸入串流
@@ -290,27 +291,13 @@ class InsertFragment : Fragment() {
                     box.indexOf(target!!) + targetLen + 60
                 ) // 邊界處理很重要!!!
 
-                print("Here")
-                println(getSubstring)
-
                 val targetSubstring=getSubstring.split(',',':','熱','量','"',' ', '蛋','白','質','(',')','g','脂','肪','碳','水','化','合','物','{','}').toTypedArray()
-
-            //    box = targetSubstring.toString()
-             //   result = box // 把存放用字串放到全域變數
-                println("進入*****")
-
-
-                for (i in targetSubstring!!.indices) {
-               //     println(i)
-               //     println("呱呱")
-               //     println(targetSubstring[i])
-
-                }
-                println(targetSubstring[8])
-                println(targetSubstring[20])
-                println(targetSubstring[31])
-                println(targetSubstring[45])
-                textCalorie1!!.editText!!.setText(targetSubstring[8])
+                val tkk=targetSubstring
+                  // 8、20、31、45
+                    textCalorie1!!.editText!!.setText(tkk[8])
+                //    textProtein1!!.editText!!.setText(tkk[20])
+                //    textFat1!!.editText!!.setText(tkk[31])
+                //    textCarbohydrate1!!.editText!!.setText(tkk[45])
 
 
             }
@@ -323,7 +310,7 @@ class InsertFragment : Fragment() {
 
         // 當這個執行緒完全跑完後執行
         activity?.runOnUiThread(Runnable {
-          print("跑完了")
+     //     print("跑完了")
         })
     }
 
