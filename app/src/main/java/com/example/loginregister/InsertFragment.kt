@@ -296,10 +296,10 @@ class InsertFragment : Fragment() {
                 val targetSubstring=getSubstring.split(',',':','熱','量','"',' ', '蛋','白','質','(',')','g','脂','肪','碳','水','化','合','物','{','}').toTypedArray()
                 val tkk=targetSubstring
                   // 8、20、31、45
-                println(tkk)
-                println("上面這排")
-                println(tkk[8])
-                println("上面這一排")
+             //   println(tkk)
+             //   println("上面這排")
+             //   println(tkk[8])
+             //   println("上面這一排")
                 if(tkk[8]!="<b>C" && tkk[8]!="in") {
                     textCalorie1!!.editText!!.setText(tkk[8])
                 }
