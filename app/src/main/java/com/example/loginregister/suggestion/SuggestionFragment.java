@@ -122,10 +122,10 @@ public class SuggestionFragment extends Fragment {
                 goal=1;
             }
             else   {goal=0;}
-            if (exercise=="高度"){
+            if (Objects.equals(exercise, "高度")){
                 activeLevel=2;
             }
-            else if (exercise=="中度"){
+            else if (Objects.equals(exercise, "中度")){
                 activeLevel=1;
             }
             else   {activeLevel=0;}
@@ -142,6 +142,7 @@ public class SuggestionFragment extends Fragment {
             nudata = viewModel.getCon().getNuData(uname);
             Log.i("NUData", nudata.toString());//營養素在這
             Log.i("username", uname);
+
             userData = viewModel.getCon().getUserData(uname);
             Log.v("OK", "使用者資料已回傳");
             Log.i("userData", userData.toString());
@@ -149,11 +150,7 @@ public class SuggestionFragment extends Fragment {
 
             viewModel.getSuggestion();
 
-            DietStatus dietStatus = getInitialDietStatus(userData);
-
             view.post(() -> {
-                viewModel.setDietStatus(dietStatus);
-                caloriesLimit.setText(String.format("%s", dietStatus.CaloriesPerMeal));
                 viewModel.getGoalActiveLevel().observe(getViewLifecycleOwner(), goalActiveLevelObserver);
             });
 
@@ -243,8 +240,8 @@ public class SuggestionFragment extends Fragment {
         } else {
             ratio = 0.4;
         }
-        Log.i("currentTime", String.valueOf(currentTime));
-        Log.i("noon", String.valueOf(noon));
+//        Log.i("currentTime", String.valueOf(currentTime));
+//        Log.i("noon", String.valueOf(noon));
 
         dietStatus.CaloriesPerDay = (int)TDEE;
         dietStatus.CaloriesPerMeal = (int)(dietStatus.CaloriesPerDay * ratio);  //早:午:晚 = 2:4:4
@@ -314,22 +311,20 @@ public class SuggestionFragment extends Fragment {
         int threshold = Math.max(caloriesDifference, 0);
         noResult.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
-        new Thread(() -> {
 
-//            foodData = viewModel.getCon().getFoodData(threshold);
-            List<FoodInfo> newFoodData = CaloriesFilter(viewModel.getFoodData(), threshold);
-            Log.v("OK", "食物資料已回傳");
-            Log.i("foodData", newFoodData.toString());
+//        foodData = viewModel.getCon().getFoodData(threshold);
+        List<FoodInfo> newFoodData = CaloriesFilter(viewModel.getFoodData(), threshold);
+        Log.v("OK", "食物資料已回傳");
+        Log.i("foodData", newFoodData.toString());
 
-            mView.post(() -> {
-                progressBar.setVisibility(View.INVISIBLE);
-                customList = new CustomList(requireContext(), this, newFoodData);
-                lvShow.setAdapter(customList);
-                if (newFoodData.isEmpty()) {
-                    noResult.setVisibility(View.VISIBLE);
-                }
-            });
-        }).start();
+        mView.post(() -> {
+            progressBar.setVisibility(View.INVISIBLE);
+            customList = new CustomList(requireContext(), this, newFoodData);
+            lvShow.setAdapter(customList);
+            if (newFoodData.isEmpty()) {
+                noResult.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

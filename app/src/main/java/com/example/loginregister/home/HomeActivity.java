@@ -206,6 +206,7 @@ public class HomeActivity extends AppCompatActivity {
 
                             });
 
+
                             //清空購物車
                             viewModel.emptyCart();
                             //更新推薦

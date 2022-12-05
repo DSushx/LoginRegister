@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -22,6 +23,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.loginregister.datasets.GoalActiveLevel;
+import com.example.loginregister.home.SharedViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
@@ -29,6 +32,7 @@ import java.util.Calendar;
 
 
 public class PlanFragment extends Fragment {
+    SharedViewModel viewModel;
     Button buttonSave,t;
     TextInputEditText plan_Weightnow;
     TextInputEditText plan_Weight;
@@ -57,6 +61,7 @@ public class PlanFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view= inflater.inflate(R.layout.fragment_plan, container, false);
+        viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
         buttonSave =view.findViewById(R.id.buttonsave1);
         plan_Weightnow =view.findViewById(R.id.plan_weightnow1);
         plan_Weight =view.findViewById(R.id.plan_weight1);
@@ -118,7 +123,7 @@ public class PlanFragment extends Fragment {
                             data[4] = nutrient;
                             data[5] = exercise;
                             data[6] = uname;
-                            PutData putData = new PutData("http://192.168.1.116/LoginRegister/plan.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.1.211/LoginRegister/plan.php", "POST", field, data);
 
                             Toast.makeText(getActivity(),result.toString(),Toast.LENGTH_LONG).show();
                             if (putData.startPut()) {
@@ -127,6 +132,30 @@ public class PlanFragment extends Fragment {
                                     String result = putData.getResult();
                                     if (result.equals("Plan Success!")){
                                         Toast.makeText(getActivity(),result,Toast.LENGTH_SHORT).show();
+
+                                        int goal,activeLevel;
+                                        if (Double.parseDouble(plan_weight)-Double.parseDouble(plan_weightnow)>0){
+                                            goal=2;
+                                        }
+                                        else if (Double.parseDouble(plan_weight)-Double.parseDouble(plan_weightnow)==0){
+                                            goal=1;
+                                        }
+                                        else   {goal=0;}
+                                        if (exercise.equals("高度")){
+                                            activeLevel=2;
+                                        }
+                                        else if (exercise.equals("中度")){
+                                            activeLevel=1;
+                                        }
+                                        else   {activeLevel=0;}
+
+                                        GoalActiveLevel goalActiveLevel = new GoalActiveLevel();
+                                        goalActiveLevel.Goal = goal;
+                                        goalActiveLevel.ActiveLevel = activeLevel;
+
+                                        viewModel.setGoalActiveLevel(goalActiveLevel);
+
+
                                         Fragment secondfrag = new PlanFragment();
                                         FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
                                         fm.replace(R.id.container,secondfrag).commit();
