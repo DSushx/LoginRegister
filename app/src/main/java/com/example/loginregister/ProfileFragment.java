@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.preference.PreferenceManager;
@@ -23,6 +24,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.loginregister.datasets.Disease;
+import com.example.loginregister.datasets.GoalActiveLevel;
 import com.example.loginregister.datasets.UserInfo;
 import com.example.loginregister.home.SharedViewModel;
 import com.example.loginregister.suggestion.CustomList;
@@ -52,6 +55,16 @@ public class ProfileFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_profile, container, false);
         logout=(Button)view.findViewById(R.id.buttonlogout);
         viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
+        final Observer<Disease> disnuObserver = new Observer<Disease>() {
+            @Override
+            public void onChanged(Disease disnu) {
+                // Update the UI.
+               //viewModel.setDietStatus(getInitialDietStatus(userData));
+                dis.setText(String.format("%s", viewModel.getdiseaseandnu().getValue().dis));
+                nu.setText(String.format("%s", viewModel.getdiseaseandnu().getValue().nu));
+                weight.setText(String.format("%s", viewModel.getdiseaseandnu().getValue().weight));
+            }
+        };
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
         String uname = pref.getString("username", null);
         profile=(ImageView)view.findViewById(R.id.imageView4);
@@ -77,6 +90,7 @@ public class ProfileFragment extends Fragment {
         });
 
         new Thread(() -> {
+
             userData = viewModel.getCon().getUserData(uname);
             Log.i("userData", userData.toString());
             disease=userData.disease;
@@ -101,6 +115,19 @@ public class ProfileFragment extends Fragment {
             nu.setText(nutrient);
 
             mView.post(() -> {
+                Disease diseaseandnu  = new Disease();
+                if (disease!=null)
+                {
+                    diseaseandnu.dis = disease;
+                    diseaseandnu.nu = nutrient;
+                }
+                else {
+                    diseaseandnu.dis = " ";
+                    diseaseandnu.nu =  " ";
+                }
+                diseaseandnu.weight = w;
+
+                viewModel.setdiseaseandnu(diseaseandnu);
                 profile.setVisibility(View.VISIBLE);
                 n.setVisibility(View.VISIBLE);
                 b.setVisibility(View.VISIBLE);
@@ -110,6 +137,7 @@ public class ProfileFragment extends Fragment {
                 we.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
                 logout.setVisibility(View.VISIBLE);
+                viewModel.getdiseaseandnu().observe(getViewLifecycleOwner(), disnuObserver);
             });
         }).start();
 

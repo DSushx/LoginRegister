@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.loginregister.datasets.DietStatus;
+import com.example.loginregister.datasets.Disease;
 import com.example.loginregister.datasets.FoodInfo;
 import com.example.loginregister.datasets.GoalActiveLevel;
 import com.example.loginregister.datasets.ItemInCart;
@@ -29,6 +30,10 @@ public class SharedViewModel extends ViewModel {
     private MutableLiveData<GoalActiveLevel> goalActiveLevel = new MutableLiveData<>(new GoalActiveLevel());
     public LiveData<GoalActiveLevel> getGoalActiveLevel() { return goalActiveLevel; }
     public void setGoalActiveLevel(GoalActiveLevel goalActiveLevel) { this.goalActiveLevel.setValue(goalActiveLevel); }
+
+    private MutableLiveData<Disease> diseaseandnu = new MutableLiveData<>(new Disease());
+    public LiveData<Disease> getdiseaseandnu() { return diseaseandnu; }
+    public void setdiseaseandnu(Disease diseaseandNu) { this.diseaseandnu.setValue(diseaseandNu); }
 
     private MysqlCon con = new MysqlCon();
     public MysqlCon getCon() { return con; }
@@ -117,7 +122,7 @@ public class SharedViewModel extends ViewModel {
         String[] data = new String[1];
         data[0] = String.valueOf(userId);
 
-        PutData putData = new PutData("http://192.168.1.211/PythonSuggestion/getSuggestion.php", "POST", field, data);
+        PutData putData = new PutData("http://192.168.1.116/PythonSuggestion/getSuggestion.php", "POST", field, data);
         if (putData.startPut()) {
             if (putData.onComplete()) {
                 String result = putData.getResult();

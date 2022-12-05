@@ -23,6 +23,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.loginregister.datasets.Disease;
 import com.example.loginregister.datasets.GoalActiveLevel;
 import com.example.loginregister.home.SharedViewModel;
 import com.google.android.material.textfield.TextInputEditText;
@@ -123,7 +124,7 @@ public class PlanFragment extends Fragment {
                             data[4] = nutrient;
                             data[5] = exercise;
                             data[6] = uname;
-                            PutData putData = new PutData("http://192.168.1.211/LoginRegister/plan.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.1.116/LoginRegister/plan.php", "POST", field, data);
 
                             Toast.makeText(getActivity(),result.toString(),Toast.LENGTH_LONG).show();
                             if (putData.startPut()) {
@@ -155,6 +156,12 @@ public class PlanFragment extends Fragment {
 
                                         viewModel.setGoalActiveLevel(goalActiveLevel);
 
+                                        Disease diseaseandnu  = new Disease();
+                                        diseaseandnu.dis = special_dis;
+                                        diseaseandnu.nu = nutrient;
+                                        diseaseandnu.weight = plan_weightnow;
+
+                                        viewModel.setdiseaseandnu(diseaseandnu);
 
                                         Fragment secondfrag = new PlanFragment();
                                         FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
