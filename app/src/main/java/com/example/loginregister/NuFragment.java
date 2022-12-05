@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -16,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.loginregister.datasets.NuInfo;
+import com.example.loginregister.home.SharedViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
@@ -23,6 +26,7 @@ import com.vishnusivadas.advanced_httpurlconnection.PutData;
 public class NuFragment extends Fragment {
     Button nusave,back;
     TextInputEditText nu_kcal,nu_pro,nu_fat,nu_car,nu_sugar,nu_sod;
+    SharedViewModel viewModel;
     private void cleanEditText() {
         nu_kcal.setText("");
         nu_pro.setText("");
@@ -36,6 +40,7 @@ public class NuFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view= inflater.inflate(R.layout.fragment_nu, container, false);
+        viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
         nu_kcal =view.findViewById(R.id.NU_ca1);
         nu_pro =view.findViewById(R.id.NU_pro1);
         nu_fat =view.findViewById(R.id.NU_fat1);
@@ -94,7 +99,7 @@ public class NuFragment extends Fragment {
                             data[4] = sugar;
                             data[5] = sodium;
                             data[6] = uname;
-                            PutData putData = new PutData("http://192.168.1.116/LoginRegister/nu.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.1.211/LoginRegister/nu.php", "POST", field, data);
 
                             Toast.makeText(getActivity(),result.toString(),Toast.LENGTH_LONG).show();
                             if (putData.startPut()) {
@@ -103,6 +108,17 @@ public class NuFragment extends Fragment {
                                     String result = putData.getResult();
                                     if (result.equals("Success!")){
                                         Toast.makeText(getActivity(),result,Toast.LENGTH_SHORT).show();
+
+                                        NuInfo nuInfo = new NuInfo();
+                                        nuInfo.calorie = Integer.parseInt(calorie);
+                                        nuInfo.protein = Integer.parseInt(protein);
+                                        nuInfo.carbohy = Integer.parseInt(carbohy);
+                                        nuInfo.fat = Integer.parseInt(fat);
+                                        nuInfo.sugar = Integer.parseInt(sugar);
+                                        nuInfo.sodium = Integer.parseInt(sodium);
+
+                                        viewModel.setNu(nuInfo);
+
                                         Fragment secondfrag = new NuFragment();
                                         FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
                                         fm.replace(R.id.container,secondfrag).commit();

@@ -1,8 +1,5 @@
 package com.example.loginregister;
 
-import android.app.DatePickerDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -24,12 +21,10 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.loginregister.datasets.Disease;
-import com.example.loginregister.datasets.GoalActiveLevel;
+import com.example.loginregister.datasets.GoalActiveLevelNu;
 import com.example.loginregister.home.SharedViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
-
-import java.util.Calendar;
 
 
 public class PlanFragment extends Fragment {
@@ -124,7 +119,7 @@ public class PlanFragment extends Fragment {
                             data[4] = nutrient;
                             data[5] = exercise;
                             data[6] = uname;
-                            PutData putData = new PutData("http://192.168.1.116/LoginRegister/plan.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.1.211/LoginRegister/plan.php", "POST", field, data);
 
                             Toast.makeText(getActivity(),result.toString(),Toast.LENGTH_LONG).show();
                             if (putData.startPut()) {
@@ -150,11 +145,7 @@ public class PlanFragment extends Fragment {
                                         }
                                         else   {activeLevel=0;}
 
-                                        GoalActiveLevel goalActiveLevel = new GoalActiveLevel();
-                                        goalActiveLevel.Goal = goal;
-                                        goalActiveLevel.ActiveLevel = activeLevel;
-
-                                        viewModel.setGoalActiveLevel(goalActiveLevel);
+                                        viewModel.setGoalActiveLevel(goal, activeLevel);
 
                                         Disease diseaseandnu  = new Disease();
                                         diseaseandnu.dis = special_dis;

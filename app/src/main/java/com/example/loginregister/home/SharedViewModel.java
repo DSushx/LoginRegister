@@ -9,8 +9,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.loginregister.datasets.DietStatus;
 import com.example.loginregister.datasets.Disease;
 import com.example.loginregister.datasets.FoodInfo;
-import com.example.loginregister.datasets.GoalActiveLevel;
+import com.example.loginregister.datasets.GoalActiveLevelNu;
 import com.example.loginregister.datasets.ItemInCart;
+import com.example.loginregister.datasets.NuInfo;
 import com.example.loginregister.suggestion.MysqlCon;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
@@ -27,9 +28,19 @@ public class SharedViewModel extends ViewModel {
     public int getUserId() { return userId; }
     public void setUserId(int id) { this.userId = id; }
 
-    private MutableLiveData<GoalActiveLevel> goalActiveLevel = new MutableLiveData<>(new GoalActiveLevel());
-    public LiveData<GoalActiveLevel> getGoalActiveLevel() { return goalActiveLevel; }
-    public void setGoalActiveLevel(GoalActiveLevel goalActiveLevel) { this.goalActiveLevel.setValue(goalActiveLevel); }
+    private MutableLiveData<GoalActiveLevelNu> goalActiveLevelNu = new MutableLiveData<>(new GoalActiveLevelNu());
+    public LiveData<GoalActiveLevelNu> getGoalActiveLevelNu() { return goalActiveLevelNu; }
+    public void setGoalActiveLevel(int goal, int activeLevel) {
+        GoalActiveLevelNu GAN = this.goalActiveLevelNu.getValue();
+        GAN.Goal = goal;
+        GAN.ActiveLevel = activeLevel;
+        this.goalActiveLevelNu.setValue(GAN);
+    }
+    public void setNu(NuInfo nuInfo) {
+        GoalActiveLevelNu GAN = this.goalActiveLevelNu.getValue();
+        GAN.NuInfo = nuInfo;
+        this.goalActiveLevelNu.setValue(GAN);
+    }
 
     private MutableLiveData<Disease> diseaseandnu = new MutableLiveData<>(new Disease());
     public LiveData<Disease> getdiseaseandnu() { return diseaseandnu; }
@@ -122,7 +133,7 @@ public class SharedViewModel extends ViewModel {
         String[] data = new String[1];
         data[0] = String.valueOf(userId);
 
-        PutData putData = new PutData("http://192.168.1.116/PythonSuggestion/getSuggestion.php", "POST", field, data);
+        PutData putData = new PutData("http://192.168.1.211/PythonSuggestion/getSuggestion.php", "POST", field, data);
         if (putData.startPut()) {
             if (putData.onComplete()) {
                 String result = putData.getResult();
