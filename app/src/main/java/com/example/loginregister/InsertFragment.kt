@@ -255,7 +255,7 @@ class InsertFragment : Fragment() {
         try {
 
 
-            val url = URL("http://192.168.1.72/GetData.php?foodname=$target")
+            val url = URL("http://192.168.0.155/GetData.php?foodname=$target")
             // 開始宣告 HTTP 連線需要的物件，這邊通常都是一綑的
             val connection = url.openConnection() as HttpURLConnection
             // 建立 Google 比較挺的 HttpURLConnection 物件
@@ -307,6 +307,7 @@ class InsertFragment : Fragment() {
                 //    textFat1!!.editText!!.setText(tkk[31])
                 //    textCarbohydrate1!!.editText!!.setText(tkk[45])
 
+                print(tkk[8])
 
             }
             // 讀取輸入串流並存到字串的部分

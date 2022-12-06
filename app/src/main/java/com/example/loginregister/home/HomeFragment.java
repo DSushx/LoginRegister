@@ -2,6 +2,8 @@ package com.example.loginregister.home;
 
 import static com.example.loginregister.home.HomeActivity.GetHomeFood;
 
+import static java.sql.Types.NULL;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -103,12 +105,21 @@ public class HomeFragment extends Fragment {
         if (cursor != null && cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
                 int i =cursor.getInt(5);
-                while (i!=0){
+                if(cursor.getInt(5)==NULL){
                     total_kal+=cursor.getInt(1);
                     total_fat+=cursor.getInt(3);
                     total_pro+=cursor.getInt(2);
                     total_carb+=cursor.getInt(4);
-                    i--;
+                }
+                else{
+                    while (i!=0){
+                        total_kal+=cursor.getInt(1);
+                        total_fat+=cursor.getInt(3);
+                        total_pro+=cursor.getInt(2);
+                        total_carb+=cursor.getInt(4);
+                        i--;
+                    }
+
                 }
 
             }

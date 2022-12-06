@@ -128,7 +128,7 @@ public class pastplanFragment extends Fragment {
                             data[3] = end_date;
                             data[4] = final_weight;
 
-                            PutData putData = new PutData("http://192.168.1.72/LoginRegister/nowplan.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.0.155/LoginRegister/nowplan.php", "POST", field, data);
 
                             Toast.makeText(getActivity(),result.toString(),Toast.LENGTH_LONG).show();
                             if (putData.startPut()) {
