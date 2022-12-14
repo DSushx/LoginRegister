@@ -140,6 +140,8 @@ public class pastplanFragment extends Fragment {
                                         //Intent intent = new Intent(getActivity(),planFragment.class);
                                         //startActivity(intent);
 
+                                        viewModel.setGoalActiveLevel(1, 0);
+
                                         Disease diseaseandnu  = new Disease();
                                         diseaseandnu.dis = " ";
                                         diseaseandnu.nu = " ";

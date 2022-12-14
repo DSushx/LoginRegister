@@ -37,10 +37,6 @@ class InsertFragment : Fragment() {
     var textCarbohydrate: TextInputEditText? = null
 
     var textCalorie1: TextInputLayout? = null
-    //var textProtein1: TextInputLayout? = null
-    //var textFat1: TextInputLayout? = null
-    //var textCarbohydrate1: TextInputLayout? = null
-
     var result: String? = null
     var textView: TextView? = null
     var button: Button? = null
@@ -62,11 +58,7 @@ class InsertFragment : Fragment() {
         btnInsert = view.findViewById(R.id.btn_insert);
         btnUpdate = view.findViewById(R.id.btn_update);
         btnDelete = view.findViewById(R.id.btn_delete);
-
         textCalorie1 = view.findViewById<View>(R.id.ed_calorie) as TextInputLayout
-       // textProtein1 = view.findViewById<View>(R.id.ed_protein) as TextInputLayout
-       // textFat1 = view.findViewById<View>(R.id.ed_fat) as TextInputLayout
-       // textCarbohydrate1 = view.findViewById<View>(R.id.ed_carbohydrate) as TextInputLayout
 
         //取得資料庫實體
         dbrw = insert_food_DB(this.requireContext() as HomeActivity).writableDatabase
@@ -202,7 +194,7 @@ class InsertFragment : Fragment() {
 
                 }
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-/*
+/*                  // 最後決定新增頁面不要顯示紀錄
                     //若無輸入品名則 SQL 語法為查詢全部菜色，反之查詢該品名資料
                     val queryString = "SELECT * FROM myFoodTable WHERE food_name LIKE '%${textFoodName!!.text}%'"
                     val c = dbrw.rawQuery(queryString, null)
@@ -223,13 +215,11 @@ class InsertFragment : Fragment() {
 
                 }
                 override fun afterTextChanged(s: Editable?) {
-                //    println("進入2")
                     target=textFoodName?.text.toString()
 
                     // 宣告執行緒
                     val thread: Thread = Thread(mThread)
                     thread.start() // 開始執行
-                 //   println(target)
                 }
             })
         }
@@ -249,7 +239,8 @@ class InsertFragment : Fragment() {
         textCarbohydrate?.setText("")
     }
 
-    /* ======================================== */ // 建立一個執行緒執行的事件取得網路資料
+    /* ======================================== */
+    // 建立一個執行緒執行的事件取得網路資料
     // Android 有規定，連線網際網路的動作都不能再主線程做執行
     private var mThread: Runnable? = Runnable {
         try {
@@ -295,17 +286,10 @@ class InsertFragment : Fragment() {
 
                 val targetSubstring=getSubstring.split(',',':','熱','量','"',' ', '蛋','白','質','(',')','g','脂','肪','碳','水','化','合','物','{','}').toTypedArray()
                 val tkk=targetSubstring
-                  // 8、20、31、45
-             //   println(tkk)
-             //   println("上面這排")
-             //   println(tkk[8])
-             //   println("上面這一排")
+
                 if(tkk[8]!="<b>C" && tkk[8]!="in") {
                     textCalorie1!!.editText!!.setText(tkk[8])
                 }
-                //    textProtein1!!.editText!!.setText(tkk[20])
-                //    textFat1!!.editText!!.setText(tkk[31])
-                //    textCarbohydrate1!!.editText!!.setText(tkk[45])
 
                 print(tkk[8])
 

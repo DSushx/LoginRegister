@@ -131,7 +131,7 @@ public class PlanFragment extends Fragment {
                                 if (putData.onComplete()) {
 
                                     String result = putData.getResult();
-                                    if (result.equals("Plan Success!")){
+                                    if (result.equals("Plan Success")){
                                         Toast.makeText(getActivity(),result,Toast.LENGTH_SHORT).show();
 
                                         int goal,activeLevel;

@@ -35,11 +35,13 @@ public class SharedViewModel extends ViewModel {
         GAN.Goal = goal;
         GAN.ActiveLevel = activeLevel;
         this.goalActiveLevelNu.setValue(GAN);
+        Log.i("goalActiveLevelNu", goalActiveLevelNu.getValue().toString());
     }
     public void setNu(NuInfo nuInfo) {
         GoalActiveLevelNu GAN = this.goalActiveLevelNu.getValue();
         GAN.NuInfo = nuInfo;
         this.goalActiveLevelNu.setValue(GAN);
+        Log.i("goalActiveLevelNu", goalActiveLevelNu.getValue().toString());
     }
 
     private MutableLiveData<Disease> diseaseandnu = new MutableLiveData<>(new Disease());

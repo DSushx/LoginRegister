@@ -6,7 +6,7 @@ public class GoalActiveLevelNu {
     public int Goal = 1;
     public int ActiveLevel = 0;
 
-    public NuInfo NuInfo;
+    public NuInfo NuInfo = new NuInfo();
 
     @NonNull
     public String toString(){
